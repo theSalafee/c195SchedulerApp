@@ -7,11 +7,13 @@ The goal of the exercise was to demonstrate proficiency in database connections,
 
 This application was built using IntelliJ and SceneBuilder.
 
+  You will also need to create a database.properties file in your root directory.
+  dbdriver=com.mysql.jdbc.Driver
+  dburl=jdbc:mysql://<HOST>/<DATABASE>
+  dbuser=<USER>
+  dbpassword=<PASSWORD>
+
 Usage
 This project required a MySQL connector. I used mysql-connector-java-5.1.41 from Oracle.
 
-You will also need to create a database.properties file in your root directory.
-dbdriver=com.mysql.jdbc.Driver
-dburl=jdbc:mysql://<HOST>/<DATABASE>
-dbuser=<USER>
-dbpassword=<PASSWORD>
+
