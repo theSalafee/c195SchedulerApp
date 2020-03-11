@@ -2,6 +2,7 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 
 /**
@@ -14,6 +15,9 @@ public class MainMenu {
     public Button customersBtn;
     public Button appointmentsBtn;
     public Button reportsBtn;
+    public Label customersLabel;
+    public Label appointmentsLabel;
+    public Label reportLabel;
 
     public void customerBtnHandler(ActionEvent actionEvent) {
         // TODO: 3/8/20 Hook-up customer btn

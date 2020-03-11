@@ -6,11 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * FXML Controller class
+ *
+ * @author Naasir Bush
+ */
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("customer.fxml"));
         primaryStage.setTitle("WGU C195 Scheduler App | Prolific Studios - Naasir al-Amreekee");
         primaryStage.setScene(new Scene(root, 1366, 768));
         primaryStage.show();
