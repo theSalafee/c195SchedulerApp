@@ -14,9 +14,9 @@ This project required a MySQL connector. I used mysql-connector-java-5.1.41 from
   
   dbdriver=com.mysql.jdbc.Driver
   
-  dburl=jdbc:mysql://<HOST>/<DATABASE>
+  dburl=jdbc:mysql://HOST/DATABASE
   
-  dbuser=<USER>
+  dbuser=USER
   
-  dbpassword=<PASSWORD>
+  dbpassword=PASSWORD
   
