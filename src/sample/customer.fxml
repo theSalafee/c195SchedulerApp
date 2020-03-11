@@ -25,20 +25,25 @@
          </font>
       </Text>
       <Circle fill="#001a4b" layoutX="1275.0" layoutY="109.0" radius="64.0" stroke="#0d1fe4" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Button fx:id="backBtn" layoutX="142.0" layoutY="487.0" mnemonicParsing="false" onAction="#backBtnHandler" prefHeight="27.0" prefWidth="120.0" text="&lt;-- Back" />
-      <Button fx:id="addCustomerBtn" layoutX="274.0" layoutY="487.0" mnemonicParsing="false" onAction="#addHandler" prefHeight="27.0" prefWidth="120.0" text="Add" />
-      <Button fx:id="modifyCustomerBtn" layoutX="405.0" layoutY="488.0" mnemonicParsing="false" onAction="#modifyHandler" prefHeight="27.0" prefWidth="120.0" text="Modify" />
-      <Button fx:id="deleteCustomerBtn" layoutX="534.0" layoutY="488.0" mnemonicParsing="false" onAction="#deleteHandler" prefHeight="27.0" prefWidth="120.0" text="Delete" />
-      <TableView fx:id="customerTable" layoutX="143.0" layoutY="265.0" prefHeight="200.0" prefWidth="1107.0">
+      <Button fx:id="backBtn" layoutX="74.0" layoutY="623.0" mnemonicParsing="false" onAction="#backBtnHandler" prefHeight="27.0" prefWidth="120.0" text="&lt;-- Back" />
+      <Button fx:id="addCustomerBtn" layoutX="206.0" layoutY="623.0" mnemonicParsing="false" onAction="#addHandler" prefHeight="27.0" prefWidth="120.0" text="Add" />
+      <Button fx:id="modifyCustomerBtn" layoutX="337.0" layoutY="624.0" mnemonicParsing="false" onAction="#modifyHandler" prefHeight="27.0" prefWidth="120.0" text="Modify" />
+      <Button fx:id="deleteCustomerBtn" layoutX="466.0" layoutY="624.0" mnemonicParsing="false" onAction="#deleteHandler" prefHeight="27.0" prefWidth="120.0" text="Delete" />
+      <TableView fx:id="customerTable" layoutX="74.0" layoutY="240.0" prefHeight="363.0" prefWidth="1201.0">
         <columns>
           <TableColumn fx:id="custName" minWidth="200.0" prefWidth="75.0" text="Name" />
           <TableColumn fx:id="custAddress1" minWidth="200.0" prefWidth="75.0" text="Address 1" />
             <TableColumn fx:id="custAddress2" minWidth="200.0" prefWidth="75.0" text="Address 2" />
-            <TableColumn fx:id="custCity" prefWidth="75.0" text="City" />
+            <TableColumn fx:id="custCity" minWidth="150.0" prefWidth="75.0" text="City" />
             <TableColumn fx:id="custCounty" minWidth="150.0" prefWidth="75.0" text="Country" />
             <TableColumn fx:id="custPhone" minWidth="150.0" prefWidth="75.0" text="Postal Code" />
             <TableColumn fx:id="custPostalCode" minWidth="150.0" prefWidth="75.0" text="Phone" />
         </columns>
       </TableView>
+      <Label layoutX="75.0" layoutY="177.0" text="Customers" textFill="#fcf9f9">
+         <font>
+            <Font name="Avenir Roman" size="38.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
