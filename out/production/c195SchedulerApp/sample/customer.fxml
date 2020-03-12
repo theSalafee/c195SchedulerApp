@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="customerView" maxHeight="768.0" maxWidth="1366.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #5269a6;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Customer">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#001a4b" height="92.0" layoutX="-1.0" layoutY="-9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1366.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label layoutX="29.0" layoutY="11.0" text="WGU Scheduler App" textFill="#f5f0f0">
+         <font>
+            <Font name="Avenir Roman" size="48.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#001a4b" height="686.0" layoutX="1303.0" layoutY="85.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="63.0" />
+      <Text fill="#f5f0f0" layoutX="565.0" layoutY="755.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prolific Studios Design">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Circle fill="#001a4b" layoutX="1275.0" layoutY="109.0" radius="64.0" stroke="#0d1fe4" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Button fx:id="backBtn" layoutX="74.0" layoutY="623.0" mnemonicParsing="false" onAction="#backBtnHandler" prefHeight="27.0" prefWidth="120.0" text="&lt;-- Back" />
+      <Button fx:id="addCustomerBtn" layoutX="206.0" layoutY="623.0" mnemonicParsing="false" onAction="#addHandler" prefHeight="27.0" prefWidth="120.0" text="Add" />
+      <Button fx:id="modifyCustomerBtn" layoutX="337.0" layoutY="624.0" mnemonicParsing="false" onAction="#modifyHandler" prefHeight="27.0" prefWidth="120.0" text="Modify" />
+      <Button fx:id="deleteCustomerBtn" layoutX="466.0" layoutY="624.0" mnemonicParsing="false" onAction="#deleteHandler" prefHeight="27.0" prefWidth="120.0" text="Delete" />
+      <TableView fx:id="customerTable" layoutX="74.0" layoutY="240.0" prefHeight="363.0" prefWidth="1201.0">
+        <columns>
+          <TableColumn fx:id="custName" minWidth="200.0" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="custAddress1" minWidth="200.0" prefWidth="75.0" text="Address 1" />
+            <TableColumn fx:id="custAddress2" minWidth="200.0" prefWidth="75.0" text="Address 2" />
+            <TableColumn fx:id="custCity" minWidth="150.0" prefWidth="75.0" text="City" />
+            <TableColumn fx:id="custCounty" minWidth="150.0" prefWidth="75.0" text="Country" />
+            <TableColumn fx:id="custPhone" minWidth="150.0" prefWidth="75.0" text="Postal Code" />
+            <TableColumn fx:id="custPostalCode" minWidth="150.0" prefWidth="75.0" text="Phone" />
+        </columns>
+      </TableView>
+      <Label layoutX="75.0" layoutY="177.0" text="Customers" textFill="#fcf9f9">
+         <font>
+            <Font name="Avenir Roman" size="38.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
