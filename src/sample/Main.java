@@ -18,7 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("addAppointments.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("appointments.fxml"));
         primaryStage.setTitle("WGU C195 Scheduler App | Prolific Studios - Naasir al-Amreekee");
         primaryStage.setScene(new Scene(root, 1366, 768));
         primaryStage.show();
