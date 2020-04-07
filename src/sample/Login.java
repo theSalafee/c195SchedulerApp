@@ -1,11 +1,13 @@
 package sample;
 
+import database.AppointmentDB;
 import database.UserDB;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import models.Appointment;
 import models.User;
 
 import java.io.IOException;
@@ -42,6 +44,23 @@ public class Login implements Initializable {
 
         try {
             ObservableList<User> userLoginInfo = UserDB.getActiveUsers();
+            //Lambda
+           userLoginInfo.forEach((u) ->{
+               try {
+                   assert loggedUser.getUserName().equals(u.getUserName()) && loggedUser.getPassword().equals(u.getPassword()) : "Incorrect login info!";
+                   loggedUser.setUserId(u.getUserId());
+
+                   try {
+                       Appointment upcomingAppt = AppointmentDB.getUpcomingAppt();
+
+                   } catch (Exception e) {
+                       e.printStackTrace();
+                   }
+
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+           });
         } catch (Exception e) {
             e.printStackTrace();
         }
