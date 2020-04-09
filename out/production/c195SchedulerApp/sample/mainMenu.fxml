@@ -54,7 +54,7 @@
             <DropShadow height="0.0" radius="63.25" width="255.0" />
          </effect>
       </ImageView>
-      <Button fx:id="appointmentsBtn" layoutX="529.0" layoutY="497.0" mnemonicParsing="false" onAction="#customerBtnHandler" prefHeight="32.0" prefWidth="263.0" text="Select" />
+      <Button fx:id="appointmentsBtn" layoutX="529.0" layoutY="497.0" mnemonicParsing="false" onAction="#appointmentBtnHandler" prefHeight="32.0" prefWidth="263.0" text="Select" />
       <ImageView fitHeight="182.0" fitWidth="187.0" layoutX="159.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/customers1.png" />
