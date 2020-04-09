@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class DbConnection {
     private static final String DBNAME = "U04KhF";
     private static final String URL = "jdbc:mysql://3.227.166.251/" + DBNAME;
-    private static final String USER = "U04Khf";
+    private static final String USER = "U04KhF";
     private static final String PASS = "53688264276";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     public static Connection conn;

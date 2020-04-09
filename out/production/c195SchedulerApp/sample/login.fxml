@@ -44,11 +44,11 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="#ee5858" layoutX="530.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incorrect User or Password">
+      <Label fx:id="errorText" layoutX="539.0" layoutY="316.0">
          <font>
             <Font size="18.0" />
          </font>
-      </Text>
+      </Label>
       <Circle fill="#001a4b" layoutX="1275.0" layoutY="109.0" radius="64.0" stroke="#0d1fe4" strokeType="OUTSIDE" strokeWidth="0.0" />
       <ImageView fitHeight="70.0" fitWidth="56.0" layoutX="1247.0" layoutY="92.0" opacity="0.79" pickOnBounds="true" preserveRatio="true">
          <image>
