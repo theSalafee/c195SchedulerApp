@@ -6,7 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 
@@ -18,7 +20,8 @@ import java.sql.SQLException;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws ClassNotFoundException, SQLException, IOException, Exception {
+
         //DbConnection.openConnection();
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         primaryStage.setTitle("WGU C195 Scheduler App | Prolific Studios - Naasir al-Amreekee");

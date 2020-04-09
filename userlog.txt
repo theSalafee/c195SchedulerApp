@@ -1,0 +1,348 @@
+Apr 07, 2020 5:37:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:35 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:37:35 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:56 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:56 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:56 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:56 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:56 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:56 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:57 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:57 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:57 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:57 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:57 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:57 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:57 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:51:57 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:52:34 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:38 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 5:53:38 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:25 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:26 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:26 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:26 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:26 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:26 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:26 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:26 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:26 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:27 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:27 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:27 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:27 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:48:27 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:36 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:49:38 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:00 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:00 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:01 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:01 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:01 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:01 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:01 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:01 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:01 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:02 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:02 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:02 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:02 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 07, 2020 7:56:02 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:21 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:22 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:22 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:23 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:24 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:24 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:25 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:26 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:27 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:27 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:28 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:29 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:29 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:07:30 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:23 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:23 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:23 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:24 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:24 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:24 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:24 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:25 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:25 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:25 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:26 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:26 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:26 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:11:26 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:07 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:08 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:09 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:10 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:10 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:11 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:12 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:12 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:13 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:14 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:14 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:15 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:16 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:23:17 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:26:57 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:33:04 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:33:26 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:34:01 AM sample.Login lambda$loginHandler$0
+INFO: User: naasir logged in.
+Apr 08, 2020 8:54:22 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:54:30 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:56:01 AM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:57:27 AM sample.Login lambda$loginHandler$0
+INFO: User: naasir logged in.
+Apr 08, 2020 5:31:37 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 5:38:23 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 5:39:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 5:39:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 6:19:18 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 6:19:18 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 6:34:05 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 6:34:06 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:19:06 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 8:19:06 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:34:49 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:34:50 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:35:40 PM sample.Login lambda$loginHandler$0
+INFO: User: blah logged in.
+Apr 08, 2020 9:35:40 PM sample.Login lambda$loginHandler$0
+INFO: User: blah logged in.
+Apr 08, 2020 9:49:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:49:33 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:54:04 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:54:04 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:55:43 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:55:43 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:58:00 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:58:00 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:58:49 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 9:58:49 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 10:02:02 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.
+Apr 08, 2020 10:02:02 PM sample.Login lambda$loginHandler$0
+INFO: User: test logged in.

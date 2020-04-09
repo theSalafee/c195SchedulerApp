@@ -40,6 +40,10 @@ public class Login implements Initializable {
     public TextField password;
     @FXML
     public Button loginBtn;
+    @FXML
+    public Label lblUsername;
+    @FXML
+    public Label lblPassword;
 
     @FXML
     public void loginHandler(ActionEvent actionEvent) throws IOException, Exception {
@@ -126,9 +130,8 @@ public class Login implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.userLocale = Locale.getDefault();
         this.rb = ResourceBundle.getBundle("LocaleLanguageFiles/rb", this.userLocale);
-
-        //this.lblUsername.setText(this.rb.getString("username") + ":");
-        //this.lblPassword.setText(this.rb.getString("password") + ":");
+        this.lblUsername.setText(this.rb.getString("userName") + ":");
+        this.lblPassword.setText(this.rb.getString("password") + ":");
         this.userName.setPromptText(this.rb.getString("usernamePrompt"));
         this.password.setPromptText(this.rb.getString("passwordPrompt"));
         this.loginBtn.setText(this.rb.getString("btnLoginText"));

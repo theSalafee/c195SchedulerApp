@@ -27,12 +27,12 @@
       </Circle>
       <TextField fx:id="userName" layoutX="603.0" layoutY="353.0" />
       <TextField fx:id="password" layoutX="603.0" layoutY="400.0" />
-      <Label layoutX="500.0" layoutY="354.0" text="User Name" textFill="#f5f0f0">
+      <Label fx:id="lblUsername" layoutX="500.0" layoutY="354.0" text="User Name" textFill="#f5f0f0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="501.0" layoutY="402.0" text="Password" textFill="#f2eeee">
+      <Label fx:id="lblPassword" layoutX="501.0" layoutY="402.0" text="Password" textFill="#f2eeee">
          <font>
             <Font size="18.0" />
          </font>

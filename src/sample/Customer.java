@@ -2,8 +2,14 @@ package sample;
 
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * FXML Controller class
@@ -25,7 +31,14 @@ public class Customer {
     public TableColumn custPhone;
     public TableColumn custPostalCode;
 
-    public void backBtnHandler(ActionEvent actionEvent) {
+    public void backBtnHandler(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/sample/mainMenu.fxml"));
+        loader.load();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void addHandler(ActionEvent actionEvent) {
