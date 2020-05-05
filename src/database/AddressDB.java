@@ -1,13 +1,12 @@
 package database;
 
-import com.sun.tools.attach.AgentInitializationException;
 import models.Address;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import static database.DbConnection.conn;
-import static sample.Login.loggedUser;
+import static viewAndController.Login.loggedUser;
 
 public class AddressDB {
 

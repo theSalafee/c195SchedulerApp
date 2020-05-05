@@ -4,16 +4,15 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class City {
+    public City(int cityId, String city, int countryId) {
+        this.cityId = cityId;
+        this.city = city;
+        this.countryId = countryId;
+    }
+
     private int cityId;
     private String city;
     private int countryId;
-    private LocalDateTime createDate;
-    private String createdBy;
-    private Timestamp lastUpdate;
-    private String lastUpdateBy;
-
-    public City() {
-    }
 
     public int getCityId() {
         return cityId;
@@ -39,35 +38,5 @@ public class City {
         this.countryId = countryId;
     }
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
 
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Timestamp getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(Timestamp lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
-    }
-
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy;
-    }
 }

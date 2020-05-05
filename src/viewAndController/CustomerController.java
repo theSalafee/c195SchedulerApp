@@ -1,5 +1,6 @@
-package sample;
+package viewAndController;
 import database.CustomerDB;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,28 +34,25 @@ public class CustomerController implements Initializable {
     @FXML
     public Button deleteCustomerBtn;
     @FXML
-    public TableView customerTable;
+    public TableView<Customer> customerTable;
     @FXML
-    public TableColumn customerName;
+    public TableColumn<Customer, String> customerName;
     @FXML
-    public TableColumn customerAddress1;
+    public TableColumn<Customer, String> customerAddress1;
     @FXML
-    public TableColumn customerAddress2;
+    public TableColumn<Customer, String> customerAddress2;
     @FXML
-    public TableColumn customerCity;
+    public TableColumn<Customer, String> customerCity;
     @FXML
-    public TableColumn customerCounty;
+    public TableColumn<Customer, String> customerCounty;
     @FXML
-    public TableColumn customerPhone;
+    public TableColumn<Customer, String> customerPhone;
     @FXML
-    public TableColumn customerPostalCode;
-
-    @FXML
-    //private ListView<Customer> lvCustomer;
+    public TableColumn<Customer, String> customerPostalCode;
 
     public void backBtnHandler(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/sample/mainMenu.fxml"));
+        loader.setLocation(getClass().getResource("/viewAndController/mainMenu.fxml"));
         loader.load();
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();
@@ -74,19 +72,7 @@ public class CustomerController implements Initializable {
 
 
     public void convertCustomerString() {
-//        lvCustomer.setCellFactory(c -> new ListCell<CustomerController>() {
-//            @Override
-//            protected void updateItem(CustomerController item, boolean empty) {
-//                super.updateItem(item, empty);
-//
-//                if (empty || item.getCustomerName() == null) {
-//                    setText("");
-//                }
-//                else {
-//                    setText(item.getCustomerName());
-//                }
-//            }
-//        });
+
     }
 
     public void setCustomerList() {
@@ -103,12 +89,21 @@ public class CustomerController implements Initializable {
         setCustomerList();
         convertCustomerString();
 
-        customerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        //customerAddress1.setCellValueFactory(new PropertyValueFactory<>("customerAddress1"));
-        //customerAddress2.setCellValueFactory(new PropertyValueFactory<>("customerAddress2"));
-        //customerCity.setCellValueFactory(new PropertyValueFactory<>("customerCity"));
-        //customerPhone.setCellFactory(new PropertyValueFactory<>("customerPhone"));
-        //customerPostalCode.setCellFactory(new PropertyValueFactory<>("customerPostalCode"));
+        customerName.setCellValueFactory(cellData -> {
+            return new ReadOnlyStringWrapper(cellData.getValue().getCustomerName());
+        });
+
+        customerAddress1.setCellValueFactory(cellData -> {
+            return new ReadOnlyStringWrapper(cellData.getValue().getAddress());
+        });
+
+
+//        customerAddress1.setCellValueFactory(new PropertyValueFactory<>("customerAddress1"));
+//
+//        customerCity.setCellValueFactory(new PropertyValueFactory<>("customerCity"));
+//        customerPhone.setCellFactory(new PropertyValueFactory<Customer, String>("customerPhone"));
+//        customerPostalCode.setCellFactory(new PropertyValueFactory<>("customerPostalCode"));
+//        customerCounty.setCellFactory((new PropertyValueFactory<>("customerCountry")));
 
     }
 }

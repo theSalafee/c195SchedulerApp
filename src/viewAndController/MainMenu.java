@@ -1,4 +1,4 @@
-package sample;
+package viewAndController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToolBar;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class MainMenu {
 
     public void customerBtnHandler(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/sample/customer.fxml"));
+        loader.setLocation(getClass().getResource("/viewAndController/customer.fxml"));
         loader.load();
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();
@@ -41,7 +40,7 @@ public class MainMenu {
 
     public void appointmentBtnHandler(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/sample/appointments.fxml"));
+        loader.setLocation(getClass().getResource("/viewAndController/appointments.fxml"));
         loader.load();
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();
@@ -51,7 +50,7 @@ public class MainMenu {
 
     public void reportsBtnHandler(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/sample/reports.fxml"));
+        loader.setLocation(getClass().getResource("/viewAndController/reports.fxml"));
         loader.load();
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();

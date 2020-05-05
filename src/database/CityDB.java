@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import static database.DbConnection.conn;
-import static sample.Login.loggedUser;
+import static viewAndController.Login.loggedUser;
 
 public class CityDB {
     public static int getCityId(String city) {
@@ -30,7 +30,7 @@ public class CityDB {
 
     public static City getCityById(int cityId) {
         String getCityByIdSQL = "SELECT * FROM city WHERE cityId = ?";
-        City getCityById = new City();
+        City getCityById = null;
 
         try {
             PreparedStatement stmt = conn.prepareStatement(getCityByIdSQL);
@@ -38,9 +38,11 @@ public class CityDB {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                getCityById.setCityId(rs.getInt("cityId"));
-                getCityById.setCity(rs.getString("city"));
-                getCityById.setCountryId(rs.getInt("countryId"));
+                int cityId1 = rs.getInt("cityId");
+                String city = rs.getString("city");
+                int countryId = rs.getInt("countryId");
+                getCityById = new City(cityId1, city, countryId);
+
             }
         }
         catch (SQLException e) {

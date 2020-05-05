@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Appointment;
 import models.Customer;
-import static sample.Login.loggedUser;
+import static viewAndController.Login.loggedUser;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -136,10 +136,13 @@ public class AppointmentDB {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Customer selectedCust = new Customer();
-                selectedCust.setCustomerId(rs.getInt("customerId"));
-                selectedCust.setCustomerName(rs.getString("customerName"));
-                getApptById.setCustomer(selectedCust);
+                //Customer selectedCust = new Customer();
+                int customerId = rs.getInt("customerId");
+                String customerName = rs.getString("customerName");
+
+                //selectedCust.setCustomerId(rs.getInt("customerId"));
+                //selectedCust.setCustomerName(rs.getString("customerName"));
+                //getApptById.setCustomer(selectedCust);
                 getApptById.setCustomerId(rs.getInt("customerId"));
                 getApptById.setUserId(rs.getInt("userId"));
                 getApptById.setTitle(rs.getString("title"));
@@ -179,9 +182,9 @@ public class AppointmentDB {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Customer cust = new Customer();
-                cust.setCustomerName(rs.getString("customerName"));
-                upcomingAppt.setCustomer(cust);
+//                Customer cust = new Customer();
+//                cust.setCustomerName(rs.getString("customerName"));
+//                upcomingAppt.setCustomer(cust);
                 upcomingAppt.setAppointmentId(rs.getInt("appointmentId"));
                 upcomingAppt.setCustomerId(rs.getInt("customerId"));
                 upcomingAppt.setUserId(rs.getInt("userId"));

@@ -1,10 +1,10 @@
-package sample;
+package viewAndController;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class AddCustomers {
+public class UpdateCustomers {
     public TextField addressTwo;
     public Button saveBtn;
     public Button cancelBtn;

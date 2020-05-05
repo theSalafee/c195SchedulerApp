@@ -29,10 +29,8 @@ public class Appointment {
     private String createdBy;
     private Timestamp lastUpdate;
     private String lastUpdateBy;
-    private Customer customer = new Customer();
+    private Customer customer;
 
-    public Appointment() {
-    }
 
     private IntegerProperty appointmentId = new SimpleIntegerProperty();
 

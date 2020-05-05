@@ -1,4 +1,4 @@
-package sample;
+package viewAndController;
 
 import database.AppointmentDB;
 import database.UserDB;

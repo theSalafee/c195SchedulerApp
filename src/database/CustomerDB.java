@@ -2,8 +2,9 @@ package database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.City;
 import models.Customer;
-import static sample.Login.loggedUser;
+import static viewAndController.Login.loggedUser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,6 @@ import java.sql.Statement;
 import static database.DbConnection.conn;
 
 public class CustomerDB {
-
     /**
      * This method creates an ObservableList and populates it with
      * all currently active Customer records in the MySQL database.
@@ -19,18 +19,25 @@ public class CustomerDB {
      */
     public static ObservableList<Customer> getActiveCustomers() {
         ObservableList<Customer> activeCustomers = FXCollections.observableArrayList();
-        String getActiveCustomersSQL = "SELECT * FROM customer WHERE active = 1";
-
+        String getActiveCustomersSQL = "SELECT * FROM customer, address, city, country " +
+                "WHERE active=1 AND customer.addressId = address.addressId " +
+                "AND address.cityId = city.cityId and city.countryId = country.countryId";
         try {
             PreparedStatement stmt = conn.prepareStatement(getActiveCustomersSQL);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Customer activeCustomer = new Customer();
-                activeCustomer.setCustomerId(rs.getInt("customerId"));
-                activeCustomer.setCustomerName(rs.getString("customerName"));
-                activeCustomer.setAddressId(rs.getInt("addressId"));
-                activeCustomer.setActive(rs.getBoolean("active"));
+                //Customer activeCustomer = new Customer();
+                int customerId = rs.getInt("customerId");
+                String customerName = rs.getString("customerName");
+                int addressId= rs.getInt("address.addressId");
+                int active = rs.getInt("active");
+                String phone = rs.getString("phone");
+                String postalCode = rs.getString("postalCode");
+                City city = new City(rs.getInt("city.cityId"), rs.getString("city"), rs.getInt("country.countryId"));
+                String address  = rs.getString("address");
+                String customerCountry = rs.getString("country");
+                Customer activeCustomer = new Customer(customerId, customerName, addressId, phone, postalCode, city, address, customerCountry, active);
                 activeCustomers.add(activeCustomer);
             }
         }
@@ -42,19 +49,26 @@ public class CustomerDB {
 
     public static ObservableList<Customer> getAllCustomers() {
         ObservableList<Customer> allCusts = FXCollections.observableArrayList();
-        String getAllCustsSQL = "SELECT * FROM customer";
+        String getAllCustsSQL = "SELECT * FROM customer, address, city, country " +
+                "WHERE active=1 AND customer.addressId = address.addressId " +
+                "AND address.cityId = city.cityId and city.countryId = country.countryId";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(getAllCustsSQL);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Customer cust = new Customer();
-                cust.setCustomerId(rs.getInt("customerId"));
-                cust.setCustomerName(rs.getString("customerName"));
-                cust.setAddressId(rs.getInt("addressId"));
-                cust.setActive(rs.getBoolean("active"));
-                allCusts.add(cust);
+                int customerId = rs.getInt("customerId");
+                String customerName = rs.getString("customerName");
+                int addressId= rs.getInt("address.addressId");
+                int active = rs.getInt("active");
+                String phone = rs.getString("phone");
+                String postalCode = rs.getString("postalCode");
+                City city = new City(rs.getInt("city.cityId"), rs.getString("city"), rs.getInt("country.countryId"));
+                String address  = rs.getString("address");
+                String customerCountry = rs.getString("country");
+                Customer allCustomers = new Customer(customerId, customerName, addressId, phone, postalCode, city, address, customerCountry, active);
+                allCusts.add(allCustomers);
             }
         }
         catch (SQLException e) {
@@ -69,27 +83,31 @@ public class CustomerDB {
      * @return getCustomerQuery
      */
     public static Customer getActiveCustomerById(int customerId) {
-        String getCustomerByIdSQL = "SELECT * FROM customer WHERE customerId = ? AND active=1";
-        Customer getCustomerQuery = new Customer();
+        String getCustomerByIdSQL = "SELECT * FROM customer, address, city, country " +
+                "WHERE customer.customerId = ? AND active=1 AND customer.addressId = address.addressId AND address.cityId = city.cityId and city.countryId = country.countryId";
 
+        Customer c = null;
         try {
             PreparedStatement stmt = conn.prepareStatement(getCustomerByIdSQL);
             stmt.setInt(1, customerId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                getCustomerQuery.setCustomerId(rs.getInt("customerId"));
-                getCustomerQuery.setCustomerName(rs.getString("customerName"));
-                getCustomerQuery.setAddressId(rs.getInt("addressId"));
-                getCustomerQuery.setActive(rs.getBoolean("active"));
-                getCustomerQuery.setLastUpdate(rs.getTimestamp("lastUpdate"));
-                getCustomerQuery.setLastUpdateBy(rs.getString("lastUpdateBy"));
+
+                String customerName = rs.getString("customerName");
+                int addressId = rs.getInt("addressId");
+                String phone = rs.getString("phone");
+                String postalCode = rs.getString("postalCode");
+                City city = new City(rs.getInt("city.cityId"), rs.getString("city.city"), rs.getInt("city.countryId"));
+                String address = rs.getString("address");
+                String country = rs.getString("country");
+                c = new Customer(customerId,  customerName,  addressId,  phone,  postalCode,  city,  address,  country,  1);
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return getCustomerQuery;
+        return c;
     }
 
     private static int getMaxCustomerId() {

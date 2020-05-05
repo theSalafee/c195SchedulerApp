@@ -7,14 +7,61 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Customer {
-    private IntegerProperty customerId = new SimpleIntegerProperty();
-    private StringProperty customerName = new SimpleStringProperty();
-    private IntegerProperty addressId = new SimpleIntegerProperty();
-    private BooleanProperty active = new SimpleBooleanProperty();
-    private LocalDateTime createDate;
-    private String createdBy;
-    private Timestamp lastUpdate;
-    private String lastUpdateBy;
+    public Customer(int customerId, String customerName, int addressId, String phone, String postalCode, City city, String address, String customerCountry, int active) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.addressId = addressId;
+        this.phone = phone;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.address = address;
+        this.customerCountry = customerCountry;
+        this.active = active;
+    }
+
+    private int customerId;
+    private String customerName;
+    private int addressId;
+    private String phone;
+    private String postalCode;
+    private City city;
+    private String address;
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    private int active;
+
+
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
 
     public String getPhone() {
         return phone;
@@ -48,111 +95,16 @@ public class Customer {
         this.address = address;
     }
 
-    public String getAddress2() {
-        return address2;
+    public String getCustomerCountry() {
+        return customerCountry;
     }
 
-    public void setAddress2(String address2) {
-        this.address2 = address2;
+    public void setCustomerCountry(String customerCountry) {
+        this.customerCountry = customerCountry;
     }
 
-    public String getCountry() {
-        return country;
-    }
+    private String customerCountry;
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    private String phone;
-    private String postalCode;
-    private City city;
-    private String address;
-    private String address2;
-    private String country;
-
-    public Customer () {
-    }
-
-    public int getCustomerId() {
-        return customerId.get();
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId.set(customerId);
-    }
-
-    public IntegerProperty customerIdProperty() {
-        return customerId;
-    }
-
-    public String getCustomerName() {
-        return customerName.get();
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName.set(customerName);
-    }
-
-    public StringProperty customerNameProperty() {
-        return customerName;
-    }
-
-    public int getAddressId() {
-        return addressId.get();
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId.set(addressId);
-    }
-
-    public IntegerProperty addressIdProperty() {
-        return addressId;
-    }
-
-    public boolean isActive() {
-        return active.get();
-    }
-
-    public void setActive(boolean active) {
-        this.active.set(active);
-    }
-
-    public BooleanProperty activeProperty() {
-        return active;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Timestamp getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(Timestamp lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
-    }
-
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy;
-    }
 
     public static boolean isValidInput(Customer Cust, Address custAddress, City custCity, Country custCountry) throws CustomerException {
         if (Cust.getCustomerName().equals("")) {

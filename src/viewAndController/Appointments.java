@@ -1,4 +1,4 @@
-package sample;
+package viewAndController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +30,7 @@ public class Appointments {
 
     public void backBtnHandler(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/sample/mainMenu.fxml"));
+        loader.setLocation(getClass().getResource("/viewAndController/mainMenu.fxml"));
         loader.load();
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();
