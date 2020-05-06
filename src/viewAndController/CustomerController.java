@@ -97,13 +97,20 @@ public class CustomerController implements Initializable {
             return new ReadOnlyStringWrapper(cellData.getValue().getAddress());
         });
 
+        customerCity.setCellValueFactory(cellData -> {
+            return new ReadOnlyStringWrapper(cellData.getValue().getCity().getCity());
+        });
 
-//        customerAddress1.setCellValueFactory(new PropertyValueFactory<>("customerAddress1"));
-//
-//        customerCity.setCellValueFactory(new PropertyValueFactory<>("customerCity"));
-//        customerPhone.setCellFactory(new PropertyValueFactory<Customer, String>("customerPhone"));
-//        customerPostalCode.setCellFactory(new PropertyValueFactory<>("customerPostalCode"));
-//        customerCounty.setCellFactory((new PropertyValueFactory<>("customerCountry")));
+        customerPhone.setCellValueFactory(cellData -> {
+            return new ReadOnlyStringWrapper(cellData.getValue().getPhone());
+        });
 
+        customerPostalCode.setCellValueFactory(cellData -> {
+            return new ReadOnlyStringWrapper(cellData.getValue().getPostalCode());
+        });
+
+//        customerCounty.setCellValueFactory(cellData -> {
+//            return new ReadOnlyStringWrapper(cellData.getValue().getCustomerCountry());
+//        });
     }
 }

@@ -28,10 +28,7 @@ import java.util.logging.SimpleFormatter;
 
 public class Login implements Initializable {
 
-    ResourceBundle rb;
-    Locale userLocale;
-    Logger userLog = Logger.getLogger("userlog.txt");
-
+    public static User loggedUser = new User();
     @FXML
     public Label errorText;
     @FXML
@@ -44,6 +41,9 @@ public class Login implements Initializable {
     public Label lblUsername;
     @FXML
     public Label lblPassword;
+    ResourceBundle rb;
+    Locale userLocale;
+    Logger userLog = Logger.getLogger("userlog.txt");
 
     @FXML
     public void loginHandler(ActionEvent actionEvent) throws IOException, Exception {
@@ -61,70 +61,64 @@ public class Login implements Initializable {
         try {
             ObservableList<User> userLoginInfo = UserDB.getActiveUsers();
             //Lambda
-           userLoginInfo.forEach((u) ->{
-               try {
-                   assert loggedUser.getUserName().equals(u.getUserName()) && loggedUser.getPassword().equals(u.getPassword()) : "Incorrect login info!";
-                   loggedUser.setUserId(u.getUserId());
+            boolean correctLogin = false;
+            // userLoginInfo.forEach((u) ->{
+            for (User u : userLoginInfo) {
+                if (loggedUser.getUserName().equals(u.getUserName()) && loggedUser.getPassword().equals(u.getPassword())) {
+                    correctLogin = true;
+                    loggedUser.setUserId(u.getUserId());
+                }
 
-                   try {
-                       Appointment upcomingAppt = AppointmentDB.getUpcomingAppt();
-                       ////
-                       if (!(upcomingAppt.getAppointmentId() == 0)) {
-                           Alert apptAlert = new Alert(Alert.AlertType.INFORMATION);
-                           apptAlert.setTitle("Upcoming Appointment Reminder");
-                           apptAlert.setHeaderText("You have an upcoming appointment!");
-                           apptAlert.setContentText("You have an appointment scheduled"
-                                   + "\non " + upcomingAppt.getStart().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
-                                   + "\nat " + upcomingAppt.getStart().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.FULL))
-                                   + " with client " + upcomingAppt.getCustomer().getCustomerName() + ".");
-                           apptAlert.showAndWait();
-                           if (apptAlert.getResult() == ButtonType.OK) {
-                               userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
-                               Stage loginStage = (Stage) loginBtn.getScene().getWindow();
-                               loginStage.close();
-                               FXMLLoader apptCalLoader = new FXMLLoader(Appointments.class.getResource("appointments.fxml"));
-                               Parent apptCalScreen = apptCalLoader.load();
-                               Scene apptCalScene = new Scene(apptCalScreen);
-                               Stage apptCalStage = new Stage();
-                               apptCalStage.setTitle("Appointment Calendar");
-                               apptCalStage.setScene(apptCalScene);
-                               apptCalStage.show();
-                           }
-                           else {
-                               apptAlert.close();
-                           }
-                       }
-                       else {
-                           userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
-                           FXMLLoader apptCalLoader = new FXMLLoader(Appointments.class.getResource("mainMenu.fxml"));
-                           Parent apptCalScreen = apptCalLoader.load();
-                           Scene apptCalScene = new Scene(apptCalScreen);
-                           Stage apptCalStage = new Stage();
-                           apptCalStage.setTitle("Appointment Calendar");
-                           apptCalStage.setScene(apptCalScene);
-                           apptCalStage.show();
-                           Stage loginStage = (Stage) loginBtn.getScene().getWindow();
-                           loginStage.close();
-                       }
+            }
+            if (correctLogin) {
+            }else{
+                this.errorText.setText(this.rb.getString("lblErrorAlert") + ".");
+                this.errorText.setTextFill(Paint.valueOf("RED"));
+                userLog.log(Level.WARNING, "Invalid credentials entered! User: {0}", loggedUser.getUserName());
+            }
 
-                   } catch (IOException e) {
-                       e.printStackTrace();
-                   }
-
-               } catch (AssertionError e) {
-                   System.out.println(e.getMessage());
-                   this.errorText.setText(this.rb.getString("lblErrorAlert") + ".");
-                   this.errorText.setTextFill(Paint.valueOf("RED"));
-                   userLog.log(Level.WARNING, "Invalid credentials entered! User: {0}", loggedUser.getUserName());
-               }
-           });
+            Appointment upcomingAppt = AppointmentDB.getUpcomingAppt();
+            ////
+            if (!(upcomingAppt.getAppointmentId() == 0)) {
+                Alert apptAlert = new Alert(Alert.AlertType.INFORMATION);
+                apptAlert.setTitle("Upcoming Appointment Reminder");
+                apptAlert.setHeaderText("You have an upcoming appointment!");
+                apptAlert.setContentText("You have an appointment scheduled"
+                        + "\non " + upcomingAppt.getStart().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
+                        + "\nat " + upcomingAppt.getStart().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.FULL))
+                        + " with client " + upcomingAppt.getCustomer().getCustomerName() + ".");
+                apptAlert.showAndWait();
+                if (apptAlert.getResult() == ButtonType.OK) {
+                    userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
+                    Stage loginStage = (Stage) loginBtn.getScene().getWindow();
+                    loginStage.close();
+                    FXMLLoader apptCalLoader = new FXMLLoader(Appointments.class.getResource("appointments.fxml"));
+                    Parent apptCalScreen = apptCalLoader.load();
+                    Scene apptCalScene = new Scene(apptCalScreen);
+                    Stage apptCalStage = new Stage();
+                    apptCalStage.setTitle("Appointment Calendar");
+                    apptCalStage.setScene(apptCalScene);
+                    apptCalStage.show();
+                } else {
+                    apptAlert.close();
+                }
+            } else {
+                userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
+                FXMLLoader apptCalLoader = new FXMLLoader(Appointments.class.getResource("mainMenu.fxml"));
+                Parent apptCalScreen = apptCalLoader.load();
+                Scene apptCalScene = new Scene(apptCalScreen);
+                Stage apptCalStage = new Stage();
+                apptCalStage.setTitle("Appointment Calendar");
+                apptCalStage.setScene(apptCalScene);
+                apptCalStage.show();
+                Stage loginStage = (Stage) loginBtn.getScene().getWindow();
+                loginStage.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
-    public static User loggedUser = new User();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
