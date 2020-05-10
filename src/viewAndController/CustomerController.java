@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Customer;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,7 +50,8 @@ public class CustomerController implements Initializable {
     public TableColumn<Customer, String> customerPhone;
     @FXML
     public TableColumn<Customer, String> customerPostalCode;
-
+    Stage stage;
+    Parent scene;
     public void backBtnHandler(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/viewAndController/mainMenu.fxml"));
@@ -60,7 +62,15 @@ public class CustomerController implements Initializable {
         stage.show();
     }
 
-    public void addHandler(ActionEvent actionEvent) {
+    public void addHandler(ActionEvent actionEvent) throws IOException {
+
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/viewAndController/addCustomers.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+
+
     }
 
     public void modifyHandler(ActionEvent actionEvent) {
