@@ -19,13 +19,13 @@ public class DbConnection {
 
     //public DbConnection() {}
 
-    public static void openConnection() throws ClassNotFoundException, SQLException, Exception
+    public static void openConnection() throws Exception
     {
         Class.forName(DRIVER);
-        conn = (Connection) DriverManager.getConnection(URL, USER, PASS);
+        conn = DriverManager.getConnection(URL, USER, PASS);
         System.out.println("Connection Opened Successfully");
     }
-    public static void closeConnection() throws ClassNotFoundException, SQLException, Exception
+    public static void closeConnection() throws Exception
     {
         conn.close();
         System.out.println("Connection Closed Successfully");

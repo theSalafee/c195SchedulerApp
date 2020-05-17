@@ -33,7 +33,6 @@
         <columns>
           <TableColumn fx:id="customerName" minWidth="200.0" prefWidth="75.0" text="Name" />
           <TableColumn fx:id="customerAddress1" minWidth="200.0" prefWidth="75.0" text="Address 1" />
-            <TableColumn fx:id="customerAddress2" minWidth="200.0" prefWidth="75.0" text="Address 2" />
             <TableColumn fx:id="customerCity" minWidth="150.0" prefWidth="75.0" text="City" />
             <TableColumn fx:id="customerCountry" minWidth="150.0" prefWidth="75.0" text="Country" />
             <TableColumn fx:id="customerPostalCode" minWidth="150.0" prefWidth="75.0" text="Postal Code" />

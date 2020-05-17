@@ -46,7 +46,7 @@ public class Login implements Initializable {
     Logger userLog = Logger.getLogger("userlog.txt");
 
     @FXML
-    public void loginHandler(ActionEvent actionEvent) throws IOException, Exception {
+    public void loginHandler(ActionEvent actionEvent) throws Exception {
         String user = userName.getText();
         String pass = password.getText();
         loggedUser.setUserName(user);

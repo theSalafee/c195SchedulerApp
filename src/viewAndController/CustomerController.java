@@ -40,18 +40,19 @@ public class CustomerController implements Initializable {
     public TableColumn<Customer, String> customerName;
     @FXML
     public TableColumn<Customer, String> customerAddress1;
-    @FXML
-    public TableColumn<Customer, String> customerAddress2;
+
     @FXML
     public TableColumn<Customer, String> customerCity;
     @FXML
-    public TableColumn<Customer, String> customerCounty;
+    public TableColumn<Customer, String> customerCountry;
     @FXML
     public TableColumn<Customer, String> customerPhone;
     @FXML
     public TableColumn<Customer, String> customerPostalCode;
     Stage stage;
     Parent scene;
+    static boolean isNewCustomer;
+    static Customer selectedCustomer;
     public void backBtnHandler(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/viewAndController/mainMenu.fxml"));
@@ -64,6 +65,8 @@ public class CustomerController implements Initializable {
 
     public void addHandler(ActionEvent actionEvent) throws IOException {
 
+        isNewCustomer = true;
+
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/viewAndController/addCustomers.fxml"));
@@ -73,13 +76,39 @@ public class CustomerController implements Initializable {
 
     }
 
-    public void modifyHandler(ActionEvent actionEvent) {
+    public static Customer getSelectedCustomer() {
+        return selectedCustomer;
+    }
+
+    public void modifyHandler(ActionEvent actionEvent){
+        isNewCustomer = false;
+        selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+        if(selectedCustomer == null){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Add Customer");
+            alert.setContentText("Are you sure you want to add this customer?");
+            alert.showAndWait();
+            return;
+        }
+
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        try {
+            scene = FXMLLoader.load(getClass().getResource("/viewAndController/addCustomers.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void deleteHandler(ActionEvent actionEvent) {
     }
 
-
+    public static boolean isIsNewCustomer() {
+        return isNewCustomer;
+    }
 
     public void convertCustomerString() {
 
@@ -107,6 +136,8 @@ public class CustomerController implements Initializable {
             return new ReadOnlyStringWrapper(cellData.getValue().getAddress());
         });
 
+
+
         customerCity.setCellValueFactory(cellData -> {
             return new ReadOnlyStringWrapper(cellData.getValue().getCity().getCity());
         });
@@ -116,11 +147,12 @@ public class CustomerController implements Initializable {
         });
 
         customerPostalCode.setCellValueFactory(cellData -> {
-            return new ReadOnlyStringWrapper(cellData.getValue().getPostalCode());
+            return new ReadOnlyStringWrapper(cellData.getValue().getAddress());
         });
 
-//        customerCounty.setCellValueFactory(cellData -> {
-//            return new ReadOnlyStringWrapper(cellData.getValue().getCustomerCountry());
-//        });
+
+        customerCountry.setCellValueFactory(cellData -> {
+            return new ReadOnlyStringWrapper(cellData.getValue().getCustomerCountry());
+        });
     }
 }

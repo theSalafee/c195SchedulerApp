@@ -3,6 +3,7 @@ package viewAndController;
 import database.CustomerDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,8 +15,10 @@ import jdk.nashorn.internal.runtime.regexp.joni.Warnings;
 import models.Customer;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AddCustomers {
+public class AddCustomers implements Initializable {
     public TextField addressTwo;
     public Button saveBtn;
     public Button cancelBtn;
@@ -27,7 +30,20 @@ public class AddCustomers {
     public TextField postalCode;
     Stage stage;
     Parent scene;
+    static boolean isNewCustomer;
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        isNewCustomer = CustomerController.isIsNewCustomer();
+        if(!isNewCustomer){
+            //Todo fill in new fields for modify
+            Customer selectedCustomer = CustomerController.getSelectedCustomer();
+            customerName.setText(selectedCustomer.getCustomerName());
+        }
+
+
+
+    }
     public void saveHandler(ActionEvent actionEvent) throws IOException {
 
         String customerNameText = customerName.getText();
@@ -44,7 +60,7 @@ public class AddCustomers {
         alert.setContentText("Are you sure you want to add this customer?");
         alert.showAndWait();
 
-        //CustomerDB.addCustomer(new Customer(customerName, addressOne, addressTwo, city, country, phone, postalCode));
+       // CustomerDB.addCustomer(new Customer(customerId, customerName, addressOne, addressTwo, active, createDate, createdBy, lastUpdate, lastUpdateBy));
 
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -53,7 +69,6 @@ public class AddCustomers {
         stage.show();
 
     }
-
     public void cancelHandler(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -68,4 +83,6 @@ public class AddCustomers {
         stage.show();
 
     }
+
+
 }

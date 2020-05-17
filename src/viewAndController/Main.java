@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws ClassNotFoundException, SQLException, IOException, Exception {
+    public void start(Stage primaryStage) throws Exception {
 
         //DbConnection.openConnection();
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));

@@ -20,7 +20,7 @@ import static database.DbConnection.conn;
  * for the appointment table in the MySQL database.
  */
 public class AppointmentDB {
-    private static ZoneId zId = ZoneId.systemDefault();
+    private static final ZoneId zId = ZoneId.systemDefault();
 
     public static ObservableList<Appointment> getApptsByWeek() {
         ObservableList<Appointment> apptsByWeek = FXCollections.observableArrayList();

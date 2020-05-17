@@ -15,14 +15,14 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 public class Appointment {
-    private IntegerProperty customerId = new SimpleIntegerProperty();
-    private IntegerProperty userId = new SimpleIntegerProperty();
-    private StringProperty title = new SimpleStringProperty();
-    private StringProperty description = new SimpleStringProperty();
-    private StringProperty location = new SimpleStringProperty();
-    private StringProperty contact = new SimpleStringProperty();
-    private StringProperty type = new SimpleStringProperty();
-    private StringProperty url = new SimpleStringProperty();
+    private final IntegerProperty customerId = new SimpleIntegerProperty();
+    private final IntegerProperty userId = new SimpleIntegerProperty();
+    private final StringProperty title = new SimpleStringProperty();
+    private final StringProperty description = new SimpleStringProperty();
+    private final StringProperty location = new SimpleStringProperty();
+    private final StringProperty contact = new SimpleStringProperty();
+    private final StringProperty type = new SimpleStringProperty();
+    private final StringProperty url = new SimpleStringProperty();
     private ZonedDateTime start;
     private ZonedDateTime end;
     private LocalDateTime createDate;
@@ -32,7 +32,7 @@ public class Appointment {
     private Customer customer;
 
 
-    private IntegerProperty appointmentId = new SimpleIntegerProperty();
+    private final IntegerProperty appointmentId = new SimpleIntegerProperty();
 
     public int getAppointmentId() {
         return appointmentId.get();

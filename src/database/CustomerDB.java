@@ -36,6 +36,7 @@ public class CustomerDB {
                 String postalCode = rs.getString("postalCode");
                 City city = new City(rs.getInt("city.cityId"), rs.getString("city"), rs.getInt("country.countryId"));
                 String address  = rs.getString("address");
+                String address2 = rs.getString("address.address2");
                 String customerCountry = rs.getString("country");
                 Customer activeCustomer = new Customer(customerId, customerName, addressId, phone, postalCode, city, address, customerCountry, active);
                 activeCustomers.add(activeCustomer);

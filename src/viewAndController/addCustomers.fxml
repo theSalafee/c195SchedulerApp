@@ -29,7 +29,6 @@
             <Font name="Avenir Roman" size="38.0" />
          </font>
       </Label>
-      <TextField fx:id="addressTwo" layoutX="353.0" layoutY="384.0" prefHeight="32.0" prefWidth="300.0" promptText="Address #2" />
       <Button fx:id="saveBtn" layoutX="353.0" layoutY="575.0" mnemonicParsing="false" onAction="#saveHandler" prefWidth="140.0" text="Save" />
       <Button fx:id="cancelBtn" layoutX="514.0" layoutY="575.0" mnemonicParsing="false" onAction="#cancelHandler" prefWidth="140.0" text="Cancel" />
       <TextField fx:id="customerName" layoutX="353.0" layoutY="315.0" prefHeight="32.0" prefWidth="300.0" promptText="Customer Name" />
@@ -44,11 +43,6 @@
          </font>
       </Label>
       <Label layoutX="706.0" layoutY="287.0" text="Address #1" textFill="#f5f2f2">
-         <font>
-            <Font name="Avenir Roman" size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="354.0" layoutY="360.0" text="Address #2" textFill="#f8f5f5">
          <font>
             <Font name="Avenir Roman" size="16.0" />
          </font>
