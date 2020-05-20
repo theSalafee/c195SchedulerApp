@@ -39,10 +39,10 @@ public class AddCustomers implements Initializable {
             //Todo fill in new fields for modify
             Customer selectedCustomer = CustomerController.getSelectedCustomer();
             customerName.setText(selectedCustomer.getCustomerName());
+            addressOne.setText(selectedCustomer.getAddress());
+            phone.setText(selectedCustomer.getPhone());
+            postalCode.setText(selectedCustomer.getPostalCode());
         }
-
-
-
     }
     public void saveHandler(ActionEvent actionEvent) throws IOException {
 
