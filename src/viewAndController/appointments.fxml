@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,7 +10,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewAndController.Appointments">
    <children>
@@ -34,13 +34,13 @@
             <Button fx:id="deleteAppointmentBtn" layoutX="466.0" layoutY="624.0" mnemonicParsing="false" onAction="#deleteHandler" prefHeight="27.0" prefWidth="120.0" text="Delete" />
             <TableView fx:id="appointmentsTable" layoutX="74.0" layoutY="240.0" prefHeight="363.0" prefWidth="1201.0">
                <columns>
-                  <TableColumn fx:id="custName" minWidth="200.0" prefWidth="75.0" text="Name" />
-                  <TableColumn fx:id="custAddress1" minWidth="200.0" prefWidth="75.0" text="Address 1" />
-                  <TableColumn fx:id="custAddress2" minWidth="200.0" prefWidth="75.0" text="Address 2" />
-                  <TableColumn fx:id="custCity" minWidth="150.0" prefWidth="75.0" text="City" />
-                  <TableColumn fx:id="custCounty" minWidth="150.0" prefWidth="75.0" text="Country" />
-                  <TableColumn fx:id="custPhone" minWidth="150.0" prefWidth="75.0" text="Postal Code" />
-                  <TableColumn fx:id="custPostalCode" minWidth="150.0" prefWidth="75.0" text="Phone" />
+                  <TableColumn fx:id="custName" minWidth="143.00006103515625" prefWidth="143.00006103515625" text="Customer" />
+                  <TableColumn fx:id="title" minWidth="149.0" prefWidth="149.0" text="Title" />
+                  <TableColumn fx:id="description" minWidth="180.0" prefWidth="180.0" text="Description" />
+                  <TableColumn fx:id="location" minWidth="119.0" prefWidth="119.0" text="Location" />
+                  <TableColumn fx:id="startTime" minWidth="100.0" prefWidth="100.0" text="Start Time " />
+                  <TableColumn fx:id="endTime" minWidth="102.0" prefWidth="110.0" text=" End Time" />
+                  <TableColumn fx:id="url" minWidth="150.0" prefWidth="399.0" text="URL" />
                </columns>
             </TableView>
             <Label layoutX="75.0" layoutY="177.0" text="Appointments" textFill="#fcf9f9">
@@ -50,5 +50,15 @@
             </Label>
          </children>
       </AnchorPane>
+      <RadioButton fx:id="weeklyBtn" layoutX="1183.0" layoutY="207.0" mnemonicParsing="false" text="Weekly" textFill="#f8f5f5">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="monthlyBtn" layoutX="1062.0" layoutY="207.0" mnemonicParsing="false" text="Monthly" textFill="#f8f5f5">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </RadioButton>
    </children>
 </AnchorPane>

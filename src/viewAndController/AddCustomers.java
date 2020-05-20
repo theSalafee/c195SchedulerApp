@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.runtime.regexp.joni.Warnings;
@@ -24,8 +25,8 @@ public class AddCustomers implements Initializable {
     public Button cancelBtn;
     public TextField customerName;
     public TextField addressOne;
-    public TextField city;
-    public TextField country;
+    public ComboBox city;
+    public ComboBox country;
     public TextField phone;
     public TextField postalCode;
     Stage stage;
@@ -49,8 +50,8 @@ public class AddCustomers implements Initializable {
         String customerNameText = customerName.getText();
         String addressOneText = addressOne.getText();
         String addressTwoText = addressTwo.getText();
-        String cityText = city.getText();
-        String countryText = country.getText();
+        String cityText = city.getAccessibleText();
+        String countryText = country.getAccessibleText();
         String phoneText = phone.getText();
         String postalCodeText = postalCode.getText();
 

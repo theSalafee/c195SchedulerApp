@@ -32,11 +32,11 @@
       <TableView fx:id="customerTable" layoutX="74.0" layoutY="240.0" prefHeight="363.0" prefWidth="1201.0">
         <columns>
           <TableColumn fx:id="customerName" minWidth="200.0" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="customerAddress1" minWidth="200.0" prefWidth="75.0" text="Address 1" />
-            <TableColumn fx:id="customerCity" minWidth="150.0" prefWidth="75.0" text="City" />
-            <TableColumn fx:id="customerCountry" minWidth="150.0" prefWidth="75.0" text="Country" />
-            <TableColumn fx:id="customerPostalCode" minWidth="150.0" prefWidth="75.0" text="Postal Code" />
-            <TableColumn fx:id="customerPhone" minWidth="150.0" prefWidth="75.0" text="Phone" />
+          <TableColumn fx:id="customerAddress1" minWidth="200.0" prefWidth="346.9999694824219" text="Address 1" />
+            <TableColumn fx:id="customerCity" minWidth="136.0" prefWidth="142.0" text="City" />
+            <TableColumn fx:id="customerCountry" minWidth="143.0" prefWidth="143.0" text="Country" />
+            <TableColumn fx:id="customerPostalCode" minWidth="150.0" prefWidth="159.0" text="Postal Code" />
+            <TableColumn fx:id="customerPhone" minWidth="150.0" prefWidth="209.0" text="Phone" />
         </columns>
       </TableView>
       <Label layoutX="75.0" layoutY="177.0" text="Customers" textFill="#fcf9f9">
