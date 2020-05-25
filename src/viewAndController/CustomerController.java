@@ -1,4 +1,5 @@
 package viewAndController;
+
 import database.CustomerDB;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
@@ -7,12 +8,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Customer;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -49,11 +51,15 @@ public class CustomerController implements Initializable {
     public TableColumn<Customer, String> customerPhone;
     @FXML
     public TableColumn<Customer, String> customerPostalCode;
+
     Stage stage;
     Parent scene;
+
     static boolean isNewCustomer;
     static Customer selectedCustomer;
+
     public void backBtnHandler(ActionEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/viewAndController/mainMenu.fxml"));
         loader.load();
@@ -72,8 +78,6 @@ public class CustomerController implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/viewAndController/addCustomers.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-
-
     }
 
     public static Customer getSelectedCustomer() {
@@ -81,19 +85,21 @@ public class CustomerController implements Initializable {
     }
 
     public void modifyHandler(ActionEvent actionEvent){
+
         isNewCustomer = false;
         selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+
         if(selectedCustomer == null){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
-            alert.setHeaderText("Add Customer");
-            alert.setContentText("Are you sure you want to add this customer?");
+            alert.setHeaderText("Something Went Wrong");
+            alert.setContentText("Please Select a Customer.");
             alert.showAndWait();
             return;
         }
 
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
         try {
             scene = FXMLLoader.load(getClass().getResource("/viewAndController/addCustomers.fxml"));
         } catch (IOException e) {
@@ -125,6 +131,7 @@ public class CustomerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         setCustomerList();
         convertCustomerString();
 
@@ -136,8 +143,6 @@ public class CustomerController implements Initializable {
             return new ReadOnlyStringWrapper(cellData.getValue().getAddress());
         });
 
-
-
         customerCity.setCellValueFactory(cellData -> {
             return new ReadOnlyStringWrapper(cellData.getValue().getCity().getCity());
         });
@@ -147,7 +152,7 @@ public class CustomerController implements Initializable {
         });
 
         customerPostalCode.setCellValueFactory(cellData -> {
-            return new ReadOnlyStringWrapper(cellData.getValue().getAddress());
+            return new ReadOnlyStringWrapper(cellData.getValue().getPostalCode());
         });
 
 
