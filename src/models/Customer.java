@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Customer {
-    public Customer(int customerId, String customerName, int addressId, String phone, String postalCode, City city, String address, String customerCountry, int active) {
+    public Customer(int customerId, String customerName, int addressId, String phone, String postalCode, City city, String address, Country customerCountry, int active) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.addressId = addressId;
@@ -95,15 +95,15 @@ public class Customer {
         this.address = address;
     }
 
-    public String getCustomerCountry() {
+    public Country getCustomerCountry() {
         return customerCountry;
     }
 
-    public void setCustomerCountry(String customerCountry) {
+    public void setCustomerCountry(Country customerCountry) {
         this.customerCountry = customerCountry;
     }
 
-    private String customerCountry;
+    private Country customerCountry;
 
 
     public static boolean isValidInput(Customer Cust, Address custAddress, City custCity, Country custCountry) throws CustomerException {

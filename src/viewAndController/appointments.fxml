@@ -34,7 +34,7 @@
             <Button fx:id="deleteAppointmentBtn" layoutX="466.0" layoutY="624.0" mnemonicParsing="false" onAction="#deleteHandler" prefHeight="27.0" prefWidth="120.0" text="Delete" />
             <TableView fx:id="appointmentsTable" layoutX="74.0" layoutY="240.0" prefHeight="363.0" prefWidth="1201.0">
                <columns>
-                  <TableColumn fx:id="custName" minWidth="143.00006103515625" prefWidth="143.00006103515625" text="Customer" />
+                  <TableColumn fx:id="customerName" minWidth="143.00006103515625" prefWidth="143.00006103515625" text="Customer" />
                   <TableColumn fx:id="title" minWidth="149.0" prefWidth="149.0" text="Title" />
                   <TableColumn fx:id="description" minWidth="180.0" prefWidth="180.0" text="Description" />
                   <TableColumn fx:id="location" minWidth="119.0" prefWidth="119.0" text="Location" />
@@ -48,6 +48,11 @@
                   <Font name="Avenir Roman" size="38.0" />
                </font>
             </Label>
+            <RadioButton fx:id="allBtn" layoutX="973.0" layoutY="207.0" mnemonicParsing="false" text="All" textFill="#eeeaea">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </RadioButton>
          </children>
       </AnchorPane>
       <RadioButton fx:id="weeklyBtn" layoutX="1183.0" layoutY="207.0" mnemonicParsing="false" text="Weekly" textFill="#f8f5f5">

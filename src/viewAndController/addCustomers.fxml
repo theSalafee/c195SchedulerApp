@@ -51,7 +51,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="country" layoutX="354.0" layoutY="387.0" prefHeight="27.0" prefWidth="300.0" promptText="Pick Country" />
+      <ComboBox fx:id="country" layoutX="354.0" layoutY="387.0" onAction="#handleCountry" prefHeight="27.0" prefWidth="300.0" promptText="Pick Country" />
       <Label layoutX="352.0" layoutY="366.0" text="Country" textFill="#fffefe">
          <font>
             <Font size="16.0" />

@@ -14,6 +14,10 @@ public class City {
     private String city;
     private int countryId;
 
+    public String toString(){
+        return city;
+    }
+
     public int getCityId() {
         return cityId;
     }

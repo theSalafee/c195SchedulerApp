@@ -1,7 +1,12 @@
 package database;
 
 import java.sql.PreparedStatement;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import models.City;
+import models.Country;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +14,26 @@ import static database.DbConnection.conn;
 import static viewAndController.Login.loggedUser;
 
 public class CityDB {
+
+    public static ObservableList getCitiesForCountry(int countryId){
+        String getCitySQL = "SELECT * FROM city WHERE countryId = ?";
+        ObservableList<City> cities = FXCollections.observableArrayList();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(getCitySQL);
+            stmt.setInt(1, countryId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+               City c = new City(rs.getInt("cityId"), rs.getString("city"), countryId);
+               cities.add(c);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cities;
+    }
+
     public static int getCityId(String city) {
         String getCitySQL = "SELECT cityId FROM city WHERE city = ?";
         int cityId = 0;

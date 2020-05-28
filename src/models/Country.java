@@ -4,6 +4,11 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Country {
+    public Country(int countryId, String country) {
+        this.countryId = countryId;
+        this.country = country;
+    }
+
     private int countryId;
     private String country;
     private LocalDateTime createDate;
@@ -11,7 +16,9 @@ public class Country {
     private Timestamp lastUpdate;
     private String lastUpdateBy;
 
-    public Country() {
+    @Override
+    public String toString() {
+        return country;
     }
 
     public int getCountryId() {

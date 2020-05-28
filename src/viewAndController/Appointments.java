@@ -9,24 +9,28 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import models.Customer;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class Appointments {
     public Button backBtn;
     public Button addAppointmentBtn;
     public Button modifyCustomerBtn;
     public Button deleteAppointmentBtn;
-    public TableView customerTable;
-    public TableColumn custName;
-    public TableColumn custAddress1;
-    public TableColumn custAddress2;
-    public TableColumn custCity;
-    public TableColumn custCounty;
-    public TableColumn custPhone;
-    public TableColumn custPostalCode;
     public AnchorPane appointmentsView;
     public TableView appointmentsTable;
+    public TableColumn customerName;
+
+    static boolean isNewAppointment;
+    static Customer selectedCustomer;
+
+
+    public void initialize(URL url, ResourceBundle rb) {
+
+    }
 
     public void backBtnHandler(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();

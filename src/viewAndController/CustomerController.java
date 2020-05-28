@@ -157,7 +157,7 @@ public class CustomerController implements Initializable {
 
 
         customerCountry.setCellValueFactory(cellData -> {
-            return new ReadOnlyStringWrapper(cellData.getValue().getCustomerCountry());
+            return new ReadOnlyStringWrapper(cellData.getValue().getCustomerCountry().getCountry());
         });
     }
 }

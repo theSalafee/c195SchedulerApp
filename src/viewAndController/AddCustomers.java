@@ -1,5 +1,7 @@
 package viewAndController;
 
+import database.CityDB;
+import database.CountryDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,10 +31,6 @@ public class AddCustomers implements Initializable {
     public TextField phone;
     public TextField postalCode;
 
-    //added 5/25/20
-    private final Country custCountry = new Country();
-
-
     Stage stage;
     Parent scene;
     static boolean isNewCustomer;
@@ -41,14 +39,14 @@ public class AddCustomers implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         isNewCustomer = CustomerController.isIsNewCustomer();
-
+        country.getItems().addAll(CountryDB.getCountries());
         if(!isNewCustomer){
             Customer selectedCustomer = CustomerController.getSelectedCustomer();
             customerName.setText(selectedCustomer.getCustomerName());
             addressOne.setText(selectedCustomer.getAddress());
             phone.setText(selectedCustomer.getPhone());
             postalCode.setText(selectedCustomer.getPostalCode());
-            custCountry.setCountry(selectedCustomer.getCustomerCountry());
+            country.setValue(selectedCustomer.getCustomerCountry());
         }
     }
     public void saveHandler(ActionEvent actionEvent) throws IOException {
@@ -91,4 +89,8 @@ public class AddCustomers implements Initializable {
     }
 
 
+    public void handleCountry(ActionEvent actionEvent) {
+        city.getItems().clear();
+        city.getItems().addAll(CityDB.getCitiesForCountry(country.getValue().getCountryId()));
+    }
 }
