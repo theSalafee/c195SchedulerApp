@@ -3,17 +3,20 @@ package database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import models.Appointment;
+import models.City;
+import models.Country;
 import models.Customer;
 import static viewAndController.Login.loggedUser;
+
+import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import static database.DbConnection.conn;
-
-
 
 /**
  * This class contains the data access objects (DAOs)
@@ -33,27 +36,20 @@ public class AppointmentDB {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Customer selectedCust = CustomerDB.getActiveCustomerById(rs.getInt("customerId"));
-                Appointment getWeeklyAppts = new Appointment();
-                getWeeklyAppts.setCustomer(selectedCust);
-                getWeeklyAppts.setAppointmentId(rs.getInt("appointmentId"));
-                getWeeklyAppts.setCustomerId(rs.getInt("customerId"));
-                getWeeklyAppts.setUserId(rs.getInt("userId"));
-                getWeeklyAppts.setTitle(rs.getString("title"));
-                getWeeklyAppts.setDescription(rs.getString("description"));
-                getWeeklyAppts.setLocation(rs.getString("location"));
-                getWeeklyAppts.setContact(rs.getString("contact"));
-                getWeeklyAppts.setType(rs.getString("type"));
-                getWeeklyAppts.setUrl(rs.getString("url"));
+                int customerId = rs.getInt("customerId");
+                int appointmentId = rs.getInt("appointmentId");
+                int userId = rs.getInt("userId");
+                String type = rs.getString("type");
+                String customerName = rs.getString("customerName");
+                Customer c = CustomerDB.getActiveCustomerById(customerId);
 
                 LocalDateTime startUTC = rs.getTimestamp("start").toLocalDateTime();
                 LocalDateTime endUTC = rs.getTimestamp("end").toLocalDateTime();
-                ZonedDateTime startLocal = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
-                ZonedDateTime endLocal = ZonedDateTime.ofInstant(endUTC.toInstant(ZoneOffset.UTC), zId);
+                ZonedDateTime start = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
+                ZonedDateTime end = ZonedDateTime.ofInstant(endUTC.toInstant(ZoneOffset.UTC), zId);
+                Appointment activeCustomer = new Appointment(appointmentId, customerId, userId, type, start, end, c);
 
-                getWeeklyAppts.setStart(startLocal);
-                getWeeklyAppts.setEnd(endLocal);
-                apptsByWeek.add(getWeeklyAppts);
+                apptsByWeek.add(activeCustomer);
             }
         }
         catch (SQLException e) {
@@ -61,7 +57,7 @@ public class AppointmentDB {
         }
         return apptsByWeek;
     }
-    public static ObservableList<Appointment> getApptsByMonth() {
+    public static ObservableList<Appointment> filterappointments() {
         ObservableList<Appointment> apptsByMonth = FXCollections.observableArrayList();
         String getApptsByMonthSQL = "SELECT customer.*, appointment.* FROM customer "
                 + "RIGHT JOIN appointment ON customer.customerId = appointment.customerId "
@@ -72,27 +68,20 @@ public class AppointmentDB {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Customer selectedCust = CustomerDB.getActiveCustomerById(rs.getInt("customerId"));
-                Appointment getMonthlyAppts = new Appointment();
-                getMonthlyAppts.setCustomer(selectedCust);
-                getMonthlyAppts.setAppointmentId(rs.getInt("appointmentId"));
-                getMonthlyAppts.setCustomerId(rs.getInt("customerId"));
-                getMonthlyAppts.setUserId(rs.getInt("userId"));
-                getMonthlyAppts.setTitle(rs.getString("title"));
-                getMonthlyAppts.setDescription(rs.getString("description"));
-                getMonthlyAppts.setLocation(rs.getString("location"));
-                getMonthlyAppts.setContact(rs.getString("contact"));
-                getMonthlyAppts.setType(rs.getString("type"));
-                getMonthlyAppts.setUrl(rs.getString("url"));
+                int customerId = rs.getInt("customerId");
+                int appointmentId = rs.getInt("appointmentId");
+                int userId = rs.getInt("userId");
+                String type = rs.getString("type");
+                String customerName = rs.getString("customerName");
+                Customer c = CustomerDB.getActiveCustomerById(customerId);
 
                 LocalDateTime startUTC = rs.getTimestamp("start").toLocalDateTime();
                 LocalDateTime endUTC = rs.getTimestamp("end").toLocalDateTime();
-                ZonedDateTime startLocal = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
-                ZonedDateTime endLocal = ZonedDateTime.ofInstant(endUTC.toInstant(ZoneOffset.UTC), zId);
+                ZonedDateTime start = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
+                ZonedDateTime end = ZonedDateTime.ofInstant(endUTC.toInstant(ZoneOffset.UTC), zId);
+                Appointment activeCustomer = new Appointment(appointmentId, customerId, userId, type, start, end, c);
 
-                getMonthlyAppts.setStart(startLocal);
-                getMonthlyAppts.setEnd(endLocal);
-                apptsByMonth.add(getMonthlyAppts);
+                apptsByMonth.add(activeCustomer);
             }
         }
         catch (SQLException e) {
@@ -101,22 +90,32 @@ public class AppointmentDB {
         return apptsByMonth;
     }
 
+
     public static ObservableList<Appointment> getApptsByUser() {
         ObservableList<Appointment> apptsByUser = FXCollections.observableArrayList();
-        String getApptsByUserSQL = "SELECT user.userId, customer.customerId, appointment.start FROM user JOIN appointment ON user.userId = appointment.userId JOIN customer ON appointment.customerId = customer.customerId";
+        String getApptsByUserSQL = "SELECT user.userId, customer.customerId, appointment.start FROM user JOIN appointment " +
+                "ON user.userId = appointment.userId " +
+                "JOIN customer ON appointment.customerId = customer.customerId";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(getApptsByUserSQL);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Appointment appt = new Appointment();
-                appt.setUserId(rs.getInt("userId"));
-                appt.setCustomerId(rs.getInt("customerId"));
+                int customerId = rs.getInt("customerId");
+                int appointmentId = rs.getInt("appointmentId");
+                int userId = rs.getInt("userId");
+                String type = rs.getString("type");
+                String customerName = rs.getString("customerName");
+                Customer c = CustomerDB.getActiveCustomerById(customerId);
+
                 LocalDateTime startUTC = rs.getTimestamp("start").toLocalDateTime();
-                ZonedDateTime startLocal = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
-                appt.setStart(startLocal);
-                apptsByUser.add(appt);
+                LocalDateTime endUTC = rs.getTimestamp("end").toLocalDateTime();
+                ZonedDateTime start = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
+                ZonedDateTime end = ZonedDateTime.ofInstant(endUTC.toInstant(ZoneOffset.UTC), zId);
+                Appointment activeCustomer = new Appointment(appointmentId, customerId, userId, type, start, end, c);
+
+                apptsByUser.add(activeCustomer);
             }
         }
         catch (SQLException e) {
@@ -125,218 +124,261 @@ public class AppointmentDB {
         return apptsByUser;
     }
 
-    public Appointment getApptById(int appointmentId) {
-        String getApptByIdSQL = "SELECT customer.customerId, customer.customerName, appointment.* FROM customer "
-                + "RIGHT JOIN appointment ON customer.customerId = appointment.customerId "
-                + "WHERE appointmentId = ?";
-        Appointment getApptById = new Appointment();
+    public static ObservableList<Appointment> getAllAppointments() {
+        ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+
+        String sql = "Select * from appointment, customer, user Where appointment.customerId = customer.customerId and appointment.userId = user.userId";
+        ObservableList<Appointment> appList = FXCollections.observableArrayList();
+
+        PreparedStatement stmt = null;
         try {
-            PreparedStatement stmt = conn.prepareStatement(getApptByIdSQL);
-            stmt.setInt(1, appointmentId);
+            stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                //Customer selectedCust = new Customer();
-                int customerId = rs.getInt("customerId");
+            while (rs.next()){
+                int customerId = rs.getInt("customer.customerId");
+                int appointmentId = rs.getInt("appointmentId");
+                int userId = rs.getInt("userId");
+                String type = rs.getString("type");
                 String customerName = rs.getString("customerName");
-
-                //selectedCust.setCustomerId(rs.getInt("customerId"));
-                //selectedCust.setCustomerName(rs.getString("customerName"));
-                //getApptById.setCustomer(selectedCust);
-                getApptById.setCustomerId(rs.getInt("customerId"));
-                getApptById.setUserId(rs.getInt("userId"));
-                getApptById.setTitle(rs.getString("title"));
-                getApptById.setDescription(rs.getString("description"));
-                getApptById.setLocation(rs.getString("location"));
-                getApptById.setContact(rs.getString("contact"));
-                getApptById.setType(rs.getString("type"));
-                getApptById.setUrl(rs.getString("url"));
+                Customer c = CustomerDB.getActiveCustomerById(customerId);
 
                 LocalDateTime startUTC = rs.getTimestamp("start").toLocalDateTime();
                 LocalDateTime endUTC = rs.getTimestamp("end").toLocalDateTime();
-                ZonedDateTime startLocal = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
-                ZonedDateTime endLocal = ZonedDateTime.ofInstant(endUTC.toInstant(ZoneOffset.UTC), zId);
+                ZonedDateTime start = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
+                ZonedDateTime end = ZonedDateTime.ofInstant(endUTC.toInstant(ZoneOffset.UTC), zId);
+                Appointment activeCustomer = new Appointment(appointmentId, customerId, userId, type, start, end, c);
 
-                getApptById.setStart(startLocal);
-                getApptById.setEnd(endLocal);
+                allAppointments.add(activeCustomer);
+
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return getApptById;
+        return allAppointments;
     }
 
-    public static Appointment getUpcomingAppt() {
-        String getUpcomingApptSQL = "SELECT customer.customerName, appointment.* FROM appointment "
-                + "JOIN customer ON appointment.customerId = customer.customerId "
-                + "WHERE (start BETWEEN ? AND ADDTIME(NOW(), '00:15:00'))";
+//    public Appointment getApptById(int appointmentId) {
+//        String getApptByIdSQL = "SELECT customer.customerId, customer.customerName, appointment.* FROM customer "
+//                + "RIGHT JOIN appointment ON customer.customerId = appointment.customerId "
+//                + "WHERE appointmentId = ?";
+//        Appointment getApptById = new Appointment();
+//        try {
+//            PreparedStatement stmt = conn.prepareStatement(getApptsByUserSQL);
+//            ResultSet rs = stmt.executeQuery();
+//
+//            while (rs.next()) {
+//                int customerId = rs.getInt("customerId");
+//                int appointmentId = rs.getInt("appointmentId");
+//                int userId = rs.getInt("userId");
+//                String type = rs.getString("type");
+//                String customerName = rs.getString("customerName");
+//                Customer c = CustomerDB.getActiveCustomerById(customerId);
+//
+//                LocalDateTime startUTC = rs.getTimestamp("start").toLocalDateTime();
+//                LocalDateTime endUTC = rs.getTimestamp("end").toLocalDateTime();
+//                ZonedDateTime start = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
+//                ZonedDateTime end = ZonedDateTime.ofInstant(endUTC.toInstant(ZoneOffset.UTC), zId);
+//                Appointment activeCustomer = new Appointment(appointmentId, customerId, userId, type, start, end, c);
+//
+//                apptsByUser.add(activeCustomer);
+//            }
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return getApptById;
+//    }
 
-        Appointment upcomingAppt = new Appointment();
-        try {
-            PreparedStatement stmt = conn.prepareStatement(getUpcomingApptSQL);
-            ZonedDateTime localZT = ZonedDateTime.now(zId);
-            ZonedDateTime zdtUTC = localZT.withZoneSameInstant(ZoneId.of("UTC"));
-            LocalDateTime localUTC = zdtUTC.toLocalDateTime();
-            stmt.setTimestamp(1, Timestamp.valueOf(localUTC));
-            ResultSet rs = stmt.executeQuery();
+    public static ObservableList<Appointment> getUpcomingAppt() {
 
-            while (rs.next()) {
-//                Customer cust = new Customer();
-//                cust.setCustomerName(rs.getString("customerName"));
-//                upcomingAppt.setCustomer(cust);
-                upcomingAppt.setAppointmentId(rs.getInt("appointmentId"));
-                upcomingAppt.setCustomerId(rs.getInt("customerId"));
-                upcomingAppt.setUserId(rs.getInt("userId"));
-                upcomingAppt.setTitle(rs.getString("title"));
-                LocalDateTime startUTC = rs.getTimestamp("start").toLocalDateTime();
-                ZonedDateTime startZDT = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
-                upcomingAppt.setStart(startZDT);
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return upcomingAppt;
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime nowPlus7 = now.plusDays(7);
+        FilteredList<Appointment> filteredData = new FilteredList<>(AppointmentDB.getAllAppointments());
+        filteredData.setPredicate(row -> {
+
+            LocalDateTime rowDate = row.getStart().toLocalDateTime();
+
+            return rowDate.isAfter(now) && rowDate.isBefore(nowPlus7);
+        });
+        ObservableList<Appointment> getUpcoming = FXCollections.observableArrayList();
+        getUpcoming.addAll(filteredData);
+        return getUpcoming;
     }
+//        String getUpcomingApptSQL = "SELECT customer.customerName, appointment.* FROM appointment "
+//                + "JOIN customer ON appointment.customerId = customer.customerId "
+//                + "WHERE (start BETWEEN NOW() AND ADDTIME(NOW(), '00:15:00'))";
+//
+//        ObservableList<Appointment> upcomingAppointments = FXCollections.observableArrayList();
+//        try {
+//            PreparedStatement stmt = conn.prepareStatement(getUpcomingApptSQL);
+//            ZonedDateTime localZT = ZonedDateTime.now(zId);
+//            ZonedDateTime zdtUTC = localZT.withZoneSameInstant(ZoneId.of("UTC"));
+//            LocalDateTime localUTC = zdtUTC.toLocalDateTime();
+//            stmt.setTimestamp(1, Timestamp.valueOf(localUTC));
+//            ResultSet rs = stmt.executeQuery();
+//
+//            while (rs.next()) {
+////                Customer cust = new Customer();
+////                cust.setCustomerName(rs.getString("customerName"));
+////                upcomingAppt.setCustomer(cust);
+//                upcomingAppt.setAppointmentId(rs.getInt("appointmentId"));
+//                upcomingAppt.setCustomerId(rs.getInt("customerId"));
+//                upcomingAppt.setUserId(rs.getInt("userId"));
+//                upcomingAppt.setTitle(rs.getString("title"));
+//                LocalDateTime startUTC = rs.getTimestamp("start").toLocalDateTime();
+//                ZonedDateTime startZDT = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
+//
+//
+//                upcomingAppt.setStart(startZDT);
+//                upcomingAppointments.add(upcomingAppt);
+//            }
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return upcomingAppointments;
+//    }
 
     public static ObservableList<Appointment> getOverlappingAppts(LocalDateTime start, LocalDateTime end) {
-        ObservableList<Appointment> getOverlappedAppts = FXCollections.observableArrayList();
-        String getOverlappingApptsSQL = "SELECT * FROM appointment "
-                + "WHERE (start >= ? AND end <= ?) "
-                + "OR (start <= ? AND end >= ?) "
-                + "OR (start BETWEEN ? AND ? OR end BETWEEN ? AND ?)";
-
-        try {
-            LocalDateTime startLDT = start.atZone(zId).withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
-            LocalDateTime endLDT = end.atZone(zId).withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
-            PreparedStatement stmt = conn.prepareStatement(getOverlappingApptsSQL);
-            stmt.setTimestamp(1, Timestamp.valueOf(startLDT));
-            stmt.setTimestamp(2, Timestamp.valueOf(endLDT));
-            stmt.setTimestamp(3, Timestamp.valueOf(startLDT));
-            stmt.setTimestamp(4, Timestamp.valueOf(endLDT));
-            stmt.setTimestamp(5, Timestamp.valueOf(startLDT));
-            stmt.setTimestamp(6, Timestamp.valueOf(endLDT));
-            stmt.setTimestamp(7, Timestamp.valueOf(startLDT));
-            stmt.setTimestamp(8, Timestamp.valueOf(endLDT));
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Appointment overlappedAppt = new Appointment();
-                overlappedAppt.setAppointmentId(rs.getInt("appointmentId"));
-                overlappedAppt.setTitle(rs.getString("title"));
-                overlappedAppt.setDescription(rs.getString("description"));
-                overlappedAppt.setLocation(rs.getString("location"));
-                overlappedAppt.setContact(rs.getString("contact"));
-                overlappedAppt.setType(rs.getString("type"));
-                overlappedAppt.setUrl(rs.getString("url"));
-                LocalDateTime startUTC = rs.getTimestamp("start").toLocalDateTime();
-                LocalDateTime endUTC = rs.getTimestamp("end").toLocalDateTime();
-                ZonedDateTime startLocal = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
-                ZonedDateTime endLocal = ZonedDateTime.ofInstant(endUTC.toInstant(ZoneOffset.UTC), zId);
-                overlappedAppt.setStart(startLocal);
-                overlappedAppt.setEnd(endLocal);
-                getOverlappedAppts.add(overlappedAppt);
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return getOverlappedAppts;
+//        ObservableList<Appointment> getOverlappedAppts = FXCollections.observableArrayList();
+//        String getOverlappingApptsSQL = "SELECT * FROM appointment "
+//                + "WHERE (start >= ? AND end <= ?) "
+//                + "OR (start <= ? AND end >= ?) "
+//                + "OR (start BETWEEN ? AND ? OR end BETWEEN ? AND ?)";
+//
+//        try {
+//            LocalDateTime startLDT = start.atZone(zId).withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
+//            LocalDateTime endLDT = end.atZone(zId).withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
+//            PreparedStatement stmt = conn.prepareStatement(getOverlappingApptsSQL);
+//            stmt.setTimestamp(1, Timestamp.valueOf(startLDT));
+//            stmt.setTimestamp(2, Timestamp.valueOf(endLDT));
+//            stmt.setTimestamp(3, Timestamp.valueOf(startLDT));
+//            stmt.setTimestamp(4, Timestamp.valueOf(endLDT));
+//            stmt.setTimestamp(5, Timestamp.valueOf(startLDT));
+//            stmt.setTimestamp(6, Timestamp.valueOf(endLDT));
+//            stmt.setTimestamp(7, Timestamp.valueOf(startLDT));
+//            stmt.setTimestamp(8, Timestamp.valueOf(endLDT));
+//            ResultSet rs = stmt.executeQuery();
+//
+//            while (rs.next()) {
+//                Appointment overlappedAppt = new Appointment();
+//                overlappedAppt.setAppointmentId(rs.getInt("appointmentId"));
+//                overlappedAppt.setTitle(rs.getString("title"));
+//                overlappedAppt.setDescription(rs.getString("description"));
+//                overlappedAppt.setLocation(rs.getString("location"));
+//                overlappedAppt.setContact(rs.getString("contact"));
+//                overlappedAppt.setType(rs.getString("type"));
+//                overlappedAppt.setUrl(rs.getString("url"));
+//                LocalDateTime startUTC = rs.getTimestamp("start").toLocalDateTime();
+//                LocalDateTime endUTC = rs.getTimestamp("end").toLocalDateTime();
+//                ZonedDateTime startLocal = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
+//                ZonedDateTime endLocal = ZonedDateTime.ofInstant(endUTC.toInstant(ZoneOffset.UTC), zId);
+//                overlappedAppt.setStart(startLocal);
+//                overlappedAppt.setEnd(endLocal);
+//                getOverlappedAppts.add(overlappedAppt);
+//            }
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        //return getOverlappedAppts;
+        return null;
     }
 
-    private static int getMaxAppointmentId() {
-        int maxAppointmentId = 0;
-        String maxAppointmentIdSQL = "SELECT MAX(appointmentId) FROM appointment";
-
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(maxAppointmentIdSQL);
-
-            if (rs.next()) {
-                maxAppointmentId = rs.getInt(1);
-            }
-        }
-        catch (SQLException e) {
-        }
-        return maxAppointmentId + 1;
-    }
+//    private static int getMaxAppointmentId() {
+//        int maxAppointmentId = 0;
+//        String maxAppointmentIdSQL = "SELECT MAX(appointmentId) FROM appointment";
+//
+//        try {
+//            Statement stmt = conn.createStatement();
+//            ResultSet rs = stmt.executeQuery(maxAppointmentIdSQL);
+//
+//            if (rs.next()) {
+//                maxAppointmentId = rs.getInt(1);
+//            }
+//        }
+//        catch (SQLException e) {
+//        }
+//        return maxAppointmentId + 1;
+//    }
 
     public static Appointment addAppointment(Appointment appointment) {
-        String addAppointmentSQL = String.join(" ",
-                "INSERT INTO appointment (appointmentId, customerId, userId, title, "
-                        + "description, location, contact, type, url, start, end, "
-                        + "createDate, createdBy, lastUpdate, lastUpdateBy) ",
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW(), ?)");
-
-        int appointmentId = getMaxAppointmentId();
-        try {
-            PreparedStatement stmt = conn.prepareStatement(addAppointmentSQL);
-            stmt.setInt(1, appointmentId);
-            stmt.setObject(2, appointment.getCustomerId());
-            stmt.setObject(3, appointment.getUserId());
-            stmt.setObject(4, appointment.getTitle());
-            stmt.setObject(5, appointment.getDescription());
-            stmt.setObject(6, appointment.getLocation());
-            stmt.setObject(7, appointment.getContact());
-            stmt.setObject(8, appointment.getType());
-            stmt.setObject(9, appointment.getUrl());
-
-            ZonedDateTime startZDT = appointment.getStart().withZoneSameInstant(ZoneId.of("UTC"));
-            ZonedDateTime endZDT = appointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"));
-            stmt.setTimestamp(10, Timestamp.valueOf(startZDT.toLocalDateTime()));
-            stmt.setTimestamp(11, Timestamp.valueOf(endZDT.toLocalDateTime()));
-
-            stmt.setString(12, loggedUser.getUserName());
-            stmt.setString(13, loggedUser.getUserName());
-            stmt.executeUpdate();
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        return appointment;
+//        String addAppointmentSQL = String.join(" ",
+//                "INSERT INTO appointment (appointmentId, customerId, userId, title, "
+//                        + "description, location, contact, type, url, start, end, "
+//                        + "createDate, createdBy, lastUpdate, lastUpdateBy) ",
+//                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW(), ?)");
+//
+//        int appointmentId = getMaxAppointmentId();
+//        try {
+//            PreparedStatement stmt = conn.prepareStatement(addAppointmentSQL);
+//            stmt.setInt(1, appointmentId);
+//            stmt.setObject(2, appointment.getCustomerId());
+//            stmt.setObject(3, appointment.getUserId());
+//            stmt.setObject(4, appointment.getTitle());
+//            stmt.setObject(5, appointment.getDescription());
+//            stmt.setObject(6, appointment.getLocation());
+//            stmt.setObject(7, appointment.getContact());
+//            stmt.setObject(8, appointment.getType());
+//            stmt.setObject(9, appointment.getUrl());
+//
+//            ZonedDateTime startZDT = appointment.getStart().withZoneSameInstant(ZoneId.of("UTC"));
+//            ZonedDateTime endZDT = appointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"));
+//            stmt.setTimestamp(10, Timestamp.valueOf(startZDT.toLocalDateTime()));
+//            stmt.setTimestamp(11, Timestamp.valueOf(endZDT.toLocalDateTime()));
+//
+//            stmt.setString(12, loggedUser.getUserName());
+//            stmt.setString(13, loggedUser.getUserName());
+//            stmt.executeUpdate();
+//        }
+//        catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//        return appointment;
+        return null;
     }
     public static void updateAppointment(Appointment appointment) {
-        String updateApptSQL = String.join(" ",
-                "UPDATE appointment",
-                "SET customerId=?, userId=?, title=?, description=?, location=?," +
-                        "contact=?, type=?, url=?, start=?, end=?, lastUpdate=NOW(), lastUpdateBy=?",
-                "WHERE appointmentId=?");
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(updateApptSQL);
-            stmt.setObject(1, appointment.getCustomerId());
-            stmt.setObject(2, appointment.getUserId());
-            stmt.setObject(3, appointment.getTitle());
-            stmt.setObject(4, appointment.getDescription());
-            stmt.setObject(5, appointment.getLocation());
-            stmt.setObject(6, appointment.getContact());
-            stmt.setObject(7, appointment.getType());
-            stmt.setObject(8, appointment.getUrl());
-
-            ZonedDateTime startZDT = appointment.getStart().withZoneSameInstant(ZoneId.of("UTC"));
-            ZonedDateTime endZDT = appointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"));
-            stmt.setTimestamp(9, Timestamp.valueOf(startZDT.toLocalDateTime()));
-            stmt.setTimestamp(10, Timestamp.valueOf(endZDT.toLocalDateTime()));
-
-            stmt.setString(11, loggedUser.getUserName());
-            stmt.setObject(12, appointment.getAppointmentId());
-            stmt.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void deleteAppointment(Appointment appointment) {
-        String deleteAppointmentSQL = "DELETE FROM appointment WHERE appointmentId = ?";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(deleteAppointmentSQL);
-            stmt.setObject(1, appointment.getAppointmentId());
-            stmt.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        String updateApptSQL = String.join(" ",
+//                "UPDATE appointment",
+//                "SET customerId=?, userId=?, title=?, description=?, location=?," +
+//                        "contact=?, type=?, url=?, start=?, end=?, lastUpdate=NOW(), lastUpdateBy=?",
+//                "WHERE appointmentId=?");
+//
+//        try {
+//            PreparedStatement stmt = conn.prepareStatement(updateApptSQL);
+//            stmt.setObject(1, appointment.getCustomerId());
+//            stmt.setObject(2, appointment.getUserId());
+//            stmt.setObject(3, appointment.getTitle());
+//            stmt.setObject(4, appointment.getDescription());
+//            stmt.setObject(5, appointment.getLocation());
+//            stmt.setObject(6, appointment.getContact());
+//            stmt.setObject(7, appointment.getType());
+//            stmt.setObject(8, appointment.getUrl());
+//
+//            ZonedDateTime startZDT = appointment.getStart().withZoneSameInstant(ZoneId.of("UTC"));
+//            ZonedDateTime endZDT = appointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"));
+//            stmt.setTimestamp(9, Timestamp.valueOf(startZDT.toLocalDateTime()));
+//            stmt.setTimestamp(10, Timestamp.valueOf(endZDT.toLocalDateTime()));
+//
+//            stmt.setString(11, loggedUser.getUserName());
+//            stmt.setObject(12, appointment.getAppointmentId());
+//            stmt.executeUpdate();
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    public static void deleteAppointment(Appointment appointment) {
+//        String deleteAppointmentSQL = "DELETE FROM appointment WHERE appointmentId = ?";
+//
+//        try {
+//            PreparedStatement stmt = conn.prepareStatement(deleteAppointmentSQL);
+//            stmt.setObject(1, appointment.getAppointmentId());
+//            stmt.executeUpdate();
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 }

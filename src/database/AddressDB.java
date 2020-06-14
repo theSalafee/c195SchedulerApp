@@ -1,6 +1,7 @@
 package database;
 
-import models.Address;
+import models.*;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

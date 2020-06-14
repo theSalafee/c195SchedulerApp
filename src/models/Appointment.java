@@ -15,131 +15,56 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 public class Appointment {
-    private final IntegerProperty customerId = new SimpleIntegerProperty();
-    private final IntegerProperty userId = new SimpleIntegerProperty();
-    private final StringProperty title = new SimpleStringProperty();
-    private final StringProperty description = new SimpleStringProperty();
-    private final StringProperty location = new SimpleStringProperty();
-    private final StringProperty contact = new SimpleStringProperty();
-    private final StringProperty type = new SimpleStringProperty();
-    private final StringProperty url = new SimpleStringProperty();
+
+    private int appointmentId;
+    private int customerId;
+    private  int userId;
+    private String type;
     private ZonedDateTime start;
     private ZonedDateTime end;
-    private LocalDateTime createDate;
-    private String createdBy;
-    private Timestamp lastUpdate;
-    private String lastUpdateBy;
     private Customer customer;
 
 
-    private final IntegerProperty appointmentId = new SimpleIntegerProperty();
-
-    public int getAppointmentId() {
-        return appointmentId.get();
+    public Appointment(int appointmentId, int customerId, int userId, String type, ZonedDateTime start, ZonedDateTime end, Customer customer) {
+        this.appointmentId = appointmentId;
+        this.customerId = customerId;
+        this.userId = userId;
+        this.type = type;
+        this.start = start;
+        this.end = end;
+        this.customer = customer;
     }
 
-    public IntegerProperty appointmentIdProperty() {
+    public int getAppointmentId() {
         return appointmentId;
     }
 
     public void setAppointmentId(int appointmentId) {
-        this.appointmentId.set(appointmentId);
+        this.appointmentId = appointmentId;
     }
 
     public int getCustomerId() {
-        return customerId.get();
-    }
-
-    public IntegerProperty customerIdProperty() {
         return customerId;
     }
 
     public void setCustomerId(int customerId) {
-        this.customerId.set(customerId);
+        this.customerId = customerId;
     }
 
     public int getUserId() {
-        return userId.get();
-    }
-
-    public IntegerProperty userIdProperty() {
         return userId;
     }
 
     public void setUserId(int userId) {
-        this.userId.set(userId);
-    }
-
-    public String getTitle() {
-        return title.get();
-    }
-
-    public StringProperty titleProperty() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title.set(title);
-    }
-
-    public String getDescription() {
-        return description.get();
-    }
-
-    public StringProperty descriptionProperty() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description.set(description);
-    }
-
-    public String getLocation() {
-        return location.get();
-    }
-
-    public StringProperty locationProperty() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location.set(location);
-    }
-
-    public String getContact() {
-        return contact.get();
-    }
-
-    public StringProperty contactProperty() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact.set(contact);
+        this.userId = userId;
     }
 
     public String getType() {
-        return type.get();
-    }
-
-    public StringProperty typeProperty() {
         return type;
     }
 
     public void setType(String type) {
-        this.type.set(type);
-    }
-
-    public String getUrl() {
-        return url.get();
-    }
-
-    public StringProperty urlProperty() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url.set(url);
+        this.type = type;
     }
 
     public ZonedDateTime getStart() {
@@ -158,38 +83,6 @@ public class Appointment {
         this.end = end;
     }
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Timestamp getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(Timestamp lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
-    }
-
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -202,23 +95,9 @@ public class Appointment {
         if (this.customer == null) {
             throw new AppointmentException("There was no customer selected!");
         }
-        if (this.title.get().equals("")) {
-            throw new AppointmentException("You must enter a title!");
-        }
-        if (this.description.get().equals("")) {
-            throw new AppointmentException("You must enter a description!");
-        }
-        if (this.location.get().equals("")) {
-            throw new AppointmentException("You must enter a location!");
-        }
-        if (this.contact.get().equals("")) {
-            throw new AppointmentException("You must enter a contact!");
-        }
-        if (this.type.get().equals("")) {
+
+        if (this.type.equals("")) {
             throw new AppointmentException("You must enter a type!");
-        }
-        if (this.url.get().equals("")) {
-            throw new AppointmentException("You must enter a url!");
         }
         isValidTime();
         return true;

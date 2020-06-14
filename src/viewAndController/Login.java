@@ -2,6 +2,7 @@ package viewAndController;
 
 import database.AppointmentDB;
 import database.UserDB;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +16,6 @@ import javafx.stage.Stage;
 import models.Appointment;
 import models.User;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -77,9 +77,15 @@ public class Login implements Initializable {
                 userLog.log(Level.WARNING, "Invalid credentials entered! User: {0}", loggedUser.getUserName());
             }
 
-            Appointment upcomingAppt = AppointmentDB.getUpcomingAppt();
-            ////
-            if (!(upcomingAppt.getAppointmentId() == 0)) {
+            ObservableList<Appointment> apps = FXCollections.observableArrayList();
+
+            Appointment upcomingAppt = null;
+            if(!apps.isEmpty()){
+                 upcomingAppt = AppointmentDB.getUpcomingAppt().get(0);
+            }
+
+
+            if (upcomingAppt != null && !(upcomingAppt.getAppointmentId() == 0)) {
                 Alert apptAlert = new Alert(Alert.AlertType.INFORMATION);
                 apptAlert.setTitle("Upcoming Appointment Reminder");
                 apptAlert.setHeaderText("You have an upcoming appointment!");
@@ -92,7 +98,7 @@ public class Login implements Initializable {
                     userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
                     Stage loginStage = (Stage) loginBtn.getScene().getWindow();
                     loginStage.close();
-                    FXMLLoader apptCalLoader = new FXMLLoader(Appointments.class.getResource("appointments.fxml"));
+                    FXMLLoader apptCalLoader = new FXMLLoader(AppointmentController.class.getResource("appointments.fxml"));
                     Parent apptCalScreen = apptCalLoader.load();
                     Scene apptCalScene = new Scene(apptCalScreen);
                     Stage apptCalStage = new Stage();
@@ -104,7 +110,7 @@ public class Login implements Initializable {
                 }
             } else {
                 userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
-                FXMLLoader apptCalLoader = new FXMLLoader(Appointments.class.getResource("mainMenu.fxml"));
+                FXMLLoader apptCalLoader = new FXMLLoader(AppointmentController.class.getResource("mainMenu.fxml"));
                 Parent apptCalScreen = apptCalLoader.load();
                 Scene apptCalScene = new Scene(apptCalScreen);
                 Stage apptCalStage = new Stage();
