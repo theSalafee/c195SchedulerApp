@@ -44,6 +44,7 @@ public class Login implements Initializable {
     ResourceBundle rb;
     Locale userLocale;
     Logger userLog = Logger.getLogger("userlog.txt");
+    Appointment upcomingAppt = null;
 
     @FXML
     public void loginHandler(ActionEvent actionEvent) throws Exception {
@@ -67,10 +68,45 @@ public class Login implements Initializable {
                 if (loggedUser.getUserName().equals(u.getUserName()) && loggedUser.getPassword().equals(u.getPassword())) {
                     correctLogin = true;
                     loggedUser.setUserId(u.getUserId());
+                    break;
                 }
 
             }
             if (correctLogin) {
+                userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
+                FXMLLoader apptCalLoader = new FXMLLoader(AppointmentController.class.getResource("mainMenu.fxml"));
+                Parent apptCalScreen = apptCalLoader.load();
+                Scene apptCalScene = new Scene(apptCalScreen);
+                Stage apptCalStage = new Stage();
+                apptCalStage.setTitle("Appointment Calendar");
+                apptCalStage.setScene(apptCalScene);
+                apptCalStage.show();
+                Stage loginStage = (Stage) loginBtn.getScene().getWindow();
+                loginStage.close();
+                if (upcomingAppt != null && !(upcomingAppt.getAppointmentId() == 0)) { // add upcomingAppt to mainMenue controller
+                    Alert apptAlert = new Alert(Alert.AlertType.INFORMATION);
+                    apptAlert.setTitle("Upcoming Appointment Reminder");
+                    apptAlert.setHeaderText("You have an upcoming appointment!");
+                    apptAlert.setContentText("You have an appointment scheduled"
+                            + "\non " + upcomingAppt.getStart().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
+                            + "\nat " + upcomingAppt.getStart().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.FULL))
+                            + " with client " + upcomingAppt.getCustomer().getCustomerName() + ".");
+                    apptAlert.showAndWait();
+                    if (apptAlert.getResult() == ButtonType.OK) {
+                        userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
+                        //Stage loginStage = (Stage) loginBtn.getScene().getWindow();
+                        loginStage.close();
+                        //FXMLLoader apptCalLoader = new FXMLLoader(AppointmentController.class.getResource("appointments.fxml"));
+//                        Parent apptCalScreen = apptCalLoader.load();
+//                        Scene apptCalScene = new Scene(apptCalScreen);
+//                        Stage apptCalStage = new Stage();
+                        apptCalStage.setTitle("Appointment Calendar");
+                        apptCalStage.setScene(apptCalScene);
+                        apptCalStage.show();
+                    } else {
+                        apptAlert.close();
+                    }
+                }
             }else{
                 this.errorText.setText(this.rb.getString("lblErrorAlert") + ".");
                 this.errorText.setTextFill(Paint.valueOf("RED"));
@@ -85,41 +121,7 @@ public class Login implements Initializable {
             }
 
 
-            if (upcomingAppt != null && !(upcomingAppt.getAppointmentId() == 0)) {
-                Alert apptAlert = new Alert(Alert.AlertType.INFORMATION);
-                apptAlert.setTitle("Upcoming Appointment Reminder");
-                apptAlert.setHeaderText("You have an upcoming appointment!");
-                apptAlert.setContentText("You have an appointment scheduled"
-                        + "\non " + upcomingAppt.getStart().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
-                        + "\nat " + upcomingAppt.getStart().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.FULL))
-                        + " with client " + upcomingAppt.getCustomer().getCustomerName() + ".");
-                apptAlert.showAndWait();
-                if (apptAlert.getResult() == ButtonType.OK) {
-                    userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
-                    Stage loginStage = (Stage) loginBtn.getScene().getWindow();
-                    loginStage.close();
-                    FXMLLoader apptCalLoader = new FXMLLoader(AppointmentController.class.getResource("appointments.fxml"));
-                    Parent apptCalScreen = apptCalLoader.load();
-                    Scene apptCalScene = new Scene(apptCalScreen);
-                    Stage apptCalStage = new Stage();
-                    apptCalStage.setTitle("Appointment Calendar");
-                    apptCalStage.setScene(apptCalScene);
-                    apptCalStage.show();
-                } else {
-                    apptAlert.close();
-                }
-            } else {
-                userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
-                FXMLLoader apptCalLoader = new FXMLLoader(AppointmentController.class.getResource("mainMenu.fxml"));
-                Parent apptCalScreen = apptCalLoader.load();
-                Scene apptCalScene = new Scene(apptCalScreen);
-                Stage apptCalStage = new Stage();
-                apptCalStage.setTitle("Appointment Calendar");
-                apptCalStage.setScene(apptCalScene);
-                apptCalStage.show();
-                Stage loginStage = (Stage) loginBtn.getScene().getWindow();
-                loginStage.close();
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -129,6 +131,7 @@ public class Login implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.userLocale = Locale.getDefault();
+
         this.rb = ResourceBundle.getBundle("LocaleLanguageFiles/rb", this.userLocale);
         this.lblUsername.setText(this.rb.getString("userName") + ":");
         this.lblPassword.setText(this.rb.getString("password") + ":");

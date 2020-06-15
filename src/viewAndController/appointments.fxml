@@ -36,9 +36,9 @@
             <TableView fx:id="appointmentsTable" layoutX="74.0" layoutY="240.0" prefHeight="363.0" prefWidth="1201.0">
                <columns>
                   <TableColumn fx:id="customerName" minWidth="143.00006103515625" prefWidth="143.00006103515625" text="Customer" />
-                  <TableColumn fx:id="startTime" minWidth="100.0" prefWidth="100.0" text="Start Time " />
-                  <TableColumn fx:id="endTime" minWidth="102.0" prefWidth="110.0" text=" End Time" />
-                  <TableColumn fx:id="type" minWidth="150.0" prefWidth="399.0" text="Type" />
+                  <TableColumn fx:id="startTime" minWidth="100.0" prefWidth="387.0" text="Start Time " />
+                  <TableColumn fx:id="endTime" minWidth="102.0" prefWidth="507.0" text=" End Time" />
+                  <TableColumn fx:id="type" minWidth="17.0" prefWidth="162.0" text="Type" />
                </columns>
             </TableView>
             <Label layoutX="75.0" layoutY="177.0" text="Appointments" textFill="#fcf9f9">

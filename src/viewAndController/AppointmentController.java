@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,7 +40,6 @@ public class AppointmentController implements Initializable {
     public TableView<Appointment> appointmentsTable;
     public TableColumn<models.Appointment, String> customerName;
 
-
     @FXML
     private TableColumn<models.Appointment, ZonedDateTime> startTime;
 
@@ -51,6 +51,9 @@ public class AppointmentController implements Initializable {
 
     static boolean isNewAppointment;
     static Customer selectedCustomer;
+    static Appointment selectedAppointment;
+    Stage stage;
+    Parent scene;
     ObservableList<Appointment> apptList = FXCollections.observableArrayList();
 
 
@@ -93,10 +96,49 @@ public class AppointmentController implements Initializable {
         stage.show();
     }
 
-    public void addHandler(ActionEvent actionEvent) {
+    public void addHandler(ActionEvent actionEvent) throws IOException {
+        isNewAppointment = true;
+
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/viewAndController/addAppointments.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
+    public static Appointment getSelectedAppointment() {
+        return selectedAppointment;
+    }
+
+
+    public static boolean isIsNewAppointment() {
+        return isNewAppointment;
+    }
+
+
+
     public void modifyHandler(ActionEvent actionEvent) {
+        isNewAppointment = false;
+        selectedAppointment = appointmentsTable.getSelectionModel().getSelectedItem();
+
+        if(selectedAppointment == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Something Went Wrong");
+            alert.setContentText("Please Select a Customer.");
+            alert.showAndWait();
+            return;
+        }
+
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+
+        try {
+            scene = FXMLLoader.load(getClass().getResource("/viewAndController/addAppointments.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void deleteHandler(ActionEvent actionEvent) {

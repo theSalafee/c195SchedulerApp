@@ -81,7 +81,6 @@ public class AddCustomers implements Initializable {
         alert.showAndWait();
 
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/viewAndController/mainMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
