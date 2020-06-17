@@ -303,40 +303,31 @@ public class AppointmentDB {
 //        return maxAppointmentId + 1;
 //    }
 
-    public static Appointment addAppointment(Appointment appointment) {
-//        String addAppointmentSQL = String.join(" ",
-//                "INSERT INTO appointment (appointmentId, customerId, userId, title, "
-//                        + "description, location, contact, type, url, start, end, "
-//                        + "createDate, createdBy, lastUpdate, lastUpdateBy) ",
-//                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW(), ?)");
-//
-//        int appointmentId = getMaxAppointmentId();
-//        try {
-//            PreparedStatement stmt = conn.prepareStatement(addAppointmentSQL);
-//            stmt.setInt(1, appointmentId);
-//            stmt.setObject(2, appointment.getCustomerId());
-//            stmt.setObject(3, appointment.getUserId());
-//            stmt.setObject(4, appointment.getTitle());
-//            stmt.setObject(5, appointment.getDescription());
-//            stmt.setObject(6, appointment.getLocation());
-//            stmt.setObject(7, appointment.getContact());
-//            stmt.setObject(8, appointment.getType());
-//            stmt.setObject(9, appointment.getUrl());
-//
-//            ZonedDateTime startZDT = appointment.getStart().withZoneSameInstant(ZoneId.of("UTC"));
-//            ZonedDateTime endZDT = appointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"));
-//            stmt.setTimestamp(10, Timestamp.valueOf(startZDT.toLocalDateTime()));
-//            stmt.setTimestamp(11, Timestamp.valueOf(endZDT.toLocalDateTime()));
-//
-//            stmt.setString(12, loggedUser.getUserName());
-//            stmt.setString(13, loggedUser.getUserName());
-//            stmt.executeUpdate();
-//        }
-//        catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//        return appointment;
-        return null;
+    public static void addAppointment(Appointment appointment) {
+        String addAppointmentSQL = String.join(" ",
+                "INSERT INTO appointment (customerId, userId, title, "
+                        + "description, location, contact, type, url, start, end, "
+                        + "createDate, createdBy, lastUpdate, lastUpdateBy) ",
+                "VALUES (?, ?, '', '', '', '', ?, '', ?, ?, NOW(), ?, NOW(), ?)");
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(addAppointmentSQL);
+            stmt.setObject(1, appointment.getCustomerId());
+            stmt.setObject(2, appointment.getUserId());
+            stmt.setObject(3, appointment.getType());
+
+            ZonedDateTime startZDT = appointment.getStart().withZoneSameInstant(ZoneId.of("UTC"));
+            ZonedDateTime endZDT = appointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"));
+            stmt.setTimestamp(4, Timestamp.valueOf(startZDT.toLocalDateTime()));
+            stmt.setTimestamp(5, Timestamp.valueOf(endZDT.toLocalDateTime()));
+
+            stmt.setString(6, loggedUser.getUserName());
+            stmt.setString(7, loggedUser.getUserName());
+            stmt.executeUpdate();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
     public static void updateAppointment(Appointment appointment) {
 //        String updateApptSQL = String.join(" ",

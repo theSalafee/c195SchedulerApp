@@ -17,6 +17,10 @@ public class User {
     private Timestamp lastUpdate;
     private String lastUpdateBy;
 
+    @Override
+    public String toString() {
+        return userName;
+    }
 
     public Timestamp getLastUpdate() {
         return lastUpdate;

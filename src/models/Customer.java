@@ -27,6 +27,11 @@ public class Customer {
     private City city;
     private String address;
 
+    @Override
+    public String toString() {
+        return customerName;
+    }
+
     public int getActive() {
         return active;
     }

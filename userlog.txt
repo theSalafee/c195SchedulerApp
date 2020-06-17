@@ -934,3 +934,31 @@ Jun 15, 2020 8:20:39 AM viewAndController.Login loginHandler
 WARNING: Invalid credentials entered! User: lkj
 Jun 15, 2020 8:20:49 AM viewAndController.Login loginHandler
 INFO: User: test logged in.
+Jun 15, 2020 5:44:11 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 15, 2020 7:24:53 PM viewAndController.Login loginHandler
+WARNING: Invalid credentials entered! User: kamal
+Jun 15, 2020 8:37:14 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+jun 15, 2020 8:39:56 P.M. viewAndController.Login loginHandler
+INFORMACIÓN: User: test logged in.
+Jun 15, 2020 8:41:59 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 16, 2020 4:54:20 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+jun 16, 2020 5:18:59 P.M. viewAndController.Login loginHandler
+INFORMACIÓN: User: test logged in.
+jun 16, 2020 5:19:34 P.M. viewAndController.Login loginHandler
+ADVERTENCIA: Invalid credentials entered! User: kam
+jun 16, 2020 5:19:57 P.M. viewAndController.Login loginHandler
+INFORMACIÓN: User: test logged in.
+jun 16, 2020 5:20:49 P.M. viewAndController.Login loginHandler
+INFORMACIÓN: User: test logged in.
+jun 16, 2020 5:32:12 P.M. viewAndController.Login loginHandler
+INFORMACIÓN: User: test logged in.
+jun 16, 2020 5:41:16 P.M. viewAndController.Login loginHandler
+INFORMACIÓN: User: test logged in.
+jun 16, 2020 5:48:47 P.M. viewAndController.Login loginHandler
+INFORMACIÓN: User: test logged in.
+jun 16, 2020 5:49:59 P.M. viewAndController.Login loginHandler
+INFORMACIÓN: User: test logged in.
