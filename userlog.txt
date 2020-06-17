@@ -962,3 +962,15 @@ jun 16, 2020 5:48:47 P.M. viewAndController.Login loginHandler
 INFORMACIÓN: User: test logged in.
 jun 16, 2020 5:49:59 P.M. viewAndController.Login loginHandler
 INFORMACIÓN: User: test logged in.
+Jun 16, 2020 8:49:18 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 16, 2020 8:56:22 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 16, 2020 9:04:08 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 16, 2020 9:05:28 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 16, 2020 9:09:18 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 16, 2020 9:12:39 PM viewAndController.Login loginHandler
+INFO: User: test logged in.

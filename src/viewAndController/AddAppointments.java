@@ -12,8 +12,6 @@ import javafx.stage.Stage;
 import models.Appointment;
 import models.Customer;
 import models.User;
-import sun.java2d.pipe.AAShapePipe;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -22,16 +20,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class AddAppointments implements Initializable {
-
-//    public ComboBox AppointmentDescField;
-//    public DatePicker AppointmentDateField;
-//    public ComboBox AppointmentStartField;
-//    public ComboBox AppointmentEndField;
-//    public Button saveBtn;
-//    public Button cancelBtn;
-//    public ComboBox contactField;
-//    public TextField locationField;
-//    public TextField customerName;
 
     @FXML
     private ComboBox<User> contactField;
@@ -67,8 +55,14 @@ public class AddAppointments implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         isNewAppointment = AppointmentController.isNewAppointment;
-        AppointmentStartField.getItems().addAll("08:00", "08:15", "16:45");
-        AppointmentEndField.getItems().addAll( "08:15", "16:45", "17:00");
+        AppointmentStartField.getItems().addAll("8:00", "8:15", "8:30", "8:45", "9:00", "9:15",
+                "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
+                "12:00", "12:15", "12:30", "12:45", "1:00", "1:15", "1:30", "1:45", "2:00", "2:15",
+                "2:30", "2:45", "3:00", "3:15", "3:30", "3:45", "4:00", "4:15", "4:30", "4:45");
+        AppointmentEndField.getItems().addAll( "8:15", "8:30", "8:45", "9:00", "9:15",
+                "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
+                "12:00", "12:15", "12:30", "12:45", "1:00", "1:15", "1:30", "1:45", "2:00", "2:15", "2:30",
+                "2:45", "3:00", "3:15", "3:30", "3:45", "4:00", "4:15", "4:30", "4:45", "5:00");
         AppointmentDescField.getItems().addAll("Intro Call", "Update Call", "Close Call");
         contactField.getItems().addAll(UserDB.getActiveUsers());
         customerName.getItems().addAll(CustomerDB.getActiveCustomers());
@@ -76,9 +70,6 @@ public class AddAppointments implements Initializable {
         if(!isNewAppointment){
             Appointment selectedAppointment = AppointmentController.getSelectedAppointment();
             customerName.setValue(selectedAppointment.getCustomer());
-
-
-
         }
     }
 
