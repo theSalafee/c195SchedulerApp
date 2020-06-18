@@ -974,3 +974,7 @@ Jun 16, 2020 9:09:18 PM viewAndController.Login loginHandler
 INFO: User: test logged in.
 Jun 16, 2020 9:12:39 PM viewAndController.Login loginHandler
 INFO: User: test logged in.
+Jun 17, 2020 7:23:43 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 17, 2020 7:31:19 PM viewAndController.Login loginHandler
+INFO: User: test logged in.

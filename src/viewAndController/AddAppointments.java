@@ -28,7 +28,7 @@ public class AddAppointments implements Initializable {
     private ComboBox<String> AppointmentDescField;
 
     @FXML
-    private TextField locationField;
+    private ComboBox<String> locationField;
 
     @FXML
     private DatePicker AppointmentDateField;
@@ -66,6 +66,7 @@ public class AddAppointments implements Initializable {
         AppointmentDescField.getItems().addAll("Intro Call", "Update Call", "Close Call");
         contactField.getItems().addAll(UserDB.getActiveUsers());
         customerName.getItems().addAll(CustomerDB.getActiveCustomers());
+        locationField.getItems().addAll("Main Campus", "Valley Campus", "University District");
 
         if(!isNewAppointment){
             Appointment selectedAppointment = AppointmentController.getSelectedAppointment();

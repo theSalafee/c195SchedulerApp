@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
@@ -33,7 +32,6 @@
       </Label>
        <ComboBox fx:id="contactField" layoutX="706.0" layoutY="315.0" prefHeight="32.0" prefWidth="300.0" promptText="Contact" />
        <ComboBox fx:id="AppointmentDescField" layoutX="706.0" layoutY="460.0" prefHeight="32.0" prefWidth="300.0" promptText="Appointment Type" />
-       <TextField fx:id="locationField" layoutX="706.0" layoutY="384.0" prefHeight="32.0" prefWidth="300.0" promptText="Location" />
        <DatePicker fx:id="AppointmentDateField" layoutX="353.0" layoutY="384.0" prefHeight="32.0" prefWidth="300.0" promptText="Date" />
        <ComboBox fx:id="AppointmentStartField" layoutX="354.0" layoutY="460.0" prefHeight="32.0" prefWidth="140.0" promptText="Start Time" />
        <ComboBox fx:id="AppointmentEndField" layoutX="513.0" layoutY="460.0" prefHeight="32.0" prefWidth="140.0" promptText="End Time" />
@@ -70,5 +68,6 @@
          </font>
       </Label>
       <ComboBox fx:id="customerName" layoutX="349.0" layoutY="318.0" prefHeight="27.0" prefWidth="300.0" promptText="Customer" />
+      <ComboBox fx:id="locationField" layoutX="706.0" layoutY="387.0" prefHeight="27.0" prefWidth="300.0" promptText="Location" />
    </children>
 </AnchorPane>
