@@ -35,11 +35,8 @@
       </font>
    </Label>
    <ComboBox fx:id="reportTypes" layoutX="349.0" layoutY="324.0" prefHeight="27.0" prefWidth="317.0" promptText="Report Types" />
-   <Button fx:id="generateRptBTN" layoutX="683.0" layoutY="324.0" mnemonicParsing="false" onAction="#generateReport" text="Generate Report" />
+   <Button fx:id="generateRptBTN" layoutX="1052.0" layoutY="324.0" mnemonicParsing="false" onAction="#generateReport" text="Generate Report" />
    <TextArea fx:id="scheduleOfConsultantText" layoutX="350.0" layoutY="373.0" prefHeight="77.0" prefWidth="810.0" promptText="Consultant Schedule" />
-   <TextArea fx:id="totalAppointmentsThisYearText" layoutX="350.0" layoutY="465.0" prefHeight="77.0" prefWidth="810.0" promptText="Yearly Appointments" />
-   <Button fx:id="numAppointmentsBTN" layoutX="407.0" layoutY="558.0" mnemonicParsing="false" onAction="#getAppointmentsByMonth" text="Number of appointment types by month" />
-   <Button fx:id="consultantScheduleBTN" layoutX="653.0" layoutY="558.0" mnemonicParsing="false" onAction="#consultantSchedule" text="Schedule of each consultant" />
-   <Button fx:id="yearTotalBTN" layoutX="838.0" layoutY="558.0" mnemonicParsing="false" onAction="#appointmentsByYear" text="Total number of appointments this year" />
    <Button fx:id="backBTN" layoutX="350.0" layoutY="558.0" mnemonicParsing="false" onAction="#backBtnHandler" text="Back" />
+   <ComboBox fx:id="reportTypes1" layoutX="683.0" layoutY="324.0" prefHeight="27.0" prefWidth="317.0" />
 </AnchorPane>

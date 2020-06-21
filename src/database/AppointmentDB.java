@@ -303,7 +303,7 @@ public class AppointmentDB {
 //        return maxAppointmentId + 1;
 //    }
 
-    public static void addAppointment(Appointment appointment) {
+    public static void addAppointment(int customerId, int userId, String type, ZonedDateTime start, ZonedDateTime end) {
         String addAppointmentSQL = String.join(" ",
                 "INSERT INTO appointment (customerId, userId, title, "
                         + "description, location, contact, type, url, start, end, "
@@ -312,14 +312,14 @@ public class AppointmentDB {
 
         try {
             PreparedStatement stmt = conn.prepareStatement(addAppointmentSQL);
-            stmt.setObject(1, appointment.getCustomerId());
-            stmt.setObject(2, appointment.getUserId());
-            stmt.setObject(3, appointment.getType());
+            stmt.setObject(1, customerId);
+            stmt.setObject(2, userId);
+            stmt.setObject(3, type);
 
-            ZonedDateTime startZDT = appointment.getStart().withZoneSameInstant(ZoneId.of("UTC"));
-            ZonedDateTime endZDT = appointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"));
-            stmt.setTimestamp(4, Timestamp.valueOf(startZDT.toLocalDateTime()));
-            stmt.setTimestamp(5, Timestamp.valueOf(endZDT.toLocalDateTime()));
+//            ZonedDateTime startZDT = start.withZoneSameInstant(ZoneId.of("UTC"));
+//            ZonedDateTime endZDT = end.withZoneSameInstant(ZoneId.of("UTC"));
+            stmt.setTimestamp(4, Timestamp.valueOf(start.toLocalDateTime()));
+            stmt.setTimestamp(5, Timestamp.valueOf(end.toLocalDateTime()));
 
             stmt.setString(6, loggedUser.getUserName());
             stmt.setString(7, loggedUser.getUserName());

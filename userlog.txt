@@ -1020,3 +1020,39 @@ Jun 21, 2020 9:47:53 AM viewAndController.Login loginHandler
 INFO: User: test logged in.
 Jun 21, 2020 9:52:58 AM viewAndController.Login loginHandler
 INFO: User: test logged in.
+Jun 21, 2020 9:56:43 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:01:57 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:08:46 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:28:08 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:30:51 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:31:45 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:34:51 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:40:05 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:42:08 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:43:10 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:43:52 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:47:20 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:52:09 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 10:54:59 AM viewAndController.Login loginHandler
+WARNING: Invalid credentials entered! User: l;ij
+Jun 21, 2020 10:57:13 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 11:01:55 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 11:03:43 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 11:05:10 AM viewAndController.Login loginHandler
+INFO: User: test logged in.

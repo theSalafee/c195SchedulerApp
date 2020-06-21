@@ -1,4 +1,5 @@
 package viewAndController;
+import database.AppointmentDB;
 import database.CustomerDB;
 import database.UserDB;
 import javafx.event.ActionEvent;
@@ -31,6 +32,9 @@ public class AddAppointments implements Initializable {
     private ComboBox<String> locationField;
 
     @FXML
+    private  ComboBox<String> cboType;
+
+    @FXML
     private DatePicker AppointmentDateField;
 
     @FXML
@@ -55,15 +59,15 @@ public class AddAppointments implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         isNewAppointment = AppointmentController.isNewAppointment;
-        AppointmentStartField.getItems().addAll("8:00", "8:15", "8:30", "8:45", "9:00", "9:15",
+        AppointmentStartField.getItems().addAll("08:00", "08:15", "08:30", "08:45", "09:00", "09:15",
                 "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
-                "12:00", "12:15", "12:30", "12:45", "1:00", "1:15", "1:30", "1:45", "2:00", "2:15",
-                "2:30", "2:45", "3:00", "3:15", "3:30", "3:45", "4:00", "4:15", "4:30", "4:45");
-        AppointmentEndField.getItems().addAll( "8:15", "8:30", "8:45", "9:00", "9:15",
-                "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
-                "12:00", "12:15", "12:30", "12:45", "1:00", "1:15", "1:30", "1:45", "2:00", "2:15", "2:30",
-                "2:45", "3:00", "3:15", "3:30", "3:45", "4:00", "4:15", "4:30", "4:45", "5:00");
-        AppointmentDescField.getItems().addAll("Intro Call", "Update Call", "Close Call");
+                "12:00", "12:15", "12:30", "12:45", "13:00", "13:15", "13:30", "13:45", "14:00", "14:15",
+                "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45");
+        AppointmentEndField.getItems().addAll( "08:15", "08:30", "08:45", "09:00", "09:15",
+                "09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
+                "12:00", "12:15", "12:30", "12:45", "13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30",
+                "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45", "17:00");
+        cboType.getItems().addAll("Intro Call", "Update Call", "Close Call");
         contactField.getItems().addAll(UserDB.getActiveUsers());
         customerName.getItems().addAll(CustomerDB.getActiveCustomers());
         locationField.getItems().addAll("Main Campus", "Valley Campus", "University District");
@@ -74,7 +78,10 @@ public class AddAppointments implements Initializable {
         }
     }
 
-    public void saveHandler(ActionEvent actionEvent) throws IOException {
+    public void saveHandler(ActionEvent actionEvent) {
+        int customerId = customerName.getSelectionModel().getSelectedItem().getCustomerId();
+        int userId = contactField.getSelectionModel().getSelectedItem().getUserId();
+        String type = cboType.getSelectionModel().getSelectedItem();
         LocalDate date = AppointmentDateField.getValue();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
 
@@ -90,15 +97,22 @@ public class AddAppointments implements Initializable {
         ZonedDateTime utcEnd = zdtEnd.withZoneSameInstant(ZoneId.of("UTC"));
         Timestamp tsEnd = Timestamp.valueOf(utcEnd.toLocalDateTime());
 
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("WGU Scheduling App");
         alert.setHeaderText("Add Appointment");
-        alert.setContentText("Are you sure you want to add this Appointment?");
+        alert.setContentText("Are you sure you want to add/modify this Appointment?");
         alert.showAndWait();
 
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/viewAndController/appointments.fxml"));
+
+        AppointmentDB.addAppointment(customerId, userId, type, utcStart, utcEnd);
+
+        try {
+            scene = FXMLLoader.load(getClass().getResource("/viewAndController/appointments.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         stage.setScene(new Scene(scene));
         stage.show();
 
