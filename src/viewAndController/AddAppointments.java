@@ -74,7 +74,7 @@ public class AddAppointments implements Initializable {
         }
     }
 
-    public void saveHandler(ActionEvent actionEvent) {
+    public void saveHandler(ActionEvent actionEvent) throws IOException {
         LocalDate date = AppointmentDateField.getValue();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
 
@@ -89,6 +89,18 @@ public class AddAppointments implements Initializable {
         ZonedDateTime zdtEnd = ZonedDateTime.of(date, ltEnd, ZoneId.systemDefault());
         ZonedDateTime utcEnd = zdtEnd.withZoneSameInstant(ZoneId.of("UTC"));
         Timestamp tsEnd = Timestamp.valueOf(utcEnd.toLocalDateTime());
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("WGU Scheduling App");
+        alert.setHeaderText("Add Appointment");
+        alert.setContentText("Are you sure you want to add this Appointment?");
+        alert.showAndWait();
+
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/viewAndController/appointments.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
 
     }
 

@@ -978,3 +978,45 @@ Jun 17, 2020 7:23:43 PM viewAndController.Login loginHandler
 INFO: User: test logged in.
 Jun 17, 2020 7:31:19 PM viewAndController.Login loginHandler
 INFO: User: test logged in.
+Jun 17, 2020 7:41:14 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 17, 2020 7:41:44 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 19, 2020 9:15:10 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 19, 2020 9:16:39 PM viewAndController.Login loginHandler
+WARNING: Invalid credentials entered! User: lkj
+Jun 19, 2020 9:16:49 PM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 20, 2020 10:18:02 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 8:52:51 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 8:54:09 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:15:16 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:16:47 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:18:30 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:26:10 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:35:13 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:39:07 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:40:24 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:41:43 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:45:03 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:45:54 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:47:27 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:47:53 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
+Jun 21, 2020 9:52:58 AM viewAndController.Login loginHandler
+INFO: User: test logged in.
