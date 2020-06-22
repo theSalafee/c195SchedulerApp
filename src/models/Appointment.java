@@ -35,6 +35,7 @@ public class Appointment {
         this.customer = customer;
     }
 
+
     public int getAppointmentId() {
         return appointmentId;
     }

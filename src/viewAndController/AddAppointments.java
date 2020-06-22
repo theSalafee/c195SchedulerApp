@@ -75,6 +75,12 @@ public class AddAppointments implements Initializable {
         if(!isNewAppointment){
             Appointment selectedAppointment = AppointmentController.getSelectedAppointment();
             customerName.setValue(selectedAppointment.getCustomer());
+            AppointmentStartField.setValue(selectedAppointment.getStart().toString());
+            AppointmentEndField.setValue(String.valueOf(selectedAppointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"))));
+            cboType.setValue(selectedAppointment.getType());
+            //locationField.getItems(locationField)
+            //AppointmentDateField.setValue();
+            contactField.setValue(UserDB.getUserById(selectedAppointment.getUserId()));
         }
     }
 
