@@ -26,10 +26,15 @@ import models.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import static database.DbConnection.conn;
+
 
 public class AppointmentController implements Initializable {
     public Button backBtn;
@@ -142,7 +147,36 @@ public class AppointmentController implements Initializable {
     }
 
     public void deleteHandler(ActionEvent actionEvent) {
-    }
+            selectedAppointment = appointmentsTable.getSelectionModel().getSelectedItem();
+        if(selectedAppointment == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Something Went Wrong");
+            alert.setContentText("Please Select a Customer.");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("WGU Scheduling App");
+        alert.setHeaderText("Delete Appointment");
+        alert.setContentText("Are you sure you want to delete this Appointment");
+        alert.showAndWait();
+
+        AppointmentDB.deleteAppointment(selectedAppointment);
+
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        try {
+            scene = FXMLLoader.load(getClass().getResource("/viewAndController/appointments.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setScene(new Scene(scene));
+        stage.show();
+
+        }
+
 
     public void handleWeekly(ActionEvent actionEvent) {
         LocalDateTime now = LocalDateTime.now();

@@ -329,13 +329,13 @@ public class AppointmentDB {
             e.printStackTrace();
         }
     }
-    public static void updateAppointment(Appointment appointment) {
+//    public static void updateAppointment(Appointment appointment) {
 //        String updateApptSQL = String.join(" ",
 //                "UPDATE appointment",
 //                "SET customerId=?, userId=?, title=?, description=?, location=?," +
 //                        "contact=?, type=?, url=?, start=?, end=?, lastUpdate=NOW(), lastUpdateBy=?",
 //                "WHERE appointmentId=?");
-//
+
 //        try {
 //            PreparedStatement stmt = conn.prepareStatement(updateApptSQL);
 //            stmt.setObject(1, appointment.getCustomerId());
@@ -359,17 +359,16 @@ public class AppointmentDB {
 //        catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-//    }
-//    public static void deleteAppointment(Appointment appointment) {
-//        String deleteAppointmentSQL = "DELETE FROM appointment WHERE appointmentId = ?";
-//
-//        try {
-//            PreparedStatement stmt = conn.prepareStatement(deleteAppointmentSQL);
-//            stmt.setObject(1, appointment.getAppointmentId());
-//            stmt.executeUpdate();
-//        }
-//        catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-    }
+ //   }
+        public static void deleteAppointment (Appointment appointment){
+            String deleteAppointmentSQL = "DELETE FROM appointment WHERE appointmentId = ?";
+
+            try {
+                PreparedStatement stmt = conn.prepareStatement(deleteAppointmentSQL);
+                stmt.setObject(1, appointment.getAppointmentId());
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 }

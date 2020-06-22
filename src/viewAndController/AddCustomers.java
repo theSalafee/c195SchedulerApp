@@ -2,6 +2,7 @@ package viewAndController;
 
 import database.CityDB;
 import database.CountryDB;
+import database.CustomerDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -64,6 +65,8 @@ public class AddCustomers implements Initializable {
         alert.setHeaderText("Add Customer");
         alert.setContentText("Are you sure you want to add this customer?");
         alert.showAndWait();
+
+        //CustomerDB.addCustomer();
 
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
