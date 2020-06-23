@@ -1,5 +1,6 @@
 package viewAndController;
 
+import database.AppointmentDB;
 import database.CustomerDB;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
@@ -110,6 +111,33 @@ public class CustomerController implements Initializable {
     }
 
     public void deleteHandler(ActionEvent actionEvent) {
+        selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+        if(selectedCustomer == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Something Went Wrong");
+            alert.setContentText("Please Select a Customer.");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("WGU Scheduling App");
+        alert.setHeaderText("Delete Customer");
+        alert.setContentText("Are you sure you want to delete this Customer");
+        alert.showAndWait();
+
+        CustomerDB.deleteCustomer(selectedCustomer);
+
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        try {
+            scene = FXMLLoader.load(getClass().getResource("/viewAndController/customer.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public static boolean isIsNewCustomer() {

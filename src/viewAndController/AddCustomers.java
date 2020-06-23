@@ -1,5 +1,6 @@
 package viewAndController;
 
+import database.AppointmentDB;
 import database.CityDB;
 import database.CountryDB;
 import database.CustomerDB;
@@ -54,7 +55,7 @@ public class AddCustomers implements Initializable {
 
         String customerNameText = customerName.getText();
         String addressOneText = addressOne.getText();
-        String addressTwoText = addressTwo.getText();
+        String addressTwoText = "n/a";
         String cityText = city.getAccessibleText();
         String countryText = country.getAccessibleText();
         String phoneText = phone.getText();
@@ -66,7 +67,6 @@ public class AddCustomers implements Initializable {
         alert.setContentText("Are you sure you want to add this customer?");
         alert.showAndWait();
 
-        //CustomerDB.addCustomer();
 
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
