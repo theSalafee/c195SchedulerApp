@@ -42,30 +42,39 @@ public class AddCustomers implements Initializable {
 
         isNewCustomer = CustomerController.isIsNewCustomer();
         country.getItems().addAll(CountryDB.getCountries());
-        if(!isNewCustomer){
+        if (!isNewCustomer) {
             Customer selectedCustomer = CustomerController.getSelectedCustomer();
             customerName.setText(selectedCustomer.getCustomerName());
             addressOne.setText(selectedCustomer.getAddress());
             phone.setText(selectedCustomer.getPhone());
             postalCode.setText(selectedCustomer.getPostalCode());
             country.setValue(selectedCustomer.getCustomerCountry());
+            city.getItems().clear();
+            city.getItems().addAll(CityDB.getCitiesForCountry(selectedCustomer.getCustomerCountry().getCountryId()));
+            city.setValue(selectedCustomer.getCity());
+
         }
     }
+
     public void saveHandler(ActionEvent actionEvent) throws IOException {
 
         String customerNameText = customerName.getText();
-        String addressOneText = addressOne.getText();
-        String addressTwoText = "n/a";
-        String cityText = city.getAccessibleText();
-        String countryText = country.getAccessibleText();
+        String address = addressOne.getText();
+        int cityId = city.getSelectionModel().getSelectedItem().getCityId();
         String phoneText = phone.getText();
         String postalCodeText = postalCode.getText();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("WGU Scheduling App");
         alert.setHeaderText("Add Customer");
-        alert.setContentText("Are you sure you want to add this customer?");
+        alert.setContentText("Are you sure you want to add/modify this customer?");
         alert.showAndWait();
+
+        if (isNewCustomer) {
+            CustomerDB.addCustomer(address, cityId, postalCodeText, phoneText, customerNameText);
+        } else {
+            CustomerDB.updateCustomer(address, cityId, postalCodeText, phoneText, customerNameText);
+        }
 
 
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -74,7 +83,9 @@ public class AddCustomers implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
 
+
     }
+
     public void cancelHandler(ActionEvent actionEvent) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

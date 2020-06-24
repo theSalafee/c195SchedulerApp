@@ -129,49 +129,84 @@ public class CustomerDB {
         return maxCustomerId + 1;
     }
 
-    /**
-     * This method adds a new Customer to the MySQL database.
-     * @param customer
-     * @return customer
-     */
-    public static Customer addCustomer(Customer customer) {
-        String addCustomerSQL = String.join(" ",
-                "INSERT INTO customer (customerId, customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy)",
-                "VALUES (?, ?, ?, 1, NOW(), ?, NOW(), ?)");
 
-        int customerId = getMaxCustomerId();
+    public static void addCustomer(String address, int cityId,  String postalCode, String phone, String customerName) {
         try {
+            String addAddressSQL = String.join(" ",
+                "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy)",
+                " VALUES (?, '', ?, ?, ?, now(), ?, now(), ?)");
+
+            PreparedStatement stmt1 = conn.prepareStatement(addAddressSQL);
+            //stmt.setInt(1, customerId);
+            stmt1.setString(1, address);
+            stmt1.setInt(2, cityId);
+            stmt1.setString(3, postalCode);
+            stmt1.setString(4, phone);
+            stmt1.setString(5, loggedUser.getUserName());
+            stmt1.setString(6, loggedUser.getUserName());
+            stmt1.executeUpdate();
+
+        String selectSQL = "SELECT LAST_INSERT_ID() FROM address";
+        Statement s = conn.createStatement();
+        ResultSet rs = s.executeQuery(selectSQL);
+        rs.next();
+        int addressId = rs.getInt(1);
+
+            String addCustomerSQL = String.join(" ",
+                "INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy)",
+                "VALUES (?, ?, 1, NOW(), ?, NOW(), ?)");
+
+        //int customerId = getMaxCustomerId();
+
             PreparedStatement stmt = conn.prepareStatement(addCustomerSQL);
-            stmt.setInt(1, customerId);
-            stmt.setString(2, customer.getCustomerName());
-            stmt.setInt(3, customer.getAddressId());
+            //stmt.setInt(1, customerId);
+            stmt.setString(1, customerName);
+            stmt.setInt(2, addressId);
+            stmt.setString(3, loggedUser.getUserName());
             stmt.setString(4, loggedUser.getUserName());
-            stmt.setString(5, loggedUser.getUserName());
             stmt.executeUpdate();
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return customer;
     }
 
-    /**
-     * This method updates an existing Customer record in the MySQL database.
-     * @param customer
-     */
-    public static void updateCustomer(Customer customer) {
-        String updateCustomerSQL = String.join(" ",
+
+    public static void updateCustomer(String address, int cityId,  String postalCode, String phone, String customerName) {
+        try{
+            String updateCustomerSQL = String.join(" ",
                 "UPDATE customer",
                 "SET customerName=?, addressId=?, lastUpdate=NOW(), lastUpdateBy=?",
                 "WHERE customerId = ?");
 
-        try {
             PreparedStatement stmt = conn.prepareStatement(updateCustomerSQL);
-            stmt.setString(1, customer.getCustomerName());
-            stmt.setInt(2, customer.getAddressId());
-            stmt.setString(3, loggedUser.getUserName());
-            stmt.setInt(4, customer.getCustomerId());
+
+            stmt.setString(1, address);
+            stmt.setInt(2, cityId);
+            stmt.setString(3, postalCode);
+            stmt.setString(4, phone);
+            stmt.setString(5, loggedUser.getUserName());
+            stmt.setString(6, loggedUser.getUserName());
             stmt.executeUpdate();
+
+            String selectSQL = "SELECT LAST_INSERT_ID() FROM address";
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery(selectSQL);
+            rs.next();
+            int addressId = rs.getInt(1);
+
+            String addCustomerSQL = String.join(" ",
+                    "UPDATE customer," +
+                            "SET customerName=?, addressId=?, active=?, createDate=?, createdBy=?, " + "lastUpdate=?, lastUpdateBy=?",
+                            "WHERE customerId=?)");
+
+            PreparedStatement stmt2 = conn.prepareStatement(addCustomerSQL);
+            //stmt.setInt(1, customerId);
+            stmt2.setString(1, customerName);
+            stmt2.setInt(2, addressId);
+            stmt2.setString(3, loggedUser.getUserName());
+            stmt2.setString(4, loggedUser.getUserName());
+            stmt2.executeUpdate();
         }
         catch (SQLException e) {
             e.printStackTrace();
