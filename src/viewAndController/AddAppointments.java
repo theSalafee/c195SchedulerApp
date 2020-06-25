@@ -89,7 +89,9 @@ public class AddAppointments implements Initializable {
         if(customerName.getSelectionModel().getSelectedItem() == null ||
                 contactField.getSelectionModel().getSelectedItem() == null ||
                 cboType.getSelectionModel().getSelectedItem() == null ||
-                locationField.getSelectionModel().getSelectedItem() == null)
+                locationField.getSelectionModel().getSelectedItem() == null ||
+                AppointmentStartField.getSelectionModel().getSelectedItem().isEmpty() ||
+                AppointmentEndField.getSelectionModel().getSelectedItem().isEmpty())
         {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
