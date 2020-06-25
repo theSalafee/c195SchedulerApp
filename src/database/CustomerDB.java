@@ -5,17 +5,21 @@ import javafx.collections.ObservableList;
 import models.City;
 import models.Country;
 import models.Customer;
+
 import static viewAndController.Login.loggedUser;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import static database.DbConnection.conn;
 
 public class CustomerDB {
     /**
      * This method creates an ObservableList and populates it with
      * all currently active Customer records in the MySQL database.
+     *
      * @return activeCustomers
      */
     public static ObservableList<Customer> getActiveCustomers() {
@@ -31,19 +35,18 @@ public class CustomerDB {
                 //Customer activeCustomer = new Customer();
                 int customerId = rs.getInt("customerId");
                 String customerName = rs.getString("customerName");
-                int addressId= rs.getInt("address.addressId");
+                int addressId = rs.getInt("address.addressId");
                 int active = rs.getInt("active");
                 String phone = rs.getString("phone");
                 String postalCode = rs.getString("postalCode");
                 City city = new City(rs.getInt("city.cityId"), rs.getString("city"), rs.getInt("country.countryId"));
-                String address  = rs.getString("address");
+                String address = rs.getString("address");
                 String address2 = rs.getString("address.address2");
                 Country customerCountry = new Country(rs.getInt("countryId"), rs.getString("country"));
                 Customer activeCustomer = new Customer(customerId, customerName, addressId, phone, postalCode, city, address, customerCountry, active);
                 activeCustomers.add(activeCustomer);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return activeCustomers;
@@ -62,18 +65,17 @@ public class CustomerDB {
             while (rs.next()) {
                 int customerId = rs.getInt("customerId");
                 String customerName = rs.getString("customerName");
-                int addressId= rs.getInt("address.addressId");
+                int addressId = rs.getInt("address.addressId");
                 int active = rs.getInt("active");
                 String phone = rs.getString("phone");
                 String postalCode = rs.getString("postalCode");
                 City city = new City(rs.getInt("city.cityId"), rs.getString("city"), rs.getInt("country.countryId"));
-                String address  = rs.getString("address");
+                String address = rs.getString("address");
                 Country customerCountry = new Country(rs.getInt("countryId"), rs.getString("country"));
                 Customer allCustomers = new Customer(customerId, customerName, addressId, phone, postalCode, city, address, customerCountry, active);
                 allCusts.add(allCustomers);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return allCusts;
@@ -81,6 +83,7 @@ public class CustomerDB {
 
     /**
      * This method gets a Customer record from the MySQL database by customerId.
+     *
      * @param customerId
      * @return getCustomerQuery
      */
@@ -103,10 +106,9 @@ public class CustomerDB {
                 City city = new City(rs.getInt("city.cityId"), rs.getString("city.city"), rs.getInt("city.countryId"));
                 String address = rs.getString("address");
                 Country country = new Country(rs.getInt("countryId"), rs.getString("country"));
-                c = new Customer(customerId,  customerName,  addressId,  phone,  postalCode,  city,  address,  country,  1);
+                c = new Customer(customerId, customerName, addressId, phone, postalCode, city, address, country, 1);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return c;
@@ -123,21 +125,20 @@ public class CustomerDB {
             if (rs.next()) {
                 maxCustomerId = rs.getInt(1);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
         }
         return maxCustomerId + 1;
     }
 
 
-    public static void addCustomer(String address, int cityId,  String postalCode, String phone, String customerName) {
+    public static void addCustomer(String address, int cityId, String postalCode, String phone, String customerName) {
         try {
             String addAddressSQL = String.join(" ",
-                "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy)",
-                " VALUES (?, '', ?, ?, ?, now(), ?, now(), ?)");
+                    "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy)",
+                    " VALUES (?, '', ?, ?, ?, now(), ?, now(), ?)");
 
             PreparedStatement stmt1 = conn.prepareStatement(addAddressSQL);
-            //stmt.setInt(1, customerId);
+
             stmt1.setString(1, address);
             stmt1.setInt(2, cityId);
             stmt1.setString(3, postalCode);
@@ -146,17 +147,15 @@ public class CustomerDB {
             stmt1.setString(6, loggedUser.getUserName());
             stmt1.executeUpdate();
 
-        String selectSQL = "SELECT LAST_INSERT_ID() FROM address";
-        Statement s = conn.createStatement();
-        ResultSet rs = s.executeQuery(selectSQL);
-        rs.next();
-        int addressId = rs.getInt(1);
+            String selectSQL = "SELECT LAST_INSERT_ID() FROM address";
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery(selectSQL);
+            rs.next();
+            int addressId = rs.getInt(1);
 
             String addCustomerSQL = String.join(" ",
-                "INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy)",
-                "VALUES (?, ?, 1, NOW(), ?, NOW(), ?)");
-
-        //int customerId = getMaxCustomerId();
+                    "INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy)",
+                    "VALUES (?, ?, 1, NOW(), ?, NOW(), ?)");
 
             PreparedStatement stmt = conn.prepareStatement(addCustomerSQL);
             //stmt.setInt(1, customerId);
@@ -165,29 +164,36 @@ public class CustomerDB {
             stmt.setString(3, loggedUser.getUserName());
             stmt.setString(4, loggedUser.getUserName());
             stmt.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
 
-    public static void updateCustomer(String address, int cityId,  String postalCode, String phone, String customerName) {
-        try{
+    public static void updateCustomer(String address, int cityId, String postalCode, String phone, String customerName) {
+        try {
             String updateCustomerSQL = String.join(" ",
-                "UPDATE customer",
-                "SET customerName=?, addressId=?, lastUpdate=NOW(), lastUpdateBy=?",
-                "WHERE customerId = ?");
+                    "UPDATE customer",
+                    "SET customerName=?, addressId=?, lastUpdate=NOW(), lastUpdateBy=?, postalCode=?, phone=?",
+                    "WHERE customerId = ?");
 
             PreparedStatement stmt = conn.prepareStatement(updateCustomerSQL);
 
-            stmt.setString(1, address);
-            stmt.setInt(2, cityId);
-            stmt.setString(3, postalCode);
-            stmt.setString(4, phone);
-            stmt.setString(5, loggedUser.getUserName());
-            stmt.setString(6, loggedUser.getUserName());
+            stmt.setString(1, customerName);
+            stmt.setString(2, address);
+            stmt.setString(3, "test");
+            stmt.setString(4, postalCode);
+            stmt.setString(5, phone);
+            stmt.setInt(6, loggedUser.getUserId());
+
             stmt.executeUpdate();
+
+            String sqlUpdate = String.join("UPDATE address.LAST_UPDATE_ID() SET postalCode=? WHERE appointmentId=?");
+            //String updatedPostalCodeSQL = String.join ("UPDATE address SET postalCode=? WHERE appointmentId=?");
+            PreparedStatement stmt3 = conn.prepareStatement(sqlUpdate);
+
+            stmt3.setString(1, postalCode);
+            stmt3.setInt(2, loggedUser.getUserId());
 
             String selectSQL = "SELECT LAST_INSERT_ID() FROM address";
             Statement s = conn.createStatement();
@@ -198,7 +204,7 @@ public class CustomerDB {
             String addCustomerSQL = String.join(" ",
                     "UPDATE customer," +
                             "SET customerName=?, addressId=?, active=?, createDate=?, createdBy=?, " + "lastUpdate=?, lastUpdateBy=?",
-                            "WHERE customerId=?)");
+                    "WHERE customerId=?)");
 
             PreparedStatement stmt2 = conn.prepareStatement(addCustomerSQL);
             //stmt.setInt(1, customerId);
@@ -207,8 +213,7 @@ public class CustomerDB {
             stmt2.setString(3, loggedUser.getUserName());
             stmt2.setString(4, loggedUser.getUserName());
             stmt2.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -216,6 +221,7 @@ public class CustomerDB {
     /**
      * This method soft deletes an existing Customer from the MySQL database
      * by setting the active property to 0.
+     *
      * @param customer
      */
     public static void deleteCustomer(Customer customer) {
@@ -225,8 +231,7 @@ public class CustomerDB {
             PreparedStatement stmt = conn.prepareStatement(deleteCustomerSQL);
             stmt.setInt(1, customer.getCustomerId());
             stmt.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

@@ -1,4 +1,5 @@
 package viewAndController;
+import Exceptions.AppointmentException;
 import database.AppointmentDB;
 import database.CustomerDB;
 import database.UserDB;
@@ -84,43 +85,59 @@ public class AddAppointments implements Initializable {
         }
     }
 
-    public void saveHandler(ActionEvent actionEvent) {
-        int customerId = customerName.getSelectionModel().getSelectedItem().getCustomerId();
-        int userId = contactField.getSelectionModel().getSelectedItem().getUserId();
-        String type = cboType.getSelectionModel().getSelectedItem();
-        LocalDate date = AppointmentDateField.getValue();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+    public void saveHandler(ActionEvent actionEvent) throws AppointmentException {
+        if(customerName.getSelectionModel().getSelectedItem() == null ||
+                contactField.getSelectionModel().getSelectedItem() == null ||
+                cboType.getSelectionModel().getSelectedItem() == null ||
+                locationField.getSelectionModel().getSelectedItem() == null)
+        {
 
-        String start = AppointmentStartField.getValue();
-        LocalTime ltStart = LocalTime.parse(start, dtf);
-        ZonedDateTime zdtStart = ZonedDateTime.of(date, ltStart, ZoneId.systemDefault());
-        ZonedDateTime utcStart = zdtStart.withZoneSameInstant(ZoneId.of("UTC"));
-        Timestamp tsStart = Timestamp.valueOf(utcStart.toLocalDateTime());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Add Appointment Exception");
+            alert.setContentText("Null Field, please fill in all of the fields");
+            alert.showAndWait();
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            throw new AppointmentException("Null Exception Error");
 
-        String end = AppointmentEndField.getValue();
-        LocalTime ltEnd = LocalTime.parse(end, dtf);
-        ZonedDateTime zdtEnd = ZonedDateTime.of(date, ltEnd, ZoneId.systemDefault());
-        ZonedDateTime utcEnd = zdtEnd.withZoneSameInstant(ZoneId.of("UTC"));
-        Timestamp tsEnd = Timestamp.valueOf(utcEnd.toLocalDateTime());
+        }else{
+            int customerId = customerName.getSelectionModel().getSelectedItem().getCustomerId();
+            int userId = contactField.getSelectionModel().getSelectedItem().getUserId();
+            String type = cboType.getSelectionModel().getSelectedItem();
+            LocalDate date = AppointmentDateField.getValue();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+
+            String start = AppointmentStartField.getValue();
+            LocalTime ltStart = LocalTime.parse(start, dtf);
+            ZonedDateTime zdtStart = ZonedDateTime.of(date, ltStart, ZoneId.systemDefault());
+            ZonedDateTime utcStart = zdtStart.withZoneSameInstant(ZoneId.of("UTC"));
+            Timestamp tsStart = Timestamp.valueOf(utcStart.toLocalDateTime());
+
+            String end = AppointmentEndField.getValue();
+            LocalTime ltEnd = LocalTime.parse(end, dtf);
+            ZonedDateTime zdtEnd = ZonedDateTime.of(date, ltEnd, ZoneId.systemDefault());
+            ZonedDateTime utcEnd = zdtEnd.withZoneSameInstant(ZoneId.of("UTC"));
+            Timestamp tsEnd = Timestamp.valueOf(utcEnd.toLocalDateTime());
 
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("WGU Scheduling App");
-        alert.setHeaderText("Add Appointment");
-        alert.setContentText("Are you sure you want to add/modify this Appointment?");
-        alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Add Appointment");
+            alert.setContentText("Are you sure you want to add/modify this Appointment?");
+            alert.showAndWait();
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
 
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            AppointmentDB.addAppointment(customerId, userId, type, utcStart, utcEnd);
 
-        AppointmentDB.addAppointment(customerId, userId, type, utcStart, utcEnd);
+            try {
+                scene = FXMLLoader.load(getClass().getResource("/viewAndController/appointments.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage.setScene(new Scene(scene));
+            stage.show();
 
-        try {
-            scene = FXMLLoader.load(getClass().getResource("/viewAndController/appointments.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        stage.setScene(new Scene(scene));
-        stage.show();
 
     }
 

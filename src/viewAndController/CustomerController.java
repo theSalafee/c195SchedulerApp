@@ -85,12 +85,12 @@ public class CustomerController implements Initializable {
         return selectedCustomer;
     }
 
-    public void modifyHandler(ActionEvent actionEvent){
+    public void modifyHandler(ActionEvent actionEvent) {
 
         isNewCustomer = false;
         selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
 
-        if(selectedCustomer == null){
+        if (selectedCustomer == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
             alert.setHeaderText("Something Went Wrong");
@@ -112,7 +112,7 @@ public class CustomerController implements Initializable {
 
     public void deleteHandler(ActionEvent actionEvent) {
         selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
-        if(selectedCustomer == null){
+        if (selectedCustomer == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
             alert.setHeaderText("Something Went Wrong");
@@ -152,8 +152,10 @@ public class CustomerController implements Initializable {
         customerTable.setItems(CustomerDB.getActiveCustomers());
 
     }
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */

@@ -32,7 +32,7 @@ public class Appointment {
 
     private int appointmentId;
     private int customerId;
-    private  int userId;
+    private int userId;
     private String type;
     private ZonedDateTime start;
     private ZonedDateTime end;
@@ -153,10 +153,6 @@ public class Appointment {
         }
         return true;
     }
-
-
-
-
 
 
 }

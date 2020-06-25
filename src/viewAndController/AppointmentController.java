@@ -33,6 +33,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+
 import static database.DbConnection.conn;
 
 
@@ -63,7 +64,7 @@ public class AppointmentController implements Initializable {
 
 
     public void setAppointmentsList() {
-       appointmentsTable.setItems(AppointmentDB.getAllAppointments());
+        appointmentsTable.setItems(AppointmentDB.getAllAppointments());
 
     }
 
@@ -85,7 +86,7 @@ public class AppointmentController implements Initializable {
         type.setCellValueFactory(cellData -> {
             return new ReadOnlyStringWrapper(cellData.getValue().getType());
         });
-        
+
 
         apptList = AppointmentDB.getAllAppointments();
         appointmentsTable.getItems().addAll(apptList);
@@ -121,12 +122,11 @@ public class AppointmentController implements Initializable {
     }
 
 
-
     public void modifyHandler(ActionEvent actionEvent) {
         isNewAppointment = false;
         selectedAppointment = appointmentsTable.getSelectionModel().getSelectedItem();
 
-        if(selectedAppointment == null){
+        if (selectedAppointment == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
             alert.setHeaderText("Something Went Wrong");
@@ -147,8 +147,8 @@ public class AppointmentController implements Initializable {
     }
 
     public void deleteHandler(ActionEvent actionEvent) {
-            selectedAppointment = appointmentsTable.getSelectionModel().getSelectedItem();
-        if(selectedAppointment == null){
+        selectedAppointment = appointmentsTable.getSelectionModel().getSelectedItem();
+        if (selectedAppointment == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
             alert.setHeaderText("Something Went Wrong");
@@ -175,7 +175,7 @@ public class AppointmentController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
 
-        }
+    }
 
 
     public void handleWeekly(ActionEvent actionEvent) {
