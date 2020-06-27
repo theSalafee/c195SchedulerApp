@@ -8,6 +8,8 @@ import models.Appointment;
 import models.City;
 import models.Country;
 import models.Customer;
+import viewAndController.Login;
+
 import static viewAndController.Login.loggedUser;
 
 import java.awt.event.ActionEvent;
@@ -329,37 +331,29 @@ public class AppointmentDB {
             e.printStackTrace();
         }
     }
-//    public static void updateAppointment(Appointment appointment) {
-//        String updateApptSQL = String.join(" ",
-//                "UPDATE appointment",
-//                "SET customerId=?, userId=?, title=?, description=?, location=?," +
-//                        "contact=?, type=?, url=?, start=?, end=?, lastUpdate=NOW(), lastUpdateBy=?",
-//                "WHERE appointmentId=?");
+    public static void updateAppointment(int appointmentId,int customerId, int userId, String type, ZonedDateTime utcStart, ZonedDateTime utcEnd ) {
+        String updateApptSQL = String.join(" ",
+                "UPDATE appointment",
+                "SET customerId=?, userId=?, " +
+                        "type=?, start=?, end=? ",
+                "WHERE appointmentId=?");
 
-//        try {
-//            PreparedStatement stmt = conn.prepareStatement(updateApptSQL);
-//            stmt.setObject(1, appointment.getCustomerId());
-//            stmt.setObject(2, appointment.getUserId());
-//            stmt.setObject(3, appointment.getTitle());
-//            stmt.setObject(4, appointment.getDescription());
-//            stmt.setObject(5, appointment.getLocation());
-//            stmt.setObject(6, appointment.getContact());
-//            stmt.setObject(7, appointment.getType());
-//            stmt.setObject(8, appointment.getUrl());
-//
-//            ZonedDateTime startZDT = appointment.getStart().withZoneSameInstant(ZoneId.of("UTC"));
-//            ZonedDateTime endZDT = appointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"));
-//            stmt.setTimestamp(9, Timestamp.valueOf(startZDT.toLocalDateTime()));
-//            stmt.setTimestamp(10, Timestamp.valueOf(endZDT.toLocalDateTime()));
-//
-//            stmt.setString(11, loggedUser.getUserName());
-//            stmt.setObject(12, appointment.getAppointmentId());
-//            stmt.executeUpdate();
-//        }
-//        catch (SQLException e) {
-//            e.printStackTrace();
-//        }
- //   }
+        try {
+            PreparedStatement stmt = conn.prepareStatement(updateApptSQL);
+            stmt.setInt(1, customerId);
+            stmt.setInt(2, userId);
+            stmt.setString(3, type);
+
+            stmt.setTimestamp(4, Timestamp.valueOf(utcStart.toLocalDateTime()));
+            stmt.setTimestamp(5, Timestamp.valueOf(utcEnd.toLocalDateTime()));
+
+            stmt.setInt(6, appointmentId);
+            stmt.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
         public static void deleteAppointment (Appointment appointment){
             String deleteAppointmentSQL = "DELETE FROM appointment WHERE appointmentId = ?";
 
@@ -370,5 +364,22 @@ public class AppointmentDB {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+
+        public static boolean checkOverlap(Timestamp pStart, Timestamp pEnd, int userId, int appointmentId){
+
+//            String overlapSQL = "Select * from appointment WHERE (start >= pStart AND start < pEnd) && (end > pStart AND end <= pEnd) && (start <= pStart" +
+//                    " AND" +
+//                    " end >= pEnd)  && userId = ? && appointmentId <> ?";
+
+            String overlapSQL = "Select * from appointment WHERE (start >= pStart AND start < pEnd) && (end > pStart AND end <= pEnd) && (start <= pStart" +
+                    " AND" +
+                    " end >= pEnd)  && userId = ? && appointmentId <> ?";
+
+            // Todo
+
+
+
+            return false;
         }
 }

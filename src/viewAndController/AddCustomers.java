@@ -36,14 +36,14 @@ public class AddCustomers implements Initializable {
     Stage stage;
     Parent scene;
     static boolean isNewCustomer;
-
+    private Customer selectedCustomer = null;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         isNewCustomer = CustomerController.isIsNewCustomer();
         country.getItems().addAll(CountryDB.getCountries());
         if (!isNewCustomer) {
-            Customer selectedCustomer = CustomerController.getSelectedCustomer();
+            selectedCustomer = CustomerController.getSelectedCustomer();
             customerName.setText(selectedCustomer.getCustomerName());
             addressOne.setText(selectedCustomer.getAddress());
             phone.setText(selectedCustomer.getPhone());
@@ -59,7 +59,23 @@ public class AddCustomers implements Initializable {
     public void saveHandler(ActionEvent actionEvent) throws IOException {
 
         String customerNameText = customerName.getText();
+        if(customerNameText.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Add Customer");
+            alert.setContentText("Error please enter customer name");
+            alert.showAndWait();
+            return;
+        }
         String address = addressOne.getText();
+        if(city.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Add Customer");
+            alert.setContentText("Error please select city");
+            alert.showAndWait();
+            return;
+        }
         int cityId = city.getSelectionModel().getSelectedItem().getCityId();
         String phoneText = phone.getText();
         String postalCodeText = postalCode.getText();
@@ -73,7 +89,8 @@ public class AddCustomers implements Initializable {
         if (isNewCustomer) {
             CustomerDB.addCustomer(address, cityId, postalCodeText, phoneText, customerNameText);
         } else {
-            CustomerDB.updateCustomer(address, cityId, postalCodeText, phoneText, customerNameText);
+            CustomerDB.updateCustomer(selectedCustomer.getCustomerId(), selectedCustomer.getAddressId(), address, cityId, postalCodeText, phoneText,
+                    customerNameText);
         }
 
 
@@ -105,5 +122,6 @@ public class AddCustomers implements Initializable {
     public void handleCountry(ActionEvent actionEvent) {
         city.getItems().clear();
         city.getItems().addAll(CityDB.getCitiesForCountry(country.getValue().getCountryId()));
+        city.setValue(null);
     }
 }

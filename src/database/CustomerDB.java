@@ -135,16 +135,17 @@ public class CustomerDB {
         try {
             String addAddressSQL = String.join(" ",
                     "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy)",
-                    " VALUES (?, '', ?, ?, ?, now(), ?, now(), ?)");
+                    " VALUES (?, ?, ?, ?, ?, now(), ?, now(), ?)");
 
             PreparedStatement stmt1 = conn.prepareStatement(addAddressSQL);
 
             stmt1.setString(1, address);
-            stmt1.setInt(2, cityId);
-            stmt1.setString(3, postalCode);
-            stmt1.setString(4, phone);
-            stmt1.setString(5, loggedUser.getUserName());
+            stmt1.setString(2, "n/a");
+            stmt1.setInt(3, cityId);
+            stmt1.setString(4, postalCode);
+            stmt1.setString(5, phone);
             stmt1.setString(6, loggedUser.getUserName());
+            stmt1.setString(7, loggedUser.getUserName());
             stmt1.executeUpdate();
 
             String selectSQL = "SELECT LAST_INSERT_ID() FROM address";
@@ -170,49 +171,25 @@ public class CustomerDB {
     }
 
 
-    public static void updateCustomer(String address, int cityId, String postalCode, String phone, String customerName) {
+    public static void updateCustomer(int customerId, int addressId, String address, int cityId, String postalCode, String phone, String customerName) {
         try {
-            String updateCustomerSQL = String.join(" ",
-                    "UPDATE customer",
-                    "SET customerName=?, addressId=?, lastUpdate=NOW(), lastUpdateBy=?, postalCode=?, phone=?",
-                    "WHERE customerId = ?");
 
-            PreparedStatement stmt = conn.prepareStatement(updateCustomerSQL);
+            String updateAddress = "UPDATE address SET address= ?, postalCode= ?, phone = ?, cityId = ?, lastUpdate=NOW() WHERE addressId = ?";
+            PreparedStatement stmt = conn.prepareStatement(updateAddress);
+            stmt.setString(1, address);
+            stmt.setString(2, postalCode);
+            stmt.setString(3, phone);
+            stmt.setInt(4, cityId);
+            stmt.setInt(5, addressId);
+            stmt.execute();
 
+            String updateCustomer = "UPDATE customer SET customerName= ?, lastUpdate=NOW()  WHERE customerId = ?";
+            stmt = conn.prepareStatement(updateCustomer);
             stmt.setString(1, customerName);
-            stmt.setString(2, address);
-            stmt.setString(3, "test");
-            stmt.setString(4, postalCode);
-            stmt.setString(5, phone);
-            stmt.setInt(6, loggedUser.getUserId());
+            stmt.setInt(2, customerId);
 
-            stmt.executeUpdate();
+            stmt.execute();
 
-            String sqlUpdate = String.join("UPDATE address.LAST_UPDATE_ID() SET postalCode=? WHERE appointmentId=?");
-            //String updatedPostalCodeSQL = String.join ("UPDATE address SET postalCode=? WHERE appointmentId=?");
-            PreparedStatement stmt3 = conn.prepareStatement(sqlUpdate);
-
-            stmt3.setString(1, postalCode);
-            stmt3.setInt(2, loggedUser.getUserId());
-
-            String selectSQL = "SELECT LAST_INSERT_ID() FROM address";
-            Statement s = conn.createStatement();
-            ResultSet rs = s.executeQuery(selectSQL);
-            rs.next();
-            int addressId = rs.getInt(1);
-
-            String addCustomerSQL = String.join(" ",
-                    "UPDATE customer," +
-                            "SET customerName=?, addressId=?, active=?, createDate=?, createdBy=?, " + "lastUpdate=?, lastUpdateBy=?",
-                    "WHERE customerId=?)");
-
-            PreparedStatement stmt2 = conn.prepareStatement(addCustomerSQL);
-            //stmt.setInt(1, customerId);
-            stmt2.setString(1, customerName);
-            stmt2.setInt(2, addressId);
-            stmt2.setString(3, loggedUser.getUserName());
-            stmt2.setString(4, loggedUser.getUserName());
-            stmt2.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

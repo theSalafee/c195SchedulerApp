@@ -16,6 +16,7 @@ import models.Customer;
 import models.User;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -56,12 +57,14 @@ public class AddAppointments implements Initializable {
     Stage stage;
     Parent scene;
     static boolean isNewAppointment;
+    private int appointmentId = 0;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         isNewAppointment = AppointmentController.isNewAppointment;
         AppointmentStartField.getItems().addAll("08:00", "08:15", "08:30", "08:45", "09:00", "09:15",
-                "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
+                "09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
                 "12:00", "12:15", "12:30", "12:45", "13:00", "13:15", "13:30", "13:45", "14:00", "14:15",
                 "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45");
         AppointmentEndField.getItems().addAll( "08:15", "08:30", "08:45", "09:00", "09:15",
@@ -75,9 +78,10 @@ public class AddAppointments implements Initializable {
 
         if(!isNewAppointment){
             Appointment selectedAppointment = AppointmentController.getSelectedAppointment();
+            appointmentId = selectedAppointment.getAppointmentId();
             customerName.setValue(selectedAppointment.getCustomer());
-            AppointmentStartField.setValue(selectedAppointment.getStart().toString());
-            AppointmentEndField.setValue(String.valueOf(selectedAppointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"))));
+            AppointmentStartField.setValue(selectedAppointment.getStart().toLocalTime().toString());
+            AppointmentEndField.setValue(selectedAppointment.getEnd().toLocalTime().toString());
             cboType.setValue(selectedAppointment.getType());
             locationField.setValue("Main Campus");
             AppointmentDateField.setValue(selectedAppointment.getStart().toLocalDate());
@@ -113,13 +117,23 @@ public class AddAppointments implements Initializable {
             LocalTime ltStart = LocalTime.parse(start, dtf);
             ZonedDateTime zdtStart = ZonedDateTime.of(date, ltStart, ZoneId.systemDefault());
             ZonedDateTime utcStart = zdtStart.withZoneSameInstant(ZoneId.of("UTC"));
-            Timestamp tsStart = Timestamp.valueOf(utcStart.toLocalDateTime());
+            Timestamp pStart = Timestamp.valueOf(utcStart.toLocalDateTime());
 
             String end = AppointmentEndField.getValue();
             LocalTime ltEnd = LocalTime.parse(end, dtf);
             ZonedDateTime zdtEnd = ZonedDateTime.of(date, ltEnd, ZoneId.systemDefault());
             ZonedDateTime utcEnd = zdtEnd.withZoneSameInstant(ZoneId.of("UTC"));
-            Timestamp tsEnd = Timestamp.valueOf(utcEnd.toLocalDateTime());
+            Timestamp pEnd = Timestamp.valueOf(utcEnd.toLocalDateTime());
+
+
+            if(AppointmentDB.checkOverlap(pStart, pEnd, userId, appointmentId )){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("WGU Scheduling App");
+                alert.setHeaderText("Add Appointment");
+                alert.setContentText("Overlapping Appointments?");
+                alert.showAndWait();
+                return;
+            }
 
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -127,15 +141,19 @@ public class AddAppointments implements Initializable {
             alert.setHeaderText("Add Appointment");
             alert.setContentText("Are you sure you want to add/modify this Appointment?");
             alert.showAndWait();
-            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
 
-            AppointmentDB.addAppointment(customerId, userId, type, utcStart, utcEnd);
+            if(isNewAppointment){
+                AppointmentDB.addAppointment(customerId, userId, type, utcStart, utcEnd);
+            }else {
+                AppointmentDB.updateAppointment(appointmentId, customerId, userId, type, utcStart, utcEnd);
+            }
 
             try {
                 scene = FXMLLoader.load(getClass().getResource("/viewAndController/appointments.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(scene));
             stage.show();
 
