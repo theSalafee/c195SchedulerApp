@@ -1,9 +1,6 @@
 package viewAndController;
 
-import com.sun.istack.internal.NotNull;
 import database.AppointmentDB;
-import database.CustomerDB;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -26,16 +23,9 @@ import models.Customer;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-
-import static database.DbConnection.conn;
-
 
 public class AppointmentController implements Initializable {
     public Button backBtn;
@@ -62,7 +52,6 @@ public class AppointmentController implements Initializable {
     Parent scene;
     ObservableList<Appointment> apptList = FXCollections.observableArrayList();
 
-
     public void setAppointmentsList() {
         appointmentsTable.setItems(AppointmentDB.getAllAppointments());
 
@@ -86,7 +75,6 @@ public class AppointmentController implements Initializable {
         type.setCellValueFactory(cellData -> {
             return new ReadOnlyStringWrapper(cellData.getValue().getType());
         });
-
 
         apptList = AppointmentDB.getAllAppointments();
         appointmentsTable.getItems().addAll(apptList);
@@ -116,11 +104,9 @@ public class AppointmentController implements Initializable {
         return selectedAppointment;
     }
 
-
     public static boolean isIsNewAppointment() {
         return isNewAppointment;
     }
-
 
     public void modifyHandler(ActionEvent actionEvent) {
         isNewAppointment = false;
@@ -174,9 +160,7 @@ public class AppointmentController implements Initializable {
         }
         stage.setScene(new Scene(scene));
         stage.show();
-
     }
-
 
     public void handleWeekly(ActionEvent actionEvent) {
         LocalDateTime now = LocalDateTime.now();

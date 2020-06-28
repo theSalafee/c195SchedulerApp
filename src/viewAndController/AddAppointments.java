@@ -1,4 +1,5 @@
 package viewAndController;
+
 import Exceptions.AppointmentException;
 import database.AppointmentDB;
 import database.CustomerDB;
@@ -14,9 +15,9 @@ import javafx.stage.Stage;
 import models.Appointment;
 import models.Customer;
 import models.User;
+
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +35,7 @@ public class AddAppointments implements Initializable {
     private ComboBox<String> locationField;
 
     @FXML
-    private  ComboBox<String> cboType;
+    private ComboBox<String> cboType;
 
     @FXML
     private DatePicker AppointmentDateField;
@@ -54,6 +55,16 @@ public class AddAppointments implements Initializable {
     @FXML
     private ComboBox<Customer> customerName;
 
+    @FXML
+    private TextField addressOne;
+
+    @FXML
+    private TextField phone;
+
+    @FXML
+    private TextField postalCode;
+
+
     Stage stage;
     Parent scene;
     static boolean isNewAppointment;
@@ -67,7 +78,7 @@ public class AddAppointments implements Initializable {
                 "09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
                 "12:00", "12:15", "12:30", "12:45", "13:00", "13:15", "13:30", "13:45", "14:00", "14:15",
                 "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45");
-        AppointmentEndField.getItems().addAll( "08:15", "08:30", "08:45", "09:00", "09:15",
+        AppointmentEndField.getItems().addAll("08:15", "08:30", "08:45", "09:00", "09:15",
                 "09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
                 "12:00", "12:15", "12:30", "12:45", "13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30",
                 "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45", "17:00");
@@ -76,7 +87,7 @@ public class AddAppointments implements Initializable {
         customerName.getItems().addAll(CustomerDB.getActiveCustomers());
         locationField.getItems().addAll("Main Campus", "Valley Campus", "University District");
 
-        if(!isNewAppointment){
+        if (!isNewAppointment) {
             Appointment selectedAppointment = AppointmentController.getSelectedAppointment();
             appointmentId = selectedAppointment.getAppointmentId();
             customerName.setValue(selectedAppointment.getCustomer());
@@ -90,13 +101,15 @@ public class AddAppointments implements Initializable {
     }
 
     public void saveHandler(ActionEvent actionEvent) throws AppointmentException {
-        if(customerName.getSelectionModel().getSelectedItem() == null ||
+        if (customerName.getSelectionModel().getSelectedItem() == null ||
+//                addressOne.getSelectionModel().getSelectedItem() == null ||
+//                phone.getSelectionModel().getSelectedItem() == null ||
+//                postalCode.getSelectionModel().getSelectedItem() == null ||
                 contactField.getSelectionModel().getSelectedItem() == null ||
                 cboType.getSelectionModel().getSelectedItem() == null ||
                 locationField.getSelectionModel().getSelectedItem() == null ||
                 AppointmentStartField.getSelectionModel().getSelectedItem().isEmpty() ||
-                AppointmentEndField.getSelectionModel().getSelectedItem().isEmpty())
-        {
+                AppointmentEndField.getSelectionModel().getSelectedItem().isEmpty()) {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
@@ -106,7 +119,7 @@ public class AddAppointments implements Initializable {
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             throw new AppointmentException("Null Exception Error");
 
-        }else{
+        } else {
             int customerId = customerName.getSelectionModel().getSelectedItem().getCustomerId();
             int userId = contactField.getSelectionModel().getSelectedItem().getUserId();
             String type = cboType.getSelectionModel().getSelectedItem();
@@ -125,8 +138,7 @@ public class AddAppointments implements Initializable {
             ZonedDateTime utcEnd = zdtEnd.withZoneSameInstant(ZoneId.of("UTC"));
             Timestamp pEnd = Timestamp.valueOf(utcEnd.toLocalDateTime());
 
-
-            if(AppointmentDB.checkOverlap(pStart, pEnd, userId, appointmentId )){
+            if (AppointmentDB.isOverlap(pStart, pEnd, userId, appointmentId)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("WGU Scheduling App");
                 alert.setHeaderText("Add Appointment");
@@ -135,16 +147,15 @@ public class AddAppointments implements Initializable {
                 return;
             }
 
-
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("WGU Scheduling App");
             alert.setHeaderText("Add Appointment");
             alert.setContentText("Are you sure you want to add/modify this Appointment?");
             alert.showAndWait();
 
-            if(isNewAppointment){
+            if (isNewAppointment) {
                 AppointmentDB.addAppointment(customerId, userId, type, utcStart, utcEnd);
-            }else {
+            } else {
                 AppointmentDB.updateAppointment(appointmentId, customerId, userId, type, utcStart, utcEnd);
             }
 

@@ -1,6 +1,5 @@
 package viewAndController;
 
-import database.AppointmentDB;
 import database.CustomerDB;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
@@ -43,7 +42,6 @@ public class CustomerController implements Initializable {
     public TableColumn<Customer, String> customerName;
     @FXML
     public TableColumn<Customer, String> customerAddress1;
-
     @FXML
     public TableColumn<Customer, String> customerCity;
     @FXML
@@ -130,7 +128,6 @@ public class CustomerController implements Initializable {
         CustomerDB.deleteCustomer(selectedCustomer);
 
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         try {
             scene = FXMLLoader.load(getClass().getResource("/viewAndController/customer.fxml"));
         } catch (IOException e) {

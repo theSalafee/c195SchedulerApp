@@ -32,7 +32,6 @@ public class CustomerDB {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                //Customer activeCustomer = new Customer();
                 int customerId = rs.getInt("customerId");
                 String customerName = rs.getString("customerName");
                 int addressId = rs.getInt("address.addressId");
@@ -130,7 +129,6 @@ public class CustomerDB {
         return maxCustomerId + 1;
     }
 
-
     public static void addCustomer(String address, int cityId, String postalCode, String phone, String customerName) {
         try {
             String addAddressSQL = String.join(" ",
@@ -169,7 +167,6 @@ public class CustomerDB {
             e.printStackTrace();
         }
     }
-
 
     public static void updateCustomer(int customerId, int addressId, String address, int cityId, String postalCode, String phone, String customerName) {
         try {

@@ -37,6 +37,7 @@ public class AddCustomers implements Initializable {
     Parent scene;
     static boolean isNewCustomer;
     private Customer selectedCustomer = null;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -59,7 +60,7 @@ public class AddCustomers implements Initializable {
     public void saveHandler(ActionEvent actionEvent) throws IOException {
 
         String customerNameText = customerName.getText();
-        if(customerNameText.isEmpty()){
+        if (customerNameText.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
             alert.setHeaderText("Add Customer");
@@ -68,7 +69,7 @@ public class AddCustomers implements Initializable {
             return;
         }
         String address = addressOne.getText();
-        if(city.getSelectionModel().getSelectedItem() == null){
+        if (city.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
             alert.setHeaderText("Add Customer");
@@ -93,7 +94,6 @@ public class AddCustomers implements Initializable {
                     customerNameText);
         }
 
-
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/viewAndController/customer.fxml"));
@@ -117,7 +117,6 @@ public class AddCustomers implements Initializable {
         stage.show();
 
     }
-
 
     public void handleCountry(ActionEvent actionEvent) {
         city.getItems().clear();

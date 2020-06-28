@@ -359,24 +359,44 @@ public class AppointmentDB {
 
             try {
                 PreparedStatement stmt = conn.prepareStatement(deleteAppointmentSQL);
-                stmt.setObject(1, appointment.getAppointmentId());
+                stmt.setInt(1, appointment.getAppointmentId());
                 stmt.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
-        public static boolean checkOverlap(Timestamp pStart, Timestamp pEnd, int userId, int appointmentId){
+        public static boolean isOverlap(Timestamp pStart, Timestamp pEnd, int userId, int appointmentId){
 
-//            String overlapSQL = "Select * from appointment WHERE (start >= pStart AND start < pEnd) && (end > pStart AND end <= pEnd) && (start <= pStart" +
-//                    " AND" +
-//                    " end >= pEnd)  && userId = ? && appointmentId <> ?";
+            String overlapSQL = "Select * from appointment WHERE (start >= ? AND start < ?) OR (end > ? AND end <= ?) OR " +
+                    "(start <= ?) AND (end >= ?) AND  userId = ? AND appointmentId <> ?";
 
-            String overlapSQL = "Select * from appointment WHERE (start >= pStart AND start < pEnd) && (end > pStart AND end <= pEnd) && (start <= pStart" +
-                    " AND" +
-                    " end >= pEnd)  && userId = ? && appointmentId <> ?";
+            PreparedStatement stmt = null;
+            try {
+                stmt = conn.prepareStatement(overlapSQL);
+                stmt.setTimestamp(1, pStart);
+                stmt.setTimestamp(2, pEnd);
+                stmt.setTimestamp(3, pStart);
+                stmt.setTimestamp(4, pEnd);
+                stmt.setTimestamp(5, pStart);
+                stmt.setTimestamp(6, pEnd);
+                stmt.setInt(7, userId);
+                stmt.setInt(8, appointmentId);
+                ResultSet rs = stmt.executeQuery();
 
-            // Todo
+                if(rs.next()){
+                    return true;
+                }else {
+                    return false;
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+
+
+
+
 
 
 

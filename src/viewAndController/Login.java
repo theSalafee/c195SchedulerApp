@@ -70,7 +70,6 @@ public class Login implements Initializable {
                     loggedUser.setUserId(u.getUserId());
                     break;
                 }
-
             }
             if (correctLogin) {
                 userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
@@ -94,12 +93,7 @@ public class Login implements Initializable {
                     apptAlert.showAndWait();
                     if (apptAlert.getResult() == ButtonType.OK) {
                         userLog.log(Level.INFO, "User: {0} logged in.", loggedUser.getUserName());
-                        //Stage loginStage = (Stage) loginBtn.getScene().getWindow();
                         loginStage.close();
-                        //FXMLLoader apptCalLoader = new FXMLLoader(AppointmentController.class.getResource("appointments.fxml"));
-//                        Parent apptCalScreen = apptCalLoader.load();
-//                        Scene apptCalScene = new Scene(apptCalScreen);
-//                        Stage apptCalStage = new Stage();
                         apptCalStage.setTitle("Appointment Calendar");
                         apptCalStage.setScene(apptCalScene);
                         apptCalStage.show();
@@ -107,38 +101,30 @@ public class Login implements Initializable {
                         apptAlert.close();
                     }
                 }
-            }else{
+            } else {
                 this.errorText.setText(this.rb.getString("lblErrorAlert") + ".");
                 this.errorText.setTextFill(Paint.valueOf("RED"));
                 userLog.log(Level.WARNING, "Invalid credentials entered! User: {0}", loggedUser.getUserName());
             }
 
             ObservableList<Appointment> apps = FXCollections.observableArrayList();
-
             Appointment upcomingAppt = null;
-            if(!apps.isEmpty()){
-                 upcomingAppt = AppointmentDB.getUpcomingAppt().get(0);
+            if (!apps.isEmpty()) {
+                upcomingAppt = AppointmentDB.getUpcomingAppt().get(0);
             }
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.userLocale = Locale.getDefault();
-
         this.rb = ResourceBundle.getBundle("LocaleLanguageFiles/rb", this.userLocale);
         this.lblUsername.setText(this.rb.getString("userName") + ":");
         this.lblPassword.setText(this.rb.getString("password") + ":");
         this.userName.setPromptText(this.rb.getString("usernamePrompt"));
         this.password.setPromptText(this.rb.getString("passwordPrompt"));
         this.loginBtn.setText(this.rb.getString("btnLoginText"));
-        //this.btnExit.setText(this.rb.getString("btnExitText"));
-
     }
 }

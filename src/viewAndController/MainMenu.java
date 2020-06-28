@@ -36,8 +36,6 @@ public class MainMenu {
 
     }
 
-
-
     public void appointmentBtnHandler(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/viewAndController/appointments.fxml"));
