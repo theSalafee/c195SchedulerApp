@@ -101,10 +101,20 @@ public class AddAppointments implements Initializable {
     }
 
     public void saveHandler(ActionEvent actionEvent) throws AppointmentException {
+        String phoneValue = phone.getText();
+        boolean isDigit = true;
+        for(int i = 0; i < phoneValue.length(); i++){
+            if(!Character.isDigit(phoneValue.indexOf(i))){
+                isDigit = false;
+                break;
+            }
+
+        }
+
         if (customerName.getSelectionModel().getSelectedItem() == null ||
-//                addressOne.getSelectionModel().getSelectedItem() == null ||
-//                phone.getSelectionModel().getSelectedItem() == null ||
-//                postalCode.getSelectionModel().getSelectedItem() == null ||
+                addressOne.getText().isEmpty() ||
+                phone.getText().isEmpty() ||
+                postalCode.getText().isEmpty() ||
                 contactField.getSelectionModel().getSelectedItem() == null ||
                 cboType.getSelectionModel().getSelectedItem() == null ||
                 locationField.getSelectionModel().getSelectedItem() == null ||
@@ -119,7 +129,16 @@ public class AddAppointments implements Initializable {
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             throw new AppointmentException("Null Exception Error");
 
-        } else {
+        }else if(!isDigit){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Add Appointment Exception");
+            alert.setContentText("Phone number must be digits.");
+            alert.showAndWait();
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            throw new AppointmentException("Null Exception Error");
+
+        }else {
             int customerId = customerName.getSelectionModel().getSelectedItem().getCustomerId();
             int userId = contactField.getSelectionModel().getSelectedItem().getUserId();
             String type = cboType.getSelectionModel().getSelectedItem();
