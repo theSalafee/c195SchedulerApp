@@ -1,10 +1,6 @@
 package models;
 
 import Exceptions.CustomerException;
-import javafx.beans.property.*;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class Customer {
     public Customer(int customerId, String customerName, int addressId, String phone, String postalCode, City city, String address, Country customerCountry, int active) {
@@ -41,8 +37,6 @@ public class Customer {
     }
 
     private int active;
-
-
 
     public int getCustomerId() {
         return customerId;

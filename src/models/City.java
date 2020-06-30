@@ -1,8 +1,5 @@
 package models;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 public class City {
     public City(int cityId, String city, int countryId) {
         this.cityId = cityId;
