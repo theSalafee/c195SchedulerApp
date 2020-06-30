@@ -54,11 +54,15 @@ public class AppointmentController implements Initializable {
 
     public void setAppointmentsList() {
         appointmentsTable.setItems(AppointmentDB.getAllAppointments());
-
     }
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //                 ****************************************************************************************************                     //
+        //                 ****** Multiple lambdas to efficiently set the values of the appointment table view columns. *******                     //
+        //                 ****************************************************************************************************                    //
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         customerName.setCellValueFactory(cellData -> {
             return new ReadOnlyStringWrapper(cellData.getValue().getCustomer().getCustomerName());
         });
