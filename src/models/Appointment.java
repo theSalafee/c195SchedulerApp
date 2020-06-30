@@ -2,31 +2,12 @@ package models;
 
 import Exceptions.AppointmentException;
 import database.AppointmentDB;
-import database.DbConnection;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-
-import static database.DbConnection.conn;
 
 public class Appointment {
 
@@ -40,7 +21,6 @@ public class Appointment {
     Stage stage;
     Parent scene;
 
-
     public Appointment(int appointmentId, int customerId, int userId, String type, ZonedDateTime start, ZonedDateTime end, Customer customer) {
         this.appointmentId = appointmentId;
         this.customerId = customerId;
@@ -50,7 +30,6 @@ public class Appointment {
         this.end = end;
         this.customer = customer;
     }
-
 
     public int getAppointmentId() {
         return appointmentId;
@@ -153,6 +132,4 @@ public class Appointment {
         }
         return true;
     }
-
-
 }
