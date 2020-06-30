@@ -20,3 +20,5 @@ This project required a MySQL connector. I used mysql-connector-java-5.1.41 from
   
   dbpassword=PASSWORD
   
+  ![Screen Shot 2020-06-29 at 9 35 04 PM](https://user-images.githubusercontent.com/33667015/86084192-0fe4ed80-ba51-11ea-97ed-418410743a63.png)
+  
