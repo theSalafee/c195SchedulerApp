@@ -1,30 +1,21 @@
 package database;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Alert;
 import models.Appointment;
-import models.City;
-import models.Country;
 import models.Customer;
-import viewAndController.Login;
 
-import static viewAndController.Login.loggedUser;
-
-import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import static database.DbConnection.conn;
 
-/**
- * This class contains the data access objects (DAOs)
- * for the appointment table in the MySQL database.
- */
+import static database.DbConnection.conn;
+import static viewAndController.Login.loggedUser;
+
 public class AppointmentDB {
     private static final ZoneId zId = ZoneId.systemDefault();
 
@@ -54,12 +45,12 @@ public class AppointmentDB {
 
                 apptsByWeek.add(activeCustomer);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return apptsByWeek;
     }
+
     public static ObservableList<Appointment> filterappointments() {
         ObservableList<Appointment> apptsByMonth = FXCollections.observableArrayList();
         String getApptsByMonthSQL = "SELECT customer.*, appointment.* FROM customer "
@@ -86,13 +77,11 @@ public class AppointmentDB {
 
                 apptsByMonth.add(activeCustomer);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return apptsByMonth;
     }
-
 
     public static ObservableList<Appointment> getApptsByUser() {
         ObservableList<Appointment> apptsByUser = FXCollections.observableArrayList();
@@ -120,8 +109,7 @@ public class AppointmentDB {
 
                 apptsByUser.add(activeCustomer);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return apptsByUser;
@@ -138,7 +126,7 @@ public class AppointmentDB {
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 int customerId = rs.getInt("customer.customerId");
                 int appointmentId = rs.getInt("appointmentId");
                 int userId = rs.getInt("userId");
@@ -193,7 +181,7 @@ public class AppointmentDB {
 //        return getApptById;
 //    }
 
-    public static ObservableList<Appointment> getUpcomingAppt() {
+    public static ObservableList<Appointment> getUpcomingAppt() throws SQLException {
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime nowPlus7 = now.plusDays(7);
@@ -206,63 +194,23 @@ public class AppointmentDB {
         });
         ObservableList<Appointment> getUpcoming = FXCollections.observableArrayList();
         getUpcoming.addAll(filteredData);
+
+        String sqlONe;
+        sqlONe = "SELECT customer.customerName, appointment.* FROM appointment JOIN customer " +
+                "ON appointment.customerId = customer.customerId WHERE (start BETWEEN NOW() AND ADDTIME(NOW(), '00:15:00'))";
+        Statement selectSqL;
+        selectSqL = conn.createStatement();
+        ResultSet rs = selectSqL.executeQuery(sqlONe);
+
+        if (rs.next()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Add Appointment Exception");
+            alert.setContentText("You have an appointment in 15 minutes.");
+            alert.showAndWait();
+        }
         return getUpcoming;
     }
-//        String getUpcomingApptSQL = "SELECT customer.customerName, appointment.* FROM appointment "
-//                + "JOIN customer ON appointment.customerId = customer.customerId "
-//                + "WHERE (start BETWEEN NOW() AND ADDTIME(NOW(), '00:15:00'))";
-//
-//        Statement s;
-//    {
-//        try {
-//            s = DbConnection.conn.createStatement();
-//            ResultSet rs = s.executeQuery(getUpcomingApptSQL);
-//
-//            if (rs.next()) {
-////                int count = rs.getInt(1);
-////                reportText.setText("The number of total customers is : " + Integer.valueOf(count).toString());
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setTitle("WGU Scheduling App");
-//                alert.setHeaderText("Add Appointment Exception");
-//                alert.setContentText("You have an appointment in 15 minutes.");
-//                alert.showAndWait();
-//            }
-//
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//    }
-
-//        ObservableList<Appointment> upcomingAppointments = FXCollections.observableArrayList();
-//        try {
-//            PreparedStatement stmt = conn.prepareStatement(getUpcomingApptSQL);
-//            ZonedDateTime localZT = ZonedDateTime.now(zId);
-//            ZonedDateTime zdtUTC = localZT.withZoneSameInstant(ZoneId.of("UTC"));
-//            LocalDateTime localUTC = zdtUTC.toLocalDateTime();
-//            stmt.setTimestamp(1, Timestamp.valueOf(localUTC));
-//            ResultSet rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-////                Customer cust = new Customer();
-////                cust.setCustomerName(rs.getString("customerName"));
-////                upcomingAppt.setCustomer(cust);
-//                upcomingAppt.setAppointmentId(rs.getInt("appointmentId"));
-//                upcomingAppt.setCustomerId(rs.getInt("customerId"));
-//                upcomingAppt.setUserId(rs.getInt("userId"));
-//                upcomingAppt.setTitle(rs.getString("title"));
-//                LocalDateTime startUTC = rs.getTimestamp("start").toLocalDateTime();
-//                ZonedDateTime startZDT = ZonedDateTime.ofInstant(startUTC.toInstant(ZoneOffset.UTC), zId);
-//
-//
-//                upcomingAppt.setStart(startZDT);
-//                upcomingAppointments.add(upcomingAppt);
-//            }
-//        }
-//        catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return upcomingAppointments;
-//    }
 
     public static ObservableList<Appointment> getOverlappingAppts(LocalDateTime start, LocalDateTime end) {
 //        ObservableList<Appointment> getOverlappedAppts = FXCollections.observableArrayList();
@@ -348,12 +296,12 @@ public class AppointmentDB {
             stmt.setString(6, loggedUser.getUserName());
             stmt.setString(7, loggedUser.getUserName());
             stmt.executeUpdate();
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-//    public static void updateAppointment(int appointmentId,int customerId, int userId, String type, ZonedDateTime utcStart, ZonedDateTime utcEnd ) {
+
+    //    public static void updateAppointment(int appointmentId,int customerId, int userId, String type, ZonedDateTime utcStart, ZonedDateTime utcEnd ) {
 //        String updateApptSQL = String.join(" ",
 //                "UPDATE appointment",
 //                "SET customerId=?, userId=?, " +
@@ -376,52 +324,44 @@ public class AppointmentDB {
 //            e.printStackTrace();
 //        }
 //    }
-        public static void deleteAppointment (Appointment appointment){
-            String deleteAppointmentSQL = "DELETE FROM appointment WHERE appointmentId = ?";
+    public static void deleteAppointment(Appointment appointment) {
+        String deleteAppointmentSQL = "DELETE FROM appointment WHERE appointmentId = ?";
 
-            try {
-                PreparedStatement stmt = conn.prepareStatement(deleteAppointmentSQL);
-                stmt.setInt(1, appointment.getAppointmentId());
-                stmt.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try {
+            PreparedStatement stmt = conn.prepareStatement(deleteAppointmentSQL);
+            stmt.setInt(1, appointment.getAppointmentId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
 
-        public static boolean isOverlap(Timestamp pStart, Timestamp pEnd, int userId, int appointmentId){
+    public static boolean isOverlap(Timestamp pStart, Timestamp pEnd, int userId, int appointmentId) {
 
-            String overlapSQL = "Select * from appointment WHERE (start >= ? AND start < ?) OR (end > ? AND end <= ?) OR " +
-                    "(start <= ?) AND (end >= ?) AND  userId = ? AND appointmentId <> ?";
+        String overlapSQL = "Select * from appointment WHERE (start >= ? AND start < ?) OR (end > ? AND end <= ?) OR " +
+                "(start <= ?) AND (end >= ?) AND  userId = ? AND appointmentId <> ?";
 
-            PreparedStatement stmt = null;
-            try {
-                stmt = conn.prepareStatement(overlapSQL);
-                stmt.setTimestamp(1, pStart);
-                stmt.setTimestamp(2, pEnd);
-                stmt.setTimestamp(3, pStart);
-                stmt.setTimestamp(4, pEnd);
-                stmt.setTimestamp(5, pStart);
-                stmt.setTimestamp(6, pEnd);
-                stmt.setInt(7, userId);
-                stmt.setInt(8, appointmentId);
-                ResultSet rs = stmt.executeQuery();
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement(overlapSQL);
+            stmt.setTimestamp(1, pStart);
+            stmt.setTimestamp(2, pEnd);
+            stmt.setTimestamp(3, pStart);
+            stmt.setTimestamp(4, pEnd);
+            stmt.setTimestamp(5, pStart);
+            stmt.setTimestamp(6, pEnd);
+            stmt.setInt(7, userId);
+            stmt.setInt(8, appointmentId);
+            ResultSet rs = stmt.executeQuery();
 
-                if(rs.next()){
-                    return true;
-                }else {
-                    return false;
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
             }
-
-
-
-
-
-
-
-
-            return false;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+        return false;
+    }
 }

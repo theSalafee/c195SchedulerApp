@@ -9,10 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import models.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -32,9 +32,11 @@ public class MainMenu implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        AppointmentDB.getUpcomingAppt();
-
-
+        try {
+            AppointmentDB.getUpcomingAppt();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public void customerBtnHandler(ActionEvent event) throws IOException {
@@ -45,7 +47,6 @@ public class MainMenu implements Initializable {
         Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.show();
-
     }
 
     public void appointmentBtnHandler(ActionEvent event) throws IOException {
