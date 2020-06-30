@@ -55,27 +55,15 @@ public class AddAppointments implements Initializable {
     @FXML
     private ComboBox<Customer> customerName;
 
-    @FXML
-    private TextField addressOne;
-
-    @FXML
-    private TextField phone;
-
-    @FXML
-    private TextField postalCode;
-
-
     Stage stage;
     Parent scene;
     static boolean isNewAppointment;
-    private int appointmentId = 0;
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         isNewAppointment = AppointmentController.isNewAppointment;
         AppointmentStartField.getItems().addAll("08:00", "08:15", "08:30", "08:45", "09:00", "09:15",
-                "09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
+                "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45",
                 "12:00", "12:15", "12:30", "12:45", "13:00", "13:15", "13:30", "13:45", "14:00", "14:15",
                 "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00", "16:15", "16:30", "16:45");
         AppointmentEndField.getItems().addAll("08:15", "08:30", "08:45", "09:00", "09:15",
@@ -89,10 +77,9 @@ public class AddAppointments implements Initializable {
 
         if (!isNewAppointment) {
             Appointment selectedAppointment = AppointmentController.getSelectedAppointment();
-            appointmentId = selectedAppointment.getAppointmentId();
             customerName.setValue(selectedAppointment.getCustomer());
-            AppointmentStartField.setValue(selectedAppointment.getStart().toLocalTime().toString());
-            AppointmentEndField.setValue(selectedAppointment.getEnd().toLocalTime().toString());
+            AppointmentStartField.setValue(selectedAppointment.getStart().toString());
+            AppointmentEndField.setValue(String.valueOf(selectedAppointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"))));
             cboType.setValue(selectedAppointment.getType());
             locationField.setValue("Main Campus");
             AppointmentDateField.setValue(selectedAppointment.getStart().toLocalDate());
@@ -101,25 +88,13 @@ public class AddAppointments implements Initializable {
     }
 
     public void saveHandler(ActionEvent actionEvent) throws AppointmentException {
-        String phoneValue = phone.getText();
-        boolean isDigit = true;
-        for(int i = 0; i < phoneValue.length(); i++){
-            if(!Character.isDigit(phoneValue.indexOf(i))){
-                isDigit = false;
-                break;
-            }
-
-        }
-
         if (customerName.getSelectionModel().getSelectedItem() == null ||
-                addressOne.getText().isEmpty() ||
-                phone.getText().isEmpty() ||
-                postalCode.getText().isEmpty() ||
                 contactField.getSelectionModel().getSelectedItem() == null ||
                 cboType.getSelectionModel().getSelectedItem() == null ||
                 locationField.getSelectionModel().getSelectedItem() == null ||
                 AppointmentStartField.getSelectionModel().getSelectedItem().isEmpty() ||
-                AppointmentEndField.getSelectionModel().getSelectedItem().isEmpty()) {
+                AppointmentEndField.getSelectionModel().getSelectedItem().isEmpty() ||
+                AppointmentDateField.getValue() == null) {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
@@ -127,18 +102,9 @@ public class AddAppointments implements Initializable {
             alert.setContentText("Null Field, please fill in all of the fields");
             alert.showAndWait();
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            throw new AppointmentException("Null Exception Error");
+            //throw new AppointmentException("Null Exception Error");
 
-        }else if(!isDigit){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("WGU Scheduling App");
-            alert.setHeaderText("Add Appointment Exception");
-            alert.setContentText("Phone number must be digits.");
-            alert.showAndWait();
-            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            throw new AppointmentException("Null Exception Error");
-
-        }else {
+        } else {
             int customerId = customerName.getSelectionModel().getSelectedItem().getCustomerId();
             int userId = contactField.getSelectionModel().getSelectedItem().getUserId();
             String type = cboType.getSelectionModel().getSelectedItem();
@@ -149,46 +115,31 @@ public class AddAppointments implements Initializable {
             LocalTime ltStart = LocalTime.parse(start, dtf);
             ZonedDateTime zdtStart = ZonedDateTime.of(date, ltStart, ZoneId.systemDefault());
             ZonedDateTime utcStart = zdtStart.withZoneSameInstant(ZoneId.of("UTC"));
-            Timestamp pStart = Timestamp.valueOf(utcStart.toLocalDateTime());
+            Timestamp tsStart = Timestamp.valueOf(utcStart.toLocalDateTime());
 
             String end = AppointmentEndField.getValue();
             LocalTime ltEnd = LocalTime.parse(end, dtf);
             ZonedDateTime zdtEnd = ZonedDateTime.of(date, ltEnd, ZoneId.systemDefault());
             ZonedDateTime utcEnd = zdtEnd.withZoneSameInstant(ZoneId.of("UTC"));
-            Timestamp pEnd = Timestamp.valueOf(utcEnd.toLocalDateTime());
-
-            if (AppointmentDB.isOverlap(pStart, pEnd, userId, appointmentId)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("WGU Scheduling App");
-                alert.setHeaderText("Add Appointment");
-                alert.setContentText("Overlapping Appointments?");
-                alert.showAndWait();
-                return;
-            }
+            Timestamp tsEnd = Timestamp.valueOf(utcEnd.toLocalDateTime());
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("WGU Scheduling App");
             alert.setHeaderText("Add Appointment");
             alert.setContentText("Are you sure you want to add/modify this Appointment?");
             alert.showAndWait();
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
 
-            if (isNewAppointment) {
-                AppointmentDB.addAppointment(customerId, userId, type, utcStart, utcEnd);
-            } else {
-                AppointmentDB.updateAppointment(appointmentId, customerId, userId, type, utcStart, utcEnd);
-            }
+            AppointmentDB.addAppointment(customerId, userId, type, utcStart, utcEnd);
 
             try {
                 scene = FXMLLoader.load(getClass().getResource("/viewAndController/appointments.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(scene));
             stage.show();
-
         }
-
     }
 
     public void cancelHandler(ActionEvent actionEvent) throws IOException {

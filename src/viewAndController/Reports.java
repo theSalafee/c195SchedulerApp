@@ -95,7 +95,7 @@ public class Reports implements Initializable {
             ResultSet rs = s.executeQuery(totalCustomers);
             if (rs.next()) {
                 int count = rs.getInt(1);
-                reportText.setText(Integer.valueOf(count).toString());
+                reportText.setText("The number of total customers is : " + Integer.valueOf(count).toString());
             }
 
         } catch (SQLException throwables) {

@@ -4,6 +4,7 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.control.Alert;
 import models.Appointment;
 import models.City;
 import models.Country;
@@ -211,6 +212,27 @@ public class AppointmentDB {
 //                + "JOIN customer ON appointment.customerId = customer.customerId "
 //                + "WHERE (start BETWEEN NOW() AND ADDTIME(NOW(), '00:15:00'))";
 //
+//        Statement s;
+//    {
+//        try {
+//            s = DbConnection.conn.createStatement();
+//            ResultSet rs = s.executeQuery(getUpcomingApptSQL);
+//
+//            if (rs.next()) {
+////                int count = rs.getInt(1);
+////                reportText.setText("The number of total customers is : " + Integer.valueOf(count).toString());
+//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setTitle("WGU Scheduling App");
+//                alert.setHeaderText("Add Appointment Exception");
+//                alert.setContentText("You have an appointment in 15 minutes.");
+//                alert.showAndWait();
+//            }
+//
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//    }
+
 //        ObservableList<Appointment> upcomingAppointments = FXCollections.observableArrayList();
 //        try {
 //            PreparedStatement stmt = conn.prepareStatement(getUpcomingApptSQL);
@@ -331,29 +353,29 @@ public class AppointmentDB {
             e.printStackTrace();
         }
     }
-    public static void updateAppointment(int appointmentId,int customerId, int userId, String type, ZonedDateTime utcStart, ZonedDateTime utcEnd ) {
-        String updateApptSQL = String.join(" ",
-                "UPDATE appointment",
-                "SET customerId=?, userId=?, " +
-                        "type=?, start=?, end=? ",
-                "WHERE appointmentId=?");
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(updateApptSQL);
-            stmt.setInt(1, customerId);
-            stmt.setInt(2, userId);
-            stmt.setString(3, type);
-
-            stmt.setTimestamp(4, Timestamp.valueOf(utcStart.toLocalDateTime()));
-            stmt.setTimestamp(5, Timestamp.valueOf(utcEnd.toLocalDateTime()));
-
-            stmt.setInt(6, appointmentId);
-            stmt.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void updateAppointment(int appointmentId,int customerId, int userId, String type, ZonedDateTime utcStart, ZonedDateTime utcEnd ) {
+//        String updateApptSQL = String.join(" ",
+//                "UPDATE appointment",
+//                "SET customerId=?, userId=?, " +
+//                        "type=?, start=?, end=? ",
+//                "WHERE appointmentId=?");
+//
+//        try {
+//            PreparedStatement stmt = conn.prepareStatement(updateApptSQL);
+//            stmt.setInt(1, customerId);
+//            stmt.setInt(2, userId);
+//            stmt.setString(3, type);
+//
+//            stmt.setTimestamp(4, Timestamp.valueOf(utcStart.toLocalDateTime()));
+//            stmt.setTimestamp(5, Timestamp.valueOf(utcEnd.toLocalDateTime()));
+//
+//            stmt.setInt(6, appointmentId);
+//            stmt.executeUpdate();
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
         public static void deleteAppointment (Appointment appointment){
             String deleteAppointmentSQL = "DELETE FROM appointment WHERE appointmentId = ?";
 

@@ -16,12 +16,7 @@ import java.sql.Statement;
 import static database.DbConnection.conn;
 
 public class CustomerDB {
-    /**
-     * This method creates an ObservableList and populates it with
-     * all currently active Customer records in the MySQL database.
-     *
-     * @return activeCustomers
-     */
+
     public static ObservableList<Customer> getActiveCustomers() {
         ObservableList<Customer> activeCustomers = FXCollections.observableArrayList();
         String getActiveCustomersSQL = "SELECT * FROM customer, address, city, country " +
@@ -80,12 +75,6 @@ public class CustomerDB {
         return allCusts;
     }
 
-    /**
-     * This method gets a Customer record from the MySQL database by customerId.
-     *
-     * @param customerId
-     * @return getCustomerQuery
-     */
     public static Customer getActiveCustomerById(int customerId) {
         String getCustomerByIdSQL = "SELECT * FROM customer, address, city, country " +
                 "WHERE customer.customerId = ? AND active=1 AND customer.addressId = address.addressId AND address.cityId = city.cityId and city.countryId = country.countryId";
@@ -97,7 +86,6 @@ public class CustomerDB {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-
                 String customerName = rs.getString("customerName");
                 int addressId = rs.getInt("addressId");
                 String phone = rs.getString("phone");
@@ -192,14 +180,20 @@ public class CustomerDB {
         }
     }
 
-    /**
-     * This method soft deletes an existing Customer from the MySQL database
-     * by setting the active property to 0.
-     *
-     * @param customer
-     */
     public static void deleteCustomer(Customer customer) {
-        String deleteCustomerSQL = "UPDATE customer SET active=0 WHERE customerId = ?";
+        String deleteAddressSQL = "DELETE FROM appointment WHERE customerId = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(deleteAddressSQL);
+            stmt.setInt(1, customer.getCustomerId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //String deleteCustomerSQL = "UPDATE customer SET active=0 WHERE customerId = ?";
+        String deleteCustomerSQL = "DELETE  FROM customer WHERE customerId = ?";
+        // String deleteCustomerSQL = "DELETE customer, appointment FROM customer INNER JOIN appointment ON customer.customerId = appointment.customerId
+        // WHERE customer.customerId = ?;"
 
         try {
             PreparedStatement stmt = conn.prepareStatement(deleteCustomerSQL);

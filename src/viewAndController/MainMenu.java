@@ -1,21 +1,26 @@
 package viewAndController;
 
+import database.AppointmentDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import models.Appointment;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
  *
  * @author Naasir Bush
  */
-public class MainMenu {
+public class MainMenu implements Initializable {
     Stage stage;
     Parent scene;
     public Button customersBtn;
@@ -24,6 +29,13 @@ public class MainMenu {
     public Label customersLabel;
     public Label appointmentsLabel;
     public Label reportLabel;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        AppointmentDB.getUpcomingAppt();
+
+
+    }
 
     public void customerBtnHandler(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();

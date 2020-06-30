@@ -1,10 +1,11 @@
 package viewAndController;
 
-import database.AppointmentDB;
+import Exceptions.CustomerException;
 import database.CityDB;
 import database.CountryDB;
 import database.CustomerDB;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -23,15 +24,24 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddCustomers implements Initializable {
-    public TextField addressTwo;
-    public Button saveBtn;
-    public Button cancelBtn;
-    public TextField customerName;
-    public TextField addressOne;
-    public ComboBox<City> city;
-    public ComboBox<Country> country;
-    public TextField phone;
-    public TextField postalCode;
+    @FXML
+    private TextField addressTwo;
+    @FXML
+    private Button saveBtn;
+    @FXML
+    private Button cancelBtn;
+    @FXML
+    private TextField customerName;
+    @FXML
+    private TextField addressOne;
+    @FXML
+    private ComboBox<City> city;
+    @FXML
+    private ComboBox<Country> country;
+    @FXML
+    private TextField phone;
+    @FXML
+    private TextField postalCode;
 
     Stage stage;
     Parent scene;
@@ -53,56 +63,71 @@ public class AddCustomers implements Initializable {
             city.getItems().clear();
             city.getItems().addAll(CityDB.getCitiesForCountry(selectedCustomer.getCustomerCountry().getCountryId()));
             city.setValue(selectedCustomer.getCity());
-
         }
     }
 
-    public void saveHandler(ActionEvent actionEvent) throws IOException {
+    @FXML
+    public void saveHandler(ActionEvent actionEvent) throws IOException, CustomerException {
+
+        String phoneValue = phone.getText();
+        boolean isDigit = true;
+        for (int i = 0; i < phoneValue.length(); i++) {
+            if (!Character.isDigit(phoneValue.charAt(i))) {
+                isDigit = false;
+                break;
+            }
+        }
 
         String customerNameText = customerName.getText();
-        if (customerNameText.isEmpty()) {
+
+        if (customerNameText.isEmpty() ||
+                addressOne.getText().isEmpty() ||
+                phone.getText().isEmpty() ||
+                postalCode.getText().isEmpty()) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
             alert.setHeaderText("Add Customer");
-            alert.setContentText("Error please enter customer name");
+            alert.setContentText("Please Fill In All Information.");
             alert.showAndWait();
-            return;
-        }
-        String address = addressOne.getText();
-        if (city.getSelectionModel().getSelectedItem() == null) {
+            //throw new CustomerException("Null Exception Error");
+
+        } else if (!isDigit) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("WGU Scheduling App");
-            alert.setHeaderText("Add Customer");
-            alert.setContentText("Error please select city");
+            alert.setHeaderText("Add Appointment Exception");
+            alert.setContentText("Phone number must be digits.");
             alert.showAndWait();
-            return;
-        }
-        int cityId = city.getSelectionModel().getSelectedItem().getCityId();
-        String phoneText = phone.getText();
-        String postalCodeText = postalCode.getText();
+            //throw new CustomerException("Null Exception Error");
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("WGU Scheduling App");
-        alert.setHeaderText("Add Customer");
-        alert.setContentText("Are you sure you want to add/modify this customer?");
-        alert.showAndWait();
-
-        if (isNewCustomer) {
-            CustomerDB.addCustomer(address, cityId, postalCodeText, phoneText, customerNameText);
         } else {
-            CustomerDB.updateCustomer(selectedCustomer.getCustomerId(), selectedCustomer.getAddressId(), address, cityId, postalCodeText, phoneText,
-                    customerNameText);
+            String address = addressOne.getText();
+            int cityId = city.getSelectionModel().getSelectedItem().getCityId();
+            String phoneText = phone.getText();
+            String postalCodeText = postalCode.getText();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("WGU Scheduling App");
+            alert.setHeaderText("Add Customer");
+            alert.setContentText("Are you sure you want to add/modify this customer?");
+            alert.showAndWait();
+
+            if (isNewCustomer) {
+                CustomerDB.addCustomer(address, cityId, postalCodeText, phoneText, customerNameText);
+            } else {
+                CustomerDB.updateCustomer(selectedCustomer.getCustomerId(), selectedCustomer.getAddressId(), address, cityId, postalCodeText, phoneText,
+                        customerNameText);
+            }
+
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/viewAndController/customer.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
         }
-
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        //stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/viewAndController/customer.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
-
-
     }
 
+    @FXML
     public void cancelHandler(ActionEvent actionEvent) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -118,6 +143,7 @@ public class AddCustomers implements Initializable {
 
     }
 
+    @FXML
     public void handleCountry(ActionEvent actionEvent) {
         city.getItems().clear();
         city.getItems().addAll(CityDB.getCitiesForCountry(country.getValue().getCountryId()));
