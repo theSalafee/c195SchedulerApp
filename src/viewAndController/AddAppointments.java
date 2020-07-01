@@ -130,6 +130,15 @@ public class AddAppointments implements Initializable {
             alert.showAndWait();
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
 
+            if (AppointmentDB.isOverlap(Timestamp.valueOf(utcStart.toLocalDateTime()), Timestamp.valueOf(utcEnd.toLocalDateTime()), userId, -1)) {
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("WGU Scheduling App");
+                alert.setHeaderText("Add Appointment");
+                alert.setContentText("This appointment overlaps with another");
+                alert.showAndWait();
+                return;
+            }
+
             AppointmentDB.addAppointment(customerId, userId, type, utcStart, utcEnd);
 
             try {

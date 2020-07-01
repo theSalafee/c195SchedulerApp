@@ -35,15 +35,17 @@
          <Font name="Avenir Roman" size="16.0" />
       </font>
    </Label>
-   <ComboBox fx:id="reportTypes" layoutX="349.0" layoutY="324.0" prefHeight="27.0" prefWidth="317.0" promptText="Report Types" />
+   <ComboBox fx:id="reportTypes" layoutX="349.0" layoutY="324.0" onAction="#handleReport" prefHeight="27.0" prefWidth="317.0" promptText="Report Types"/>
    <Button fx:id="generateRptBTN" layoutX="1015.0" layoutY="324.0" mnemonicParsing="false" onAction="#generateReport" prefHeight="27.0" prefWidth="145.0" text="Generate Report" />
-   <TextArea fx:id="reportText" layoutX="350.0" layoutY="373.0" prefHeight="167.0" prefWidth="810.0" promptText="Reports" wrapText="true">
+   <TextArea fx:id="reportText" editable="false" layoutX="350.0" layoutY="373.0" prefHeight="167.0" prefRowCount="30" prefWidth="810.0" promptText="Reports"
+             wrapText="true">
       <font>
-         <Font size="18.0" />
+         <Font size="18.0"/>
       </font>
       <effect>
-         <ColorAdjust brightness="-0.15" />
-      </effect></TextArea>
+         <ColorAdjust brightness="-0.15"/>
+      </effect>
+   </TextArea>
    <Button fx:id="backBTN" layoutX="350.0" layoutY="558.0" mnemonicParsing="false" onAction="#backBtnHandler" prefHeight="27.0" prefWidth="108.0" text="&lt;-- Back" />
-   <ComboBox fx:id="reportTypes1" layoutX="683.0" layoutY="324.0" prefHeight="27.0" prefWidth="317.0" />
+   <ComboBox fx:id="reportTypes1" layoutX="683.0" layoutY="324.0" prefHeight="27.0" prefWidth="317.0" promptText="Second Parameter"/>
 </AnchorPane>

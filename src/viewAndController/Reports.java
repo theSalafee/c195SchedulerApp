@@ -1,6 +1,9 @@
 package viewAndController;
 
+import database.AppointmentDB;
 import database.DbConnection;
+import database.UserDB;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,15 +18,22 @@ import models.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
+
+import static database.DbConnection.conn;
 
 public class Reports implements Initializable {
 
     @FXML // fx:id="reportTypes"
     private ComboBox<String> reportTypes; // Value injected by FXMLLoader
+
+    @FXML // fx:id="reportTypes"
+    private ComboBox<String> reportTypes1; // Value injected by FXMLLoader
 
     @FXML // fx:id="generateRptBTN"
     private Button generateRptBTN; // Value injected by FXMLLoader
@@ -63,29 +73,82 @@ public class Reports implements Initializable {
         stage.show();
     }
 
-    public void generateReport(javafx.event.ActionEvent actionEvent) {
+    public void generateReport(javafx.event.ActionEvent actionEvent) throws SQLException {
         switch (reportTypes.getSelectionModel().getSelectedItem()) {
-            case "Total Customers": getTotalCustomers(); break;
-            case "Total Appointments By Month": getAppointmentsByMonth(); break;
-            case "Schedule By Consultant": consultantSchedule(); break;
+            case "Total Customers":
+                getTotalCustomers();
+                break;
+
+            case "Total Appointments By Month":
+                int month = reportTypes1.getSelectionModel().getSelectedIndex() + 1;
+                getAppointmentsByMonth(month);
+                break;
+
+            case "Schedule By Consultant":
+                consultantSchedule(reportTypes1.getValue());
+                break;
+        }
+    }
+
+    @FXML
+    void handleReport(ActionEvent event) {
+        reportTypes1.setVisible(true);
+        switch (reportTypes.getSelectionModel().getSelectedItem()) {
+            case "Total Customers":
+                reportTypes1.setVisible(false);
+                break;
+            case "Total Appointments By Month":
+                reportTypes1.getItems().clear();
+                reportTypes1.getItems().addAll("January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December");
+                break;
+            case "Schedule By Consultant":
+                reportTypes1.getItems().clear();
+                reportTypes1.getItems().addAll("Umm Ziyad", "test");
+                /////reportTypes1.getItems().addAll(UserDB.getActiveUsers());
+                break;
+        }
+    }
+
+    public void getAppointmentsByMonth(int month) throws SQLException {
+        reportText.clear();
+        String sql = "SELECT * FROM appointment WHERE MONTH(start) = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, month);
+        stmt.execute();
+        ResultSet rs = stmt.getResultSet();
+        int total = 0;
+        while (rs.next()) {
+            total = total + 1;
+        }
+        reportText.setText("The number of appointments for that month are: " + Integer.valueOf(total).toString());
+    }
+
+    public void consultantSchedule(String contact) throws SQLException {
+        reportText.clear();
+        String sql = "Select * from appointment WHERE contact = ? ";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, contact);
+        stmt.execute();
+        ResultSet rs = stmt.getResultSet();
+        int total = 0;
+        //int appointmentId  = rs.getInt("appointmentId");
+        String name = "default";
+
+        while (rs.next()) {
+
+            total = total + 1;
+            name = rs.getString("contact");
+            name += " ";
+            name += rs.getDate("start");
+            name += " ";
+            name += rs.getTime("start").toLocalTime();
+            reportText.setText("The consultant schedule is: " + name + "\r\n");
+
+            System.out.println(name);
+
         }
 
-    }
-
-    public void getAppointmentsByMonth() {
-    }
-
-    public void consultantSchedule() {
-        // Look at city to pull from combo box
-        // Grab month by index
-
-
-    }
-
-    public void appointmentsByYear(javafx.event.ActionEvent actionEvent) {
-    }
-
-    public void backHandler(javafx.event.ActionEvent actionEvent) {
     }
 
     public void getTotalCustomers() {
