@@ -280,7 +280,7 @@ public class AppointmentDB {
                 "INSERT INTO appointment (customerId, userId, title, "
                         + "description, location, contact, type, url, start, end, "
                         + "createDate, createdBy, lastUpdate, lastUpdateBy) ",
-                "VALUES (?, ?, '', '', '', '', ?, '', ?, ?, NOW(), ?, NOW(), ?)");
+                "VALUES (?, ?, '', '', '', 'test', ?, '', ?, ?, NOW(), ?, NOW(), ?)");
 
         try {
             PreparedStatement stmt = conn.prepareStatement(addAppointmentSQL);

@@ -15,6 +15,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import models.Appointment;
+import models.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,7 +34,7 @@ public class Reports implements Initializable {
     private ComboBox<String> reportTypes; // Value injected by FXMLLoader
 
     @FXML // fx:id="reportTypes"
-    private ComboBox<String> reportTypes1; // Value injected by FXMLLoader
+    private ComboBox<Object> reportTypes1; // Value injected by FXMLLoader
 
     @FXML // fx:id="generateRptBTN"
     private Button generateRptBTN; // Value injected by FXMLLoader
@@ -85,7 +86,7 @@ public class Reports implements Initializable {
                 break;
 
             case "Schedule By Consultant":
-                consultantSchedule(reportTypes1.getValue());
+                consultantSchedule(((User) reportTypes1.getValue()).getUserId());
                 break;
         }
     }
@@ -104,50 +105,63 @@ public class Reports implements Initializable {
                 break;
             case "Schedule By Consultant":
                 reportTypes1.getItems().clear();
-                reportTypes1.getItems().addAll("Umm Ziyad", "test");
-                /////reportTypes1.getItems().addAll(UserDB.getActiveUsers());
+                //reportTypes1.getItems().addAll("Umm Ziyad", "test");
+                reportTypes1.getItems().addAll(UserDB.getActiveUsers());
                 break;
         }
     }
 
     public void getAppointmentsByMonth(int month) throws SQLException {
         reportText.clear();
-        String sql = "SELECT * FROM appointment WHERE MONTH(start) = ?";
+        String sql = "Select type, count(type) FROM appointment WHERE month(start) = ? group by type;\n";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, month);
         stmt.execute();
         ResultSet rs = stmt.getResultSet();
-        int total = 0;
+
+        //int appointmentId  = rs.getInt("appointmentId");
+        String name = "";
+        //StringBuffer name = new StringBuffer();
+
         while (rs.next()) {
-            total = total + 1;
+
+            name += " ";
+            name += rs.getString(1);
+            name += " ";
+            name += rs.getInt(2);
+            name += "\n";
+            System.out.println(name);
+
         }
-        reportText.setText("The number of appointments for that month are: " + Integer.valueOf(total).toString());
+        reportText.setText(name);
     }
 
-    public void consultantSchedule(String contact) throws SQLException {
+    public void consultantSchedule(int userId) throws SQLException {
         reportText.clear();
-        String sql = "Select * from appointment WHERE contact = ? ";
+        String sql = "Select * from appointment WHERE userId = ? ";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, contact);
+        stmt.setInt(1, userId);
         stmt.execute();
         ResultSet rs = stmt.getResultSet();
-        int total = 0;
+
         //int appointmentId  = rs.getInt("appointmentId");
-        String name = "default";
+        String name = "";
+        //StringBuffer name = new StringBuffer();
 
         while (rs.next()) {
 
-            total = total + 1;
-            name = rs.getString("contact");
             name += " ";
             name += rs.getDate("start");
             name += " ";
             name += rs.getTime("start").toLocalTime();
-            reportText.setText("The consultant schedule is: " + name + "\r\n");
+            name += " ";
+            name += rs.getTime("end").toLocalTime();
 
+            name += "\n";
             System.out.println(name);
 
         }
+        reportText.setText("The consultant schedule is: " + name);
 
     }
 
