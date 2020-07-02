@@ -24,7 +24,7 @@ This project required a MySQL connector. I used mysql-connector-java-5.1.41 from
   ![Screen Shot 2020-07-01 at 6 26 30 PM](https://user-images.githubusercontent.com/33667015/86306183-6fb1d480-bbc8-11ea-9eac-6b4f637a36f0.png)
   ![Screen Shot 2020-07-01 at 6 27 43 PM](https://user-images.githubusercontent.com/33667015/86306251-9ec84600-bbc8-11ea-9124-9f357b2b7746.png)
   ![Screen Shot 2020-07-01 at 6 29 08 PM](https://user-images.githubusercontent.com/33667015/86306291-c6b7a980-bbc8-11ea-845c-b13d5e3abd1f.png)
-  ![Screen Shot 2020-07-01 at 6 29 08 PM](https://user-images.githubusercontent.com/33667015/86306345-e8b12c00-bbc8-11ea-9560-8d945f9f1604.png)
+  ![Screen Shot 2020-07-01 at 6 30 06 PM](https://user-images.githubusercontent.com/33667015/86306706-cec41900-bbc9-11ea-833f-c340b32ddad0.png)
   ![Screen Shot 2020-07-01 at 6 30 54 PM](https://user-images.githubusercontent.com/33667015/86306391-067e9100-bbc9-11ea-8ac0-1b911f13d1d5.png)
   ![Screen Shot 2020-07-01 at 6 31 39 PM](https://user-images.githubusercontent.com/33667015/86306466-3168e500-bbc9-11ea-9638-bfbaa96d6553.png)
   ![Screen Shot 2020-07-01 at 6 32 56 PM](https://user-images.githubusercontent.com/33667015/86306511-52c9d100-bbc9-11ea-84f2-1001b09a0cda.png)
