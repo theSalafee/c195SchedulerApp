@@ -24,32 +24,32 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Circle fill="#001a4b" layoutX="1275.0" layoutY="109.0" radius="64.0" stroke="#0d1fe4" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Circle fill="#001a4b" layoutX="1275.0" layoutY="109.0" radius="64.0" stroke="#0d1fe4" strokeType="OUTSIDE" strokeWidth="0.0"/>
       <Label layoutX="349.0" layoutY="213.0" text="Appointment" textFill="#f5f3f3">
          <font>
-            <Font name="Avenir Roman" size="38.0" />
+            <Font name="Avenir Roman" size="38.0"/>
          </font>
       </Label>
-       <ComboBox fx:id="contactField" layoutX="706.0" layoutY="315.0" prefHeight="32.0" prefWidth="300.0" promptText="Contact" />
-       <ComboBox fx:id="cboType" layoutX="706.0" layoutY="460.0" prefHeight="32.0" prefWidth="300.0" promptText="Appointment Type" />
-       <DatePicker fx:id="AppointmentDateField" layoutX="353.0" layoutY="384.0" prefHeight="32.0" prefWidth="300.0" promptText="Date" />
-       <ComboBox fx:id="AppointmentStartField" layoutX="354.0" layoutY="460.0" prefHeight="32.0" prefWidth="140.0" promptText="Start Time" />
-       <ComboBox fx:id="AppointmentEndField" layoutX="513.0" layoutY="460.0" prefHeight="32.0" prefWidth="140.0" promptText="End Time" />
-      <Button fx:id="saveBtn" layoutX="354.0" layoutY="538.0" mnemonicParsing="false" onAction="#saveHandler" prefWidth="140.0" text="Saved" />
-      <Button fx:id="cancelBtn" layoutX="513.0" layoutY="538.0" mnemonicParsing="false" onAction="#cancelHandler" prefWidth="140.0" text="Cancel" />
+      <ComboBox fx:id="contactField" layoutX="706.0" layoutY="315.0" prefHeight="32.0" prefWidth="300.0" promptText="Contact"/>
+      <ComboBox fx:id="cboType" layoutX="353.0" layoutY="541.0" prefHeight="32.0" prefWidth="300.0" promptText="Appointment Type"/>
+      <DatePicker fx:id="AppointmentDateField" layoutX="353.0" layoutY="384.0" prefHeight="32.0" prefWidth="300.0" promptText="Date"/>
+      <ComboBox fx:id="AppointmentStartField" layoutX="354.0" layoutY="460.0" prefHeight="32.0" prefWidth="300.0" promptText="Start Time"/>
+      <ComboBox fx:id="AppointmentEndField" layoutX="706.0" layoutY="459.0" prefHeight="32.0" prefWidth="300.0" promptText="End Time"/>
+      <Button fx:id="saveBtn" layoutX="354.0" layoutY="611.0" mnemonicParsing="false" onAction="#saveHandler" prefWidth="140.0" text="Saved"/>
+      <Button fx:id="cancelBtn" layoutX="513.0" layoutY="611.0" mnemonicParsing="false" onAction="#cancelHandler" prefWidth="140.0" text="Cancel"/>
       <Label layoutX="354.0" layoutY="287.0" text="Customer Name" textFill="#f5f2f2">
          <font>
-            <Font name="Avenir Roman" size="16.0" />
+            <Font name="Avenir Roman" size="16.0"/>
          </font>
       </Label>
       <Label layoutX="353.0" layoutY="360.0" text="Date" textFill="#f8f5f5">
          <font>
-            <Font name="Avenir Roman" size="16.0" />
+            <Font name="Avenir Roman" size="16.0"/>
          </font>
       </Label>
-      <Label layoutX="353.0" layoutY="432.0" text="Time" textFill="#fffefe">
+      <Label layoutX="353.0" layoutY="432.0" text="Start Time" textFill="#fffefe">
          <font>
-            <Font size="16.0" />
+            <Font size="16.0"/>
          </font>
       </Label>
       <Label layoutX="706.0" layoutY="287.0" text="Contact" textFill="#f5f2f2">
@@ -59,15 +59,20 @@
       </Label>
       <Label layoutX="706.0" layoutY="360.0" text="Location" textFill="#f8f5f5">
          <font>
-            <Font name="Avenir Roman" size="16.0" />
+            <Font name="Avenir Roman" size="16.0"/>
          </font>
       </Label>
-      <Label layoutX="705.0" layoutY="430.0" text="Appointment Type" textFill="#f8f5f5">
+      <Label layoutX="355.0" layoutY="509.0" text="Appointment Type" textFill="#f8f5f5">
          <font>
-            <Font name="Avenir Roman" size="16.0" />
+            <Font name="Avenir Roman" size="16.0"/>
          </font>
       </Label>
-      <ComboBox fx:id="customerName" layoutX="349.0" layoutY="318.0" prefHeight="27.0" prefWidth="300.0" promptText="Customer" />
-      <ComboBox fx:id="locationField" layoutX="706.0" layoutY="387.0" prefHeight="27.0" prefWidth="300.0" promptText="Location" />
+      <ComboBox fx:id="customerName" layoutX="349.0" layoutY="318.0" prefHeight="27.0" prefWidth="300.0" promptText="Customer"/>
+      <ComboBox fx:id="locationField" layoutX="706.0" layoutY="387.0" prefHeight="27.0" prefWidth="300.0" promptText="Location"/>
+      <Label layoutX="705.0" layoutY="432.0" text="End Time" textFill="#fffefe">
+         <font>
+            <Font size="16.0"/>
+         </font>
+      </Label>
    </children>
 </AnchorPane>
