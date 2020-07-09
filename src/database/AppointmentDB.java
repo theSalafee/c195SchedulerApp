@@ -354,11 +354,10 @@ public class AppointmentDB {
             stmt.setInt(8, appointmentId);
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                return true;
-            } else {
-                return false;
-            }
+            boolean isOverlap = false;
+            while (rs.next()) isOverlap = true;
+            return isOverlap;
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

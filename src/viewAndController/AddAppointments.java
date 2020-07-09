@@ -79,7 +79,7 @@ public class AddAppointments implements Initializable {
             Appointment selectedAppointment = AppointmentController.getSelectedAppointment();
             customerName.setValue(selectedAppointment.getCustomer());
             AppointmentStartField.setValue(selectedAppointment.getStart().toString());
-            AppointmentEndField.setValue(String.valueOf(selectedAppointment.getEnd().withZoneSameInstant(ZoneId.of("UTC"))));
+            AppointmentEndField.setValue(selectedAppointment.getEnd().toString());
             cboType.setValue(selectedAppointment.getType());
             locationField.setValue("Main Campus");
             AppointmentDateField.setValue(selectedAppointment.getStart().toLocalDate());
@@ -102,7 +102,6 @@ public class AddAppointments implements Initializable {
             alert.setContentText("Null Field, please fill in all of the fields");
             alert.showAndWait();
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            //throw new AppointmentException("Null Exception Error");
 
         } else {
             int customerId = customerName.getSelectionModel().getSelectedItem().getCustomerId();
@@ -112,12 +111,22 @@ public class AddAppointments implements Initializable {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
 
             String start = AppointmentStartField.getValue();
+
+            if (start.length() > 5) {
+                start = start.substring(11, 16);
+            }
+
             LocalTime ltStart = LocalTime.parse(start, dtf);
             ZonedDateTime zdtStart = ZonedDateTime.of(date, ltStart, ZoneId.systemDefault());
             ZonedDateTime utcStart = zdtStart.withZoneSameInstant(ZoneId.of("UTC"));
             Timestamp tsStart = Timestamp.valueOf(utcStart.toLocalDateTime());
 
             String end = AppointmentEndField.getValue();
+
+            if (end.length() > 5) {
+                end = end.substring(11, 16);
+            }
+
             LocalTime ltEnd = LocalTime.parse(end, dtf);
             ZonedDateTime zdtEnd = ZonedDateTime.of(date, ltEnd, ZoneId.systemDefault());
             ZonedDateTime utcEnd = zdtEnd.withZoneSameInstant(ZoneId.of("UTC"));
@@ -129,8 +138,14 @@ public class AddAppointments implements Initializable {
             alert.setContentText("Are you sure you want to add/modify this Appointment?");
             alert.showAndWait();
             stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Appointment selectedAppointment = AppointmentController.getSelectedAppointment();
 
-            if (AppointmentDB.isOverlap(Timestamp.valueOf(utcStart.toLocalDateTime()), Timestamp.valueOf(utcEnd.toLocalDateTime()), userId, -1)) {
+            int appointmentId = -1;
+            if (selectedAppointment != null) {
+                appointmentId = selectedAppointment.getAppointmentId();
+            }
+
+            if (AppointmentDB.isOverlap(Timestamp.valueOf(utcStart.toLocalDateTime()), Timestamp.valueOf(utcEnd.toLocalDateTime()), userId, appointmentId)) {
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("WGU Scheduling App");
                 alert.setHeaderText("Add Appointment");
