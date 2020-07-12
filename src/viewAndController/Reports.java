@@ -178,7 +178,5 @@ public class Reports implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
     }
 }

@@ -142,12 +142,10 @@ public class CustomerController implements Initializable {
     }
 
     public void convertCustomerString() {
-
     }
 
     public void setCustomerList() {
         customerTable.setItems(CustomerDB.getActiveCustomers());
-
     }
 
     /**
@@ -181,7 +179,6 @@ public class CustomerController implements Initializable {
         customerPostalCode.setCellValueFactory(cellData -> {
             return new ReadOnlyStringWrapper(cellData.getValue().getPostalCode());
         });
-
 
         customerCountry.setCellValueFactory(cellData -> {
             return new ReadOnlyStringWrapper(cellData.getValue().getCustomerCountry().getCountry());

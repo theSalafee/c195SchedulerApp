@@ -190,10 +190,7 @@ public class CustomerDB {
             e.printStackTrace();
         }
 
-        //String deleteCustomerSQL = "UPDATE customer SET active=0 WHERE customerId = ?";
         String deleteCustomerSQL = "DELETE  FROM customer WHERE customerId = ?";
-        // String deleteCustomerSQL = "DELETE customer, appointment FROM customer INNER JOIN appointment ON customer.customerId = appointment.customerId
-        // WHERE customer.customerId = ?;"
 
         try {
             PreparedStatement stmt = conn.prepareStatement(deleteCustomerSQL);

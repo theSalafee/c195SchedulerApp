@@ -200,8 +200,6 @@ public class AppointmentController implements Initializable {
 
     @FXML
     public void handleAll(ActionEvent actionEvent) {
-        //appointmentsTable.getItems().clear();
         appointmentsTable.setItems(apptList);
-        //appointmentsTable.getItems().addAll(apptList);
     }
 }
