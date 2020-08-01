@@ -24,6 +24,9 @@ public class Customer {
     public TableColumn custPhone;
     public TableColumn custPostalCode;
 
+
+    // added a comment
+
     public void backBtnHandler(ActionEvent actionEvent) {
     }
 
